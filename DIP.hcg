@@ -7,7 +7,7 @@
     <tools>ti</tools>
   </DEVICE>
   <VERSION>
-    <version>03.02.02</version>
+    <version>03.09.00</version>
   </VERSION>
   <HET1>
     <FILENAME>
@@ -287,6 +287,177 @@
       <SRCEQEP>
         <NAME>eqep.c</NAME>
       </SRCEQEP>
+      <HDRHAL>
+        <NAME>hal_stdtypes.h</NAME>
+        <PATH>include\hal_stdtypes.h</PATH>
+      </HDRHAL>
+      <HDRSYSTEM_R>
+        <NAME>reg_system.h</NAME>
+        <PATH>include\reg_system.h</PATH>
+      </HDRSYSTEM_R>
+      <HDRFLASH_R>
+        <NAME>reg_flash.h</NAME>
+        <PATH>include\reg_flash.h</PATH>
+      </HDRFLASH_R>
+      <HDRTCRAM_R>
+        <NAME>reg_tcram.h</NAME>
+        <PATH>include\reg_tcram.h</PATH>
+      </HDRTCRAM_R>
+      <HDRVIM_R>
+        <NAME>reg_vim.h</NAME>
+        <PATH>include\reg_vim.h</PATH>
+      </HDRVIM_R>
+      <HDRPBIST_R>
+        <NAME>reg_pbist.h</NAME>
+        <PATH>include\reg_pbist.h</PATH>
+      </HDRPBIST_R>
+      <HDRSTC_R>
+        <NAME>reg_stc.h</NAME>
+        <PATH>include\reg_stc.h</PATH>
+      </HDRSTC_R>
+      <HDREFC_R>
+        <NAME>reg_efc.h</NAME>
+        <PATH>include\reg_efc.h</PATH>
+      </HDREFC_R>
+      <HDRPCR_R>
+        <NAME>reg_pcr.h</NAME>
+        <PATH>include\reg_pcr.h</PATH>
+      </HDRPCR_R>
+      <HDRPMM_R>
+        <NAME>reg_pmm.h</NAME>
+        <PATH>include\reg_pmm.h</PATH>
+      </HDRPMM_R>
+      <HDRDMA_R>
+        <NAME>reg_dma.h</NAME>
+        <PATH>include\reg_dma.h</PATH>
+      </HDRDMA_R>
+      <HDRPMM>
+        <NAME>sys_pmm.h</NAME>
+        <PATH>include\sys_pmm.h</PATH>
+      </HDRPMM>
+      <HDRDMA>
+        <NAME>sys_dma.h</NAME>
+        <PATH>include\sys_dma.h</PATH>
+      </HDRDMA>
+      <SRCPMM>
+        <NAME>sys_pmm.c</NAME>
+        <PATH>source\sys_pmm.c</PATH>
+      </SRCPMM>
+      <SRCDMA>
+        <NAME>sys_dma.c</NAME>
+        <PATH>source\sys_dma.c</PATH>
+      </SRCDMA>
+      <SRCVIM>
+        <NAME>sys_vim.c</NAME>
+        <PATH>source\sys_vim.c</PATH>
+      </SRCVIM>
+      <HDRTEST>
+        <NAME>HL_Test.h</NAME>
+      </HDRTEST>
+      <HDRMUX_R>
+        <NAME>reg_pinmux.h</NAME>
+      </HDRMUX_R>
+      <HDRRTI_R>
+        <NAME>reg_rti.h</NAME>
+      </HDRRTI_R>
+      <HDRGIO_R>
+        <NAME>reg_gio.h</NAME>
+      </HDRGIO_R>
+      <HDRSCI_R>
+        <NAME>reg_sci.h</NAME>
+      </HDRSCI_R>
+      <HDRLIN_R>
+        <NAME>reg_lin.h</NAME>
+      </HDRLIN_R>
+      <HDRMIBSPI_R>
+        <NAME>reg_mibspi.h</NAME>
+      </HDRMIBSPI_R>
+      <HDRSPI_R>
+        <NAME>reg_spi.h</NAME>
+      </HDRSPI_R>
+      <HDRCAN_R>
+        <NAME>reg_can.h</NAME>
+      </HDRCAN_R>
+      <HDRADC_R>
+        <NAME>reg_adc.h</NAME>
+      </HDRADC_R>
+      <HDRHET_R>
+        <NAME>reg_het.h</NAME>
+      </HDRHET_R>
+      <HDRHTU_R>
+        <NAME>reg_htu.h</NAME>
+      </HDRHTU_R>
+      <HDRESM_R>
+        <NAME>reg_esm.h</NAME>
+      </HDRESM_R>
+      <HDRI2C_R>
+        <NAME>reg_i2c.h</NAME>
+      </HDRI2C_R>
+      <HDRPHY>
+        <NAME>phy_dp83640.h</NAME>
+      </HDRPHY>
+      <SRCPHY/>
+      <HDRDCC_R>
+        <NAME>reg_dcc.h</NAME>
+      </HDRDCC_R>
+      <HDREMIF_R>
+        <NAME>reg_emif.h</NAME>
+      </HDREMIF_R>
+      <HDRPOM_R>
+        <NAME>reg_pom.h</NAME>
+      </HDRPOM_R>
+      <HDRCRC_R>
+        <NAME>reg_crc.h</NAME>
+      </HDRCRC_R>
+      <HDRETPWM_R>
+        <NAME>reg_etpwm.h</NAME>
+      </HDRETPWM_R>
+      <HDRECAP_R>
+        <NAME>reg_ecap.h</NAME>
+      </HDRECAP_R>
+      <HDREQEP_R>
+        <NAME>reg_eqep.h</NAME>
+      </HDREQEP_R>
+      <HDR1FEE>
+        <NAME>Device_RM46.h</NAME>
+      </HDR1FEE>
+      <HDR2FEE>
+        <NAME>Device_header.h</NAME>
+      </HDR2FEE>
+      <HDR3FEE>
+        <NAME>Device_types.h</NAME>
+      </HDR3FEE>
+      <HDR4FEE>
+        <NAME>ti_fee_Cfg.h</NAME>
+      </HDR4FEE>
+      <HDR5FEE>
+        <NAME>MemMap.h</NAME>
+      </HDR5FEE>
+      <HDR6FEE>
+        <NAME>ti_fee_types.h</NAME>
+      </HDR6FEE>
+      <HDR7FEE>
+        <NAME>ti_fee.h</NAME>
+      </HDR7FEE>
+      <HDR8FEE>
+        <NAME>fee_interface.h</NAME>
+      </HDR8FEE>
+      <SRC1FEE/>
+      <SRC2FEE/>
+      <SRC3FEE/>
+      <SRC4FEE/>
+      <SRC5FEE/>
+      <SRC6FEE/>
+      <SRC7FEE/>
+      <SRC8FEE/>
+      <SRC9FEE/>
+      <SRC10FEE/>
+      <SRC11FEE/>
+      <SRC12FEE/>
+      <SRC13FEE/>
+      <SRC14FEE/>
+      <SRC15FEE/>
+      <SRC16FEE/>
     </FILENAMES>
   </SYSTEM>
   <PINMUX>
@@ -297,6 +468,9 @@
       <SRCMUX>
         <PATH>source\pinmux.c</PATH>
       </SRCMUX>
+      <HDRMUX_R>
+        <PATH>include\reg_pinmux.h</PATH>
+      </HDRMUX_R>
     </FILENAMES>
   </PINMUX>
   <RTI>
@@ -307,6 +481,9 @@
       <SRCRTI>
         <PATH>source\rti.c</PATH>
       </SRCRTI>
+      <HDRRTI_R>
+        <PATH>include\reg_rti.h</PATH>
+      </HDRRTI_R>
     </FILENAMES>
   </RTI>
   <GIO>
@@ -317,6 +494,9 @@
       <SRCGIO>
         <PATH>source\gio.c</PATH>
       </SRCGIO>
+      <HDRGIO_R>
+        <PATH>include\reg_gio.h</PATH>
+      </HDRGIO_R>
     </FILENAMES>
   </GIO>
   <SCI>
@@ -327,6 +507,9 @@
       <SRCSCI>
         <PATH></PATH>
       </SRCSCI>
+      <HDRSCI_R>
+        <PATH>include\reg_sci.h</PATH>
+      </HDRSCI_R>
     </FILENAMES>
   </SCI>
   <LIN>
@@ -337,6 +520,9 @@
       <SRCLIN>
         <PATH/>
       </SRCLIN>
+      <HDRLIN_R>
+        <PATH>include\reg_lin.h</PATH>
+      </HDRLIN_R>
     </FILENAMES>
   </LIN>
   <MIBSPI>
@@ -347,6 +533,9 @@
       <SRCMIBSPI>
         <PATH></PATH>
       </SRCMIBSPI>
+      <HDRMIBSPI_R>
+        <PATH>include\reg_mibspi.h</PATH>
+      </HDRMIBSPI_R>
     </FILENAMES>
   </MIBSPI>
   <SPI>
@@ -357,6 +546,9 @@
       <SRCSPI>
         <PATH></PATH>
       </SRCSPI>
+      <HDRSPI_R>
+        <PATH>include\reg_spi.h</PATH>
+      </HDRSPI_R>
     </FILENAMES>
   </SPI>
   <CAN>
@@ -367,6 +559,9 @@
       <SRCCAN>
         <PATH/>
       </SRCCAN>
+      <HDRCAN_R>
+        <PATH>include\reg_can.h</PATH>
+      </HDRCAN_R>
     </FILENAMES>
   </CAN>
   <ADC>
@@ -377,6 +572,9 @@
       <SRCADC>
         <PATH/>
       </SRCADC>
+      <HDRADC_R>
+        <PATH>include\reg_adc.h</PATH>
+      </HDRADC_R>
     </FILENAMES>
   </ADC>
   <HET>
@@ -393,6 +591,12 @@
       <SRCHET>
         <PATH/>
       </SRCHET>
+      <HDRHET_R>
+        <PATH>include\reg_het.h</PATH>
+      </HDRHET_R>
+      <HDRHTU_R>
+        <PATH>include\reg_htu.h</PATH>
+      </HDRHTU_R>
     </FILENAMES>
   </HET>
   <ESM>
@@ -403,6 +607,9 @@
       <SRCESM>
         <PATH>source\esm.c</PATH>
       </SRCESM>
+      <HDRESM_R>
+        <PATH>include\reg_esm.h</PATH>
+      </HDRESM_R>
     </FILENAMES>
   </ESM>
   <I2C>
@@ -413,6 +620,9 @@
       <SRCI2C>
         <PATH/>
       </SRCI2C>
+      <HDRI2C_R>
+        <PATH>include\reg_i2c.h</PATH>
+      </HDRI2C_R>
     </FILENAMES>
   </I2C>
   <EMAC>
@@ -441,6 +651,12 @@
       <SRC2EMAC>
         <PATH/>
       </SRC2EMAC>
+      <HDRPHY>
+        <PATH>include\phy_dp83640.h</PATH>
+      </HDRPHY>
+      <SRCPHY>
+        <PATH/>
+      </SRCPHY>
     </FILENAMES>
   </EMAC>
   <DCC>
@@ -451,6 +667,9 @@
       <SRCDCC>
         <PATH/>
       </SRCDCC>
+      <HDRDCC_R>
+        <PATH>include\reg_dcc.h</PATH>
+      </HDRDCC_R>
     </FILENAMES>
   </DCC>
   <EMIF>
@@ -461,6 +680,9 @@
       <SRCEMIF>
         <PATH/>
       </SRCEMIF>
+      <HDREMIF_R>
+        <PATH>include\reg_emif.h</PATH>
+      </HDREMIF_R>
     </FILENAMES>
   </EMIF>
   <POM>
@@ -471,6 +693,9 @@
       <SRCPOM>
         <PATH/>
       </SRCPOM>
+      <HDRPOM_R>
+        <PATH>include\reg_pom.h</PATH>
+      </HDRPOM_R>
     </FILENAMES>
   </POM>
   <USB>
@@ -539,6 +764,9 @@
       <SRCCRC>
         <PATH/>
       </SRCCRC>
+      <HDRCRC_R>
+        <PATH>include\reg_crc.h</PATH>
+      </HDRCRC_R>
     </FILENAMES>
   </CRC>
   <ETPWM>
@@ -549,6 +777,9 @@
       <SRCETPWM>
         <PATH/>
       </SRCETPWM>
+      <HDRETPWM_R>
+        <PATH>include\reg_etpwm.h</PATH>
+      </HDRETPWM_R>
     </FILENAMES>
   </ETPWM>
   <ECAP>
@@ -559,6 +790,9 @@
       <SRCECAP>
         <PATH/>
       </SRCECAP>
+      <HDRECAP_R>
+        <PATH>include\reg_ecap.h</PATH>
+      </HDRECAP_R>
     </FILENAMES>
   </ECAP>
   <EQEP>
@@ -569,6 +803,85 @@
       <SRCEQEP>
         <PATH>source\eqep.c</PATH>
       </SRCEQEP>
+      <HDREQEP_R>
+        <PATH>include\reg_eqep.h</PATH>
+      </HDREQEP_R>
     </FILENAMES>
   </EQEP>
+  <FEE>
+    <FILENAMES>
+      <HDR1FEE>
+        <PATH>include\Device_RM46.h</PATH>
+      </HDR1FEE>
+      <HDR2FEE>
+        <PATH>include\Device_header.h</PATH>
+      </HDR2FEE>
+      <HDR3FEE>
+        <PATH>include\Device_types.h</PATH>
+      </HDR3FEE>
+      <HDR4FEE>
+        <PATH>include\ti_fee_Cfg.h</PATH>
+      </HDR4FEE>
+      <HDR5FEE>
+        <PATH>include\MemMap.h</PATH>
+      </HDR5FEE>
+      <HDR6FEE>
+        <PATH>include\ti_fee_types.h</PATH>
+      </HDR6FEE>
+      <HDR7FEE>
+        <PATH>include\ti_fee.h</PATH>
+      </HDR7FEE>
+      <HDR8FEE>
+        <PATH>include\fee_interface.h</PATH>
+      </HDR8FEE>
+      <SRC1FEE>
+        <PATH/>
+      </SRC1FEE>
+      <SRC2FEE>
+        <PATH/>
+      </SRC2FEE>
+      <SRC3FEE>
+        <PATH/>
+      </SRC3FEE>
+      <SRC4FEE>
+        <PATH/>
+      </SRC4FEE>
+      <SRC5FEE>
+        <PATH/>
+      </SRC5FEE>
+      <SRC6FEE>
+        <PATH/>
+      </SRC6FEE>
+      <SRC7FEE>
+        <PATH/>
+      </SRC7FEE>
+      <SRC8FEE>
+        <PATH/>
+      </SRC8FEE>
+      <SRC9FEE>
+        <PATH/>
+      </SRC9FEE>
+      <SRC10FEE>
+        <PATH/>
+      </SRC10FEE>
+      <SRC11FEE>
+        <PATH/>
+      </SRC11FEE>
+      <SRC12FEE>
+        <PATH/>
+      </SRC12FEE>
+      <SRC13FEE>
+        <PATH/>
+      </SRC13FEE>
+      <SRC14FEE>
+        <PATH/>
+      </SRC14FEE>
+      <SRC15FEE>
+        <PATH/>
+      </SRC15FEE>
+      <SRC16FEE>
+        <PATH/>
+      </SRC16FEE>
+    </FILENAMES>
+  </FEE>
 </SETTINGS>
