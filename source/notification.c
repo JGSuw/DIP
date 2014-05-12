@@ -1,7 +1,7 @@
 /** @file notification.c 
 *   @brief User Notification Definition File
-*   @date 15.Jun.2012
-*   @version 03.01.02
+*   @date 25.April.2014
+*   @version 03.09.00
 *
 *   This file  defines  empty  notification  routines to avoid
 *   linker errors, Driver expects user to define the notification. 
@@ -18,10 +18,12 @@
 #include "gio.h"
 #include "rti.h"
 #include "eqep.h"
+#include "sys_dma.h"
+
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
-
-void esmGroup1Notification(uint32_t channel)
+#pragma WEAK(esmGroup1Notification)
+void esmGroup1Notification(uint32 channel)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (1) */
@@ -30,8 +32,8 @@ void esmGroup1Notification(uint32_t channel)
 
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
-
-void esmGroup2Notification(uint32_t channel)
+#pragma WEAK(esmGroup2Notification)
+void esmGroup2Notification(uint32 channel)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (3) */
@@ -40,8 +42,8 @@ void esmGroup2Notification(uint32_t channel)
 
 /* USER CODE BEGIN (4) */
 /* USER CODE END */
-
-void memoryPort0TestFailNotification(uint32_t groupSelect, uint32_t dataSelect, uint32_t address, uint32_t data)
+#pragma WEAK(memoryPort0TestFailNotification)
+void memoryPort0TestFailNotification(uint32 groupSelect, uint32 dataSelect, uint32 address, uint32 data)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (5) */
@@ -50,8 +52,8 @@ void memoryPort0TestFailNotification(uint32_t groupSelect, uint32_t dataSelect, 
 
 /* USER CODE BEGIN (6) */
 /* USER CODE END */
-
-void memoryPort1TestFailNotification(uint32_t groupSelect, uint32_t dataSelect, uint32_t address, uint32_t data)
+#pragma WEAK(memoryPort1TestFailNotification)
+void memoryPort1TestFailNotification(uint32 groupSelect, uint32 dataSelect, uint32 address, uint32 data)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (7) */
@@ -60,7 +62,8 @@ void memoryPort1TestFailNotification(uint32_t groupSelect, uint32_t dataSelect, 
 
 /* USER CODE BEGIN (8) */
 /* USER CODE END */
-void rtiNotification(uint32_t notification)
+#pragma WEAK(rtiNotification)
+void rtiNotification(uint32 notification)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (9) */
@@ -69,7 +72,8 @@ void rtiNotification(uint32_t notification)
 
 /* USER CODE BEGIN (10) */
 /* USER CODE END */
-void gioNotification(uint32_t bit)
+#pragma WEAK(gioNotification)
+void gioNotification(gioPORT_t *port, uint32 bit)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (19) */
@@ -89,7 +93,8 @@ void gioNotification(uint32_t bit)
 /* USER CODE BEGIN (47) */
 /* USER CODE END */
 
-void eqepNotification(eqepBASE_t *node,uint16_t flags)
+#pragma WEAK(eqepNotification)
+void eqepNotification(eqepBASE_t *eqep,uint16 flags)
 {
 /*  enter user code between the USER CODE BEGIN and USER CODE END. */
 /* USER CODE BEGIN (48) */
@@ -103,4 +108,23 @@ void eqepNotification(eqepBASE_t *node,uint16_t flags)
 
 
 /* USER CODE BEGIN (53) */
+/* USER CODE END */
+
+#pragma WEAK(dmaGroupANotification)
+void dmaGroupANotification(dmaInterrupt_t inttype, uint32 channel)
+{
+/*  enter user code between the USER CODE BEGIN and USER CODE END. */
+/* USER CODE BEGIN (54) */
+/* USER CODE END */
+}
+/* USER CODE BEGIN (55) */
+/* USER CODE END */
+
+/* USER CODE BEGIN (56) */
+/* USER CODE END */
+
+/* USER CODE BEGIN (58) */
+/* USER CODE END */
+
+/* USER CODE BEGIN (60) */
 /* USER CODE END */

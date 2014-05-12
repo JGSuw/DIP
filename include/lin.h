@@ -1,19 +1,21 @@
 /** @file lin.h
 *   @brief LIN Driver Definition File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 
 #ifndef __LIN_H__
 #define __LIN_H__
 
-#include "sys_common.h"
-#include "gio.h"
+#include "reg_lin.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /** @def LIN_BREAK_INT
 *   @brief Alias for break detect interrupt flag
@@ -156,117 +158,116 @@
 
 enum linPinSelect
 {
-    PIN_LIN_TX   = 0,
-    PIN_LIN_RX = 1
+    PIN_LIN_TX = 4U,
+    PIN_LIN_RX = 2U
 };
 
-/** @struct linBase
-*   @brief LIN Base Register Definition
-*
-*   This structure is used to access the LIN module registers.
-*/
-/** @typedef linBASE_t
-*   @brief LIN  Register Frame Type Definition
-*
-*   This type is used to access the LIN Registers.
-*/
-
-typedef volatile struct linBase
+/* Configuration registers */
+typedef struct lin_config_reg
 {
-    uint32_t      GCR0;         /**< 0x0000: Global control register 0              */
-    uint32_t      GCR1;         /**< 0x0004: Global control register 1              */
-    uint32_t      GCR2;         /**< 0x0008: Global control register 2              */
-    uint32_t      SETINT;       /**< 0x000C: Set interrupt enable register          */
-    uint32_t      CLRINT;       /**< 0x0010: Clear interrupt enable register        */
-    uint32_t      SETINTLVL;    /**< 0x0014: Set interrupt level register           */
-    uint32_t      CLRINTLVL;    /**< 0x0018: Set interrupt level register           */
-    uint32_t      FLR;          /**< 0x001C: interrupt flag register                */
-    uint32_t      INTVECT0;     /**< 0x0020: interrupt vector Offset 0              */
-    uint32_t      INTVECT1;     /**< 0x0024: interrupt vector Offset 1              */
-#if ((__little_endian__ == 1) || (__LITTLE_ENDIAN__ == 1)) 
-    uint32_t      CHAR   :  3U; /**< 0x0028: Character length control register      */
-    uint32_t             : 13U; /**< 0x0028: Reserved                               */
-    uint32_t      LENGTH :  3U; /**< 0x0028: Length control register                */
-    uint32_t             : 13U; /**< 0x0028: Reserved                               */
-#else
-    uint32_t             : 13U; /**< 0x0028: Reserved                               */
-    uint32_t      LENGTH :  3U; /**< 0x0028: Length control register                */
-    uint32_t             : 13U; /**< 0x0028: Reserved                               */
-    uint32_t      CHAR   :  3U; /**< 0x0028: Character length control register      */
-#endif
-    uint32_t      BRSR;         /**< 0x002C: Baud rate selection register           */
-    uint32_t      ED;           /**< 0x0030: Emulation register                     */
-    uint32_t      RD;           /**< 0x0034: Receive data register                  */
-    uint32_t      TD;           /**< 0x0038: Transmit data register                 */
-    uint32_t      FUN;          /**< 0x003C: Pin function register                  */
-    uint32_t      DIR;          /**< 0x0040: Pin direction register                 */
-    uint32_t      DIN;          /**< 0x0044: Pin data in register                   */
-    uint32_t      DOUT;         /**< 0x0048: Pin data out register                  */
-    uint32_t      SET;          /**< 0x004C: Pin data set register                  */
-    uint32_t      CLR;          /**< 0x0050: Pin data clr register                  */
-    uint32_t      ODR;          /**< 0x0054: Pin open drain output enable register  */
-    uint32_t      PD;           /**< 0x0058: Pin pullup/pulldown disable register   */
-    uint32_t      PSL;          /**< 0x005C: Pin pullup/pulldown selection register */
-    uint32_t      COMP;         /**< 0x0060: Compare register                       */
-    uint8_t       RDx[8U];      /**< 0x0064-0x0068: RX buffer register              */
-    uint32_t      MASK;         /**< 0x006C: Mask register                          */
-#if ((__little_endian__ == 1) || (__LITTLE_ENDIAN__ == 1)) 
-    uint8_t       IDBYTE;       /**< 0x0070: Identifier byte register               */
-    uint8_t       IDSTB;        /**< 0x0070: Identifier slave task byte register    */
-    uint8_t       RXID;         /**< 0x0070: Received identifier register           */
-    uint32_t      : 8U;         /**< 0x0070: Reserved                               */
-#else
-    uint32_t      : 8U;         /**< 0x0070: Reserved                               */
-    uint8_t       RXID;         /**< 0x0070: Received identifier register           */
-    uint8_t       IDSTB;        /**< 0x0070: Identifier Slave task byte register    */
-    uint8_t       IDBYTE;       /**< 0x0070: Identifier byte register               */
-#endif
-    uint8_t       TDx[8U];      /**< 0x0074-0x0078: TX buffer register              */
-    uint32_t      MBRSR;        /**< 0x007C: Maximum baud rate selection register   */
-    uint32_t      SL;           /**< 0x0080: Pin slew rate register                 */
-    uint32_t      : 32U;        /**< 0x0084: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0088: Reserved                               */
-    uint32_t      : 32U;        /**< 0x008C: Reserved                               */
-    uint32_t      IODFTCTRL;    /**< 0x0090: IODFT loopback register                */
-} linBASE_t;
+    uint32 CONFIG_GCR0;
+    uint32 CONFIG_GCR1;
+    uint32 CONFIG_GCR2;
+    uint32 CONFIG_SETINT;
+    uint32 CONFIG_SETINTLVL;
+    uint32 CONFIG_FORMAT;
+    uint32 CONFIG_BRSR;
+    uint32 CONFIG_FUN;
+    uint32 CONFIG_DIR;
+    uint32 CONFIG_ODR;
+    uint32 CONFIG_PD;	
+	uint32 CONFIG_PSL;
+	uint32 CONFIG_COMP;	
+	uint32 CONFIG_MASK;
+	uint32 CONFIG_MBRSR;
+} lin_config_reg_t;
 
+/* Configuration registers initial value for LIN*/
+#define LIN_GCR0_CONFIGVALUE       0x00000001U   
+#define LIN_GCR1_CONFIGVALUE       (0x03000CE0U \
+                                 | (uint32)((uint32)1U << 12U) \
+                                 | (uint32)((uint32)0U << 2U))
+#define LIN_GCR2_CONFIGVALUE       0x00000000U       
+#define LIN_SETINTLVL_CONFIGVALUE  (0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U)
 
-/** @def linREG
-*   @brief LIN Register Frame Pointer
-*
-*   This pointer is used by the LIN driver to access the lin module registers.
-*/
-#define linREG ((linBASE_t *)0xFFF7E400U)
+#define LIN_SETINT_CONFIGVALUE     (0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U \
+                                  | 0x00000000U)
 
-
-/** @def linPORT
-*   @brief LIN GIO Port Register Pointer
-*
-*   Pointer used by the GIO driver to access I/O PORT of LIN
-*   (use the GIO drivers to access the port pins).
-*/
-#define linPORT ((gioPORT_t *)0xFFF7E440U)
-
+#define LIN_FORMAT_CONFIGVALUE     ((uint32)((uint32)(8U - 1U) << 16U))
+#define LIN_BRSR_CONFIGVALUE       (249U)
+#define LIN_COMP_CONFIGVALUE       ((uint32)((uint32)(1U - 1U) << 8U) | (13U - 13U))
+#define LIN_MASK_CONFIGVALUE       ((uint32)((uint32)0xFFU << 16U) | 0xFFU)
+#define LIN_MBRSR_CONFIGVALUE      (3600U)
+#define LIN_FUN_CONFIGVALUE        (4U | 2U | 0U)
+#define LIN_DIR_CONFIGVALUE        (0U | 0U | 0U)
+#define LIN_ODR_CONFIGVALUE        (0U | 0U | 0U)
+#define LIN_PD_CONFIGVALUE         (0U | 0U | 0U)
+#define LIN_PSL_CONFIGVALUE        (4U | 2U | 1U)
+ 
+/** 
+ *  @defgroup LIN LIN
+ *  @brief Local Interconnect Network Module.
+ *  
+ *  The LIN standard is based on the SCI (UART) serial data link format. The communication concept is
+ *  single-master/multiple-slave with a message identification for multi-cast transmission between any network
+ *  nodes.
+ *
+ *	Related Files
+ *   - reg_lin.h
+ *   - lin.h
+ *   - lin.c
+ *  @addtogroup LIN
+ *  @{
+ */
+ 
 /* LIN Interface Functions */
 void     linInit(void);
-void     linSetFunctional(linBASE_t *lin, uint32_t port);
-void     linSendHeader(linBASE_t *lin, uint8_t identifier);
+void     linSetFunctional(linBASE_t *lin, uint32 port);
+void     linSendHeader(linBASE_t *lin, uint8 identifier);
 void     linSendWakupSignal(linBASE_t *lin);
 void     linEnterSleep(linBASE_t *lin);
 void     linSoftwareReset(linBASE_t *lin);
-uint32_t linIsTxReady(linBASE_t *lin);
-void     linSetLength(linBASE_t *lin, uint32_t length);
-void     linSend(linBASE_t *lin, const uint8_t *data);
-uint32_t linIsRxReady(linBASE_t *lin);
-uint32_t linTxRxError(linBASE_t *lin);
-uint32_t linGetIdentifier(linBASE_t *lin);
-void     linGetData(linBASE_t *lin, uint8_t * const data);
-void     linEnableNotification(linBASE_t *lin, uint32_t flags);
-void     linDisableNotification(linBASE_t *lin, uint32_t flags);
-void     linEnableLoopback(linBASE_t *lin, Loopbacktype_t Loopbacktype);
+uint32   linIsTxReady(linBASE_t *lin);
+void     linSetLength(linBASE_t *lin, uint32 length);
+void     linSend(linBASE_t *lin, uint8 * data);
+uint32   linIsRxReady(linBASE_t *lin);
+uint32   linTxRxError(linBASE_t *lin);
+uint32   linGetIdentifier(linBASE_t *lin);
+void     linGetData(linBASE_t *lin, uint8 * const data);
+void     linEnableNotification(linBASE_t *lin, uint32 flags);
+void     linDisableNotification(linBASE_t *lin, uint32 flags);
+void     linEnableLoopback(linBASE_t *lin, loopBackType_t Loopbacktype);
 void     linDisableLoopback(linBASE_t *lin);
+void     linGetConfigValue(lin_config_reg_t *config_reg, config_value_type_t type);
 
-/** @fn void linNotification(linBASE_t *lin, uint32_t flags)
+/** @fn void linNotification(linBASE_t *lin, uint32 flags)
 *   @brief Interrupt callback
 *   @param[in] lin   - lin module base address
 *   @param[in] flags - copy of error interrupt flags
@@ -275,5 +276,11 @@ void     linDisableLoopback(linBASE_t *lin);
 * an interrupt.  The parameter passed to the callback is a copy of the 
 * interrupt flag register.
 */
-void linNotification(linBASE_t *lin, uint32_t flags);
+void linNotification(linBASE_t *lin, uint32 flags);
+
+/**@}*/
+#ifdef __cplusplus
+}
+#endif
+
 #endif

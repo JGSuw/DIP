@@ -1,7 +1,7 @@
 /** @file eqep.c 
 *   @brief EQEP Driver Source File
-*   @date 15.Aug.2012
-*   @version 03.02.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *
 *   This file contains:
 *   - API Functions
@@ -10,29 +10,16 @@
 *   which are relevant for the EQEP driver.
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
-// **************************************************************************
-// the includes
 
 #include "eqep.h"
+#include "sys_vim.h"
 
-// **************************************************************************
-// the defines
+/*the functions
+*/
 
 /* USER CODE BEGIN (0) */
-/* USER CODE END */
-
-// **************************************************************************
-// the globals
-
-/* USER CODE BEGIN (1) */
-/* USER CODE END */
-
-// **************************************************************************
-// the functions
-
-/* USER CODE BEGIN (2) */
 /* USER CODE END */
 
 /** @fn void QEPInit(void)
@@ -40,37 +27,40 @@
 *
 *   This function initializes the eQEP module.
 */
+/* SourceId : EQEP_SourceId_001 */
+/* DesignId : EQEP_DesignId_001 */
+/* Requirements : HL_QEP_SR1 */
 void QEPInit(void)
 {
 
-/* USER CODE BEGIN (3) */
+/* USER CODE BEGIN (1) */
 /* USER CODE END */
 
   /** - Clear Position Counter register   */
   eqepREG1->QPOSCNT  =  0x00000000U;
   
   /** - Initialize Position Counter value register   */ 
-  eqepREG1->QPOSINIT =  0x00000000;
+  eqepREG1->QPOSINIT =  0x00000000U;
   
   /** - Set Maximum position counter value   */ 
-  eqepREG1->QPOSMAX  =  0x00000E10;
+  eqepREG1->QPOSMAX  =  0x00000E10U;
   
-  /** - Set the initiaa Position compare value   */ 
-  eqepREG1->QPOSCMP  =  0x00000000;
+  /** - Set the initial Position compare value   */ 
+  eqepREG1->QPOSCMP  =  0x00000000U;
   
   /** - Clear the time base   */ 
   eqepREG1->QUTMR    =  0x00000000U;
   
   /** - Configure unit period register   */ 
-  eqepREG1->QUPRD    =  (uint16_t) 0x00000000U;
+  eqepREG1->QUPRD    =  (uint32) 0x00000000U;
   
   /** - Clear Watchdog Timer register  */ 
-  eqepREG1->QWDTMR   = 	(uint16_t) 0x00000000U;
+  eqepREG1->QWDTMR   = 	(uint16) 0x00000000U;
   
   /** - Configure Watchdog Period   */ 
-  eqepREG1->QWDPRD   =  (uint16_t) 0x0000U;
+  eqepREG1->QWDPRD   =  (uint16) 0x0000U;
   
-/* USER CODE BEGIN (4) */
+/* USER CODE BEGIN (2) */
 /* USER CODE END */
 
   /** - Setup Decoder Control Register
@@ -85,17 +75,17 @@ void QEPInit(void)
   *     - Enable / Disable Negate QEPI input
   *     - Enable / Disable Negate QEPS input  
   */
-  eqepREG1->QDECCTL  = (uint16_t)(QEP_DIRECTION_COUNT << 14
-                       | 0 << 13 
-					   | QEP_INDEX_PIN << 12 
-					   | QEP_RESOLUTION_1x << 11
-					   | 0 << 10
-					   | 0 << 9
-					   | 0 << 8
-					   | 0 << 7					   
-					   | 0 << 6					   
-					   | 0 << 5
-					   | 0x0000U);
+  eqepREG1->QDECCTL  = (uint16)((uint16)((uint16)eQEP_DIRECTION_COUNT << 14U)
+                       | (uint16)((uint16)0U << 13U) 
+					   | (uint16)((uint16)eQEP_INDEX_PIN << 12U) 
+					   | (uint16)((uint16)eQEP_RESOLUTION_1x << 11U)
+					   | (uint16)((uint16)0U << 10U)
+					   | (uint16)((uint16)0U << 9U)
+					   | (uint16)((uint16)0U << 8U)
+					   | (uint16)((uint16)0U << 7U)					   
+					   | (uint16)((uint16)0U << 6U)				   
+					   | (uint16)((uint16)0U << 5U)
+					   | (uint16)0x0000U);
 
   /** - Setup eQEP Control Register
   *     - Select Position counter Reset Mode
@@ -106,16 +96,16 @@ void QEPInit(void)
   *     - Select Index event latch of position counter.
   *     - Select EQEP capture Latch mode
   */				   
-  eqepREG1->QEPCTL   = (uint16_t)(QEP_MAX_POSITION << 12
-                       | 0 << 11 
-					   | QEP_DIRECTON_DEPENDENT << 10
-                       | 0 << 9
-					   | QEP_RISING_EDGE << 8
-					   | 0 << 7
-					   | QEP_RISING_EDGE << 6
-					   | QEP_LATCH_RISING_EDGE << 4
-					   | QEP_ON_POSITION_COUNTER_READ << 2
-					   | 0x0000U);
+  eqepREG1->QEPCTL   = (uint16)((uint16)((uint16)eQEP_MAX_POSITION << 12U)
+                       | (uint16)((uint16)0U << 11U )
+					   | (uint16)((uint16)eQEP_DIRECTON_DEPENDENT << 10U)
+                       | (uint16)((uint16)0U << 9U)
+					   | (uint16)((uint16)eQEP_RISING_EDGE << 8U)
+					   | (uint16)((uint16)0U << 7U)
+					   | (uint16)((uint16)eQEP_RISING_EDGE << 6U)
+					   | (uint16)((uint16)eQEP_LATCH_RISING_EDGE << 4U)
+					   | (uint16)((uint16)eQEP_ON_POSITION_COUNTER_READ << 2U)
+					   | (uint16)0x0000U);
 					   
   /** - Setup eQEP Position Control Register
   *     - Enable / Disable Position compare shadow.
@@ -123,25 +113,25 @@ void QEPInit(void)
   *     - Select Polarity of Sync output.
   *     - Select Position compare sync output pulse width.
   */			   
-  eqepREG1->QPOSCTL  = (uint16_t)(0 << 15
-					   | QEP_QPOSCNT_EQ_QPSCMP << 14
-					   | QEP_ACTIVE_HIGH << 13
-					   | 0x000					   
-					   | 0x0000U);
+  eqepREG1->QPOSCTL  = (uint16)((uint16)((uint16)0U << 15U)
+					   | (uint16)((uint16)eQEP_QPOSCNT_EQ_QPSCMP << 14U)
+					   | (uint16)((uint16)eQEP_ACTIVE_HIGH << 13U)
+					   | (uint16)((uint16)0x000U)					   
+					   | (uint16)0x0000U);
 
   /** - Setup eQEP Capture Control Register
   *     - Select capture timer clock prescaler.
   *     - Select Unit position event prescaler.
   */					   
-  eqepREG1->QCAPCTL  = (uint16_t)(QEP_PS_8 << 4
-					   | QEP_PS_512
-					   | 0x0000U);
+  eqepREG1->QCAPCTL  = (uint16)((uint16)((uint16)eQEP_PS_8 << 4U)
+					   | (uint16)((uint16)eQEP_PS_512)
+					   | (uint16)0x0000U);
 
-/* USER CODE BEGIN (5) */
+/* USER CODE BEGIN (3) */
 /* USER CODE END */
 
   /** - Clear Interrupt Flag register  */					   
-  eqepREG1->QCLR     = (uint16_t) 0xFFFFU;
+  eqepREG1->QCLR     = (uint16) 0xFFFFU;
 
   /** - Setup eQEP Interrupt Enable Register
   *     Enable / Diable UTO Interrupt
@@ -156,55 +146,55 @@ void QEPInit(void)
   *     Enable / Diable QPE Interrupt
   *     Enable / Diable PCE Interrupt
   */  
-  eqepREG1->QEINT    = (uint16_t)(0 << 11
-					   | 0 << 10
-					   | 0 << 9
-					   | 0 << 8
-					   | 0 << 7
-					   | 0 << 6
-					   | 0 << 5
-					   | 0 << 4
-					   | 0 << 3
-					   | 0 << 2
-					   | 0 << 1);
+  eqepREG1->QEINT    = (uint16)((uint16)((uint16)0U << 11U)
+					   | (uint16)((uint16)0U << 10U)
+					   | (uint16)((uint16)0U << 9U)
+					   | (uint16)((uint16)0U << 8U)
+					   | (uint16)((uint16)0U << 7U)
+					   | (uint16)((uint16)0U << 6U)
+					   | (uint16)((uint16)0U << 5U)
+					   | (uint16)((uint16)0U << 4U)
+					   | (uint16)((uint16)0U << 3U)       
+					   | (uint16)((uint16)0U << 2U)
+					   | (uint16)((uint16)0U << 1U));
 
   /** - Clear Capture Timer register  */
-  eqepREG1->QCTMR    = (uint16_t)0x0000U;	
+  eqepREG1->QCTMR    = (uint16)0x0000U;	
 
   /** - Clear the Capture Period regiter */  
-  eqepREG1->QCPRD    = (uint16_t)0x0000U;	
+  eqepREG1->QCPRD    = (uint16)0x0000U;	
   
   /** - Clear Period Latch register */					   
-  eqepREG1->QCPRDLAT = (uint16_t)0x0000U;
+  eqepREG1->QCPRDLAT = (uint16)0x0000U;
   
-/* USER CODE BEGIN (6) */
+/* USER CODE BEGIN (4) */
 /* USER CODE END */
 
   /** - Clear Position Counter register   */
   eqepREG2->QPOSCNT  =  0x00000000U;
   
   /** - Initialize Position Counter value register   */ 
-  eqepREG2->QPOSINIT =  0x00000000;
+  eqepREG2->QPOSINIT =  0x00000000U;
   
   /** - Set Maximum position counter value   */ 
-  eqepREG2->QPOSMAX  =  0x00000E10;
+  eqepREG2->QPOSMAX  =  0x00000E10U;
   
-  /** - Set the initiaa Position compare value   */ 
-  eqepREG2->QPOSCMP  =  0x00000000;
+  /** - Set the initial Position compare value   */ 
+  eqepREG2->QPOSCMP  =  0x00000000U;
   
   /** - Clear the time base   */ 
   eqepREG2->QUTMR    =  0x00000000U;
   
   /** - Configure unit period register   */ 
-  eqepREG2->QUPRD    =  (uint16_t) 0x00000000U;
+  eqepREG2->QUPRD    =  (uint32) 0x00000000U;
   
   /** - Clear Watchdog Timer register  */ 
-  eqepREG2->QWDTMR   = 	(uint16_t) 0x00000000U;
+  eqepREG2->QWDTMR   = 	(uint16) 0x00000000U;
   
   /** - Configure Watchdog Period   */ 
-  eqepREG2->QWDPRD   =  (uint16_t) 0x0000U;
+  eqepREG2->QWDPRD   =  (uint16) 0x0000U;
   
-/* USER CODE BEGIN (7) */
+/* USER CODE BEGIN (5) */
 /* USER CODE END */
 
   /** - Setup Decoder Control Register
@@ -219,37 +209,37 @@ void QEPInit(void)
   *     - Enable / Disable Negate QEPI input
   *     - Enable / Disable Negate QEPS input  
   */
-  eqepREG2->QDECCTL  = (uint16_t)(QEP_DIRECTION_COUNT << 14
-                       | 0 << 13 
-					   | QEP_INDEX_PIN << 12 
-					   | QEP_RESOLUTION_1x << 11
-					   | 0 << 10
-					   | 0 << 9
-					   | 0 << 8
-					   | 0 << 7					   
-					   | 0 << 6					   
-					   | 0 << 5
-					   | 0x0000U);
+  eqepREG2->QDECCTL  = (uint16)((uint16)((uint16)eQEP_DIRECTION_COUNT << 14U)
+                       | (uint16)((uint16)0U << 13U) 
+					   | (uint16)((uint16)eQEP_INDEX_PIN << 12U) 
+					   | (uint16)((uint16)eQEP_RESOLUTION_1x << 11U)
+					   | (uint16)((uint16)0U << 10U)
+					   | (uint16)((uint16)0U << 9U)
+					   | (uint16)((uint16)0U << 8U)
+					   | (uint16)((uint16)0U << 7U)					   
+					   | (uint16)((uint16)0U << 6U)					   
+					   | (uint16)((uint16)0U << 5U)
+					   | (uint16)0x0000U);
 
   /** - Setup eQEP Control Register
   *     - Select Position counter Reset Mode
-  *     - Enable & Select Stobe event initialization of position counter
+  *     - Enable & Select Strobe event initialization of position counter
   *     - Enable & Select Index event initialization of position counter
   *     - Enable / Disable Software Initialization of Position counter.
   *     - Select Strobe event latch of position counter.
   *     - Select Index event latch of position counter.
   *     - Select EQEP capture Latch mode
   */				   
-  eqepREG2->QEPCTL   = (uint16_t)(QEP_MAX_POSITION << 12
-                       | 0 << 11 
-					   | QEP_DIRECTON_DEPENDENT << 10
-                       | 0 << 9
-					   | QEP_RISING_EDGE << 8
-					   | 0 << 7
-					   | QEP_RISING_EDGE << 6
-					   | QEP_LATCH_RISING_EDGE << 4
-					   | QEP_ON_POSITION_COUNTER_READ << 2
-					   | 0x0000U);
+  eqepREG2->QEPCTL   = (uint16)((uint16)((uint16)eQEP_MAX_POSITION << 12U)
+                       | (uint16)((uint16)0U << 11U) 
+					   | (uint16)((uint16)eQEP_DIRECTON_DEPENDENT << 10U)
+                       | (uint16)((uint16)0U << 9U)
+					   | (uint16)((uint16)eQEP_RISING_EDGE << 8U)
+					   | (uint16)((uint16)0U << 7U)
+					   | (uint16)((uint16)eQEP_RISING_EDGE << 6U)
+					   | (uint16)((uint16)eQEP_LATCH_RISING_EDGE << 4U)
+					   | (uint16)((uint16)eQEP_ON_POSITION_COUNTER_READ << 2U)
+					   | (uint16)0x0000U);
 					   
   /** - Setup eQEP Position Control Register
   *     - Enable / Disable Position compare shadow.
@@ -257,25 +247,25 @@ void QEPInit(void)
   *     - Select Polarity of Sync output.
   *     - Select Position compare sync output pulse width.
   */			   
-  eqepREG2->QPOSCTL  = (uint16_t)(0 << 15
-					   | QEP_QPOSCNT_EQ_QPSCMP << 14
-					   | QEP_ACTIVE_HIGH << 13
-					   | 0x000					   
-					   | 0x0000U);
+  eqepREG2->QPOSCTL  = (uint16)((uint16)((uint16)0U << 15U)
+					   | (uint16)((uint16)eQEP_QPOSCNT_EQ_QPSCMP << 14U)
+					   | (uint16)((uint16)eQEP_ACTIVE_HIGH << 13U)
+					   | (uint16)((uint16)0x000U)					   
+					   | (uint16)0x0000U);
 
   /** - Setup eQEP Capture Control Register
   *     - Select capture timer clock prescaler.
   *     - Select Unit position event prescaler.
   */					   
-  eqepREG2->QCAPCTL  = (uint16_t)(QEP_PS_8 << 4
-					   | QEP_PS_512
-					   | 0x0000U);
+  eqepREG2->QCAPCTL  = (uint16)((uint16)((uint16)eQEP_PS_8 << 4U)
+					   | (uint16)((uint16)eQEP_PS_512)
+					   | (uint16)0x0000U);
 
-/* USER CODE BEGIN (8) */
+/* USER CODE BEGIN (6) */
 /* USER CODE END */
 
   /** - Clear Interrupt Flag register  */					   
-  eqepREG2->QCLR     = (uint16_t) 0xFFFFU;
+  eqepREG2->QCLR     = (uint16) 0xFFFFU;
 
   /** - Setup eQEP Interrupt Enable Register
   *     Enable / Diable UTO Interrupt
@@ -290,522 +280,1017 @@ void QEPInit(void)
   *     Enable / Diable QPE Interrupt
   *     Enable / Diable PCE Interrupt
   */  
-  eqepREG2->QEINT    = (uint16_t)(0 << 11
-					   | 0 << 10
-					   | 0 << 9
-					   | 0 << 8
-					   | 0 << 7
-					   | 0 << 6
-					   | 0 << 5
-					   | 0 << 4
-					   | 0 << 3
-					   | 0 << 2
-					   | 0 << 1);
+  eqepREG2->QEINT    = (uint16)((uint16)((uint16)0U << 11U)
+					   | (uint16)((uint16)0U << 10U)
+					   | (uint16)((uint16)0U << 9U)
+					   | (uint16)((uint16)0U << 8U)
+					   | (uint16)((uint16)0U << 7U)
+					   | (uint16)((uint16)0U << 6U)
+					   | (uint16)((uint16)0U << 5U)
+					   | (uint16)((uint16)0U << 4U)
+					   | (uint16)((uint16)0U << 3U)
+					   | (uint16)((uint16)0U << 2U)
+					   | (uint16)((uint16)0U << 1U));
 
   /** - Clear Capture Timer register  */
-  eqepREG2->QCTMR    = (uint16_t)0x0000U;	
+  eqepREG2->QCTMR    = (uint16)0x0000U;	
 
   /** - Clear the Capture Period regiter */  
-  eqepREG2->QCPRD    = (uint16_t)0x0000U;	
+  eqepREG2->QCPRD    = (uint16)0x0000U;	
   
   /** - Clear Period Latch register */					   
-  eqepREG2->QCPRDLAT = (uint16_t)0x0000U;
+  eqepREG2->QCPRDLAT = (uint16)0x0000U;
   
-/* USER CODE BEGIN (9) */
+/* USER CODE BEGIN (7) */
 /* USER CODE END */
   
 }
 
-void QEP_clear_all_interrupt_flags (eqepBASE_t *eqep)
+/** @brief Clears all QEP interrupt flags
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_002 */
+/* DesignId : EQEP_DesignId_002 */
+/* Requirements : HL_QEP_SR2 */
+void eqepClearAllInterruptFlags (eqepBASE_t *eqep)
 {
   
-  eqep->QCLR = 0xfff;
+  eqep->QCLR = 0xfffU;
   
   return;	
-} // end of QEP_clear_all_interrupt_flags() function
+} /*end of eQEP_clear_all_interrupt_flags() function */
 
-void QEP_clear_interrupt_flag (eqepBASE_t *eqep, const QEINT_e QEINT)
+/** @brief Clears a single interrupt flag
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEINT			Interrupt flag
+*/
+/* SourceId : EQEP_SourceId_003 */
+/* DesignId : EQEP_DesignId_003 */
+/* Requirements : HL_QEP_SR3 */
+void eqepClearInterruptFlag (eqepBASE_t *eqep, QEINT_t QEINT_type)
 {
   
-  eqep->QCLR |= QEINT;
+  eqep->QCLR |= (uint16)QEINT_type;
   
   return;	
-} // end of QEP_clear_interrupt_flag() function
+} /*end of eQEP_clear_interrupt_flag() function */
 
-void QEP_clear_posn_counter (eqepBASE_t *eqep)
+/** @brief Clears the position counter
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_004 */
+/* DesignId : EQEP_DesignId_004 */
+/* Requirements : HL_QEP_SR4 */
+void eqepClearPosnCounter (eqepBASE_t *eqep)
 {
   
-  eqep->QPOSCNT = 0;	
+  eqep->QPOSCNT = 0U;	
   
   return;
-} // end of QEP_clear_posn_counter() function
+} /*end of eQEP_clear_posn_counter() function */
 
-void QEP_disable_all_interrupts (eqepBASE_t *eqep)
+/** @brief Disables all interrupts
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_005 */
+/* DesignId : EQEP_DesignId_005 */
+/* Requirements : HL_QEP_SR5 */
+void eqepDisableAllInterrupts (eqepBASE_t *eqep)
 {
   
-  eqep->QEINT = 0;
+  eqep->QEINT = 0U;
   
   return;
-} // end of QEP_disable_all_interrupts () function
+} /*end of eQEP_disable_all_interrupts () function */
 
-void QEP_disable_capture (eqepBASE_t *eqep)
+/** @brief Disable capture
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_006 */
+/* DesignId : EQEP_DesignId_006 */
+/* Requirements : HL_QEP_SR6 */
+void eqepDisableCapture (eqepBASE_t *eqep)
 {
   
-  eqep->QCAPCTL &= (~QEP_QCAPCTL_CEN);
+  eqep->QCAPCTL &= (uint16)(~eQEP_QCAPCTL_CEN);
   
   return;	
-} // end of QEP_disable_capture () function
+} /*end of eQEP_disable_capture () function */
 
-void QEP_disable_gate_index (eqepBASE_t *eqep)
+/** @brief Disable gating of index pulse
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_007 */
+/* DesignId : EQEP_DesignId_007 */
+/* Requirements : HL_QEP_SR7 */
+void eqepDisableGateIndex (eqepBASE_t *eqep)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_IGATE);	
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_IGATE);	
   
   return;
-} // end of QEP_disable_gate_index () function
+} /*end of eQEP_disable_gate_index () function */
 
-void QEP_disable_interrupt (eqepBASE_t *eqep, const QEINT_e QEINT)
+/** @brief Disable individual interrupt
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEINT			Individual interrupts
+*/
+/* SourceId : EQEP_SourceId_008 */
+/* DesignId : EQEP_DesignId_008 */
+/* Requirements : HL_QEP_SR8 */
+void eqepDisableInterrupt (eqepBASE_t *eqep, QEINT_t QEINT_type)
 {
   
-  eqep->QEINT &= (~QEINT);
+  eqep->QEINT &= (uint16)(~(uint16)QEINT_type);
   
   return;
-} // end of QEP_disable_interrupt
+} /*end of eQEP_disable_interrupt */
 
-void QEP_disable_posn_compare (eqepBASE_t *eqep)
+/** @brief Disable position compare
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_009 */
+/* DesignId : EQEP_DesignId_009 */
+/* Requirements : HL_QEP_SR9 */
+void eqepDisablePosnCompare (eqepBASE_t *eqep)
 {
   
-  eqep->QPOSCTL &= (~QEP_QPOSCTL_PCE);
+  eqep->QPOSCTL &= (uint16)(~eQEP_QPOSCTL_PCE);
   
   return;	
-} // end of QEP_disable_posn_compare () function
+} /*end of eQEP_disable_posn_compare () function */
 
-void QEP_disable_posn_compare_shadow (eqepBASE_t *eqep)
+/** @brief Disable position compare shadowing
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_010 */
+/* DesignId : EQEP_DesignId_010 */
+/* Requirements : HL_QEP_SR10 */
+void eqepDisablePosnCompareShadow (eqepBASE_t *eqep)
 {
   
-  eqep->QPOSCTL &= (~QEP_QPOSCTL_PCSHDW);
+  eqep->QPOSCTL &= (uint16)(~eQEP_QPOSCTL_PCSHDW);
   
   return;	
-} // end of QEP_disable_posn_compare_shadow () function
+} /*end of eQEP_disable_posn_compare_shadow () function */
 
-void QEP_disable_sync_out (eqepBASE_t *eqep)
+/** @brief Disable output sync pulse
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_011 */
+/* DesignId : EQEP_DesignId_011 */
+/* Requirements : HL_QEP_SR11 */
+void eqepDisableSyncOut (eqepBASE_t *eqep)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_SOEN);
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_SOEN);
   
   return;
-} // end of QEP_disable_sync_out () function
+} /*end of eQEP_disable_sync_out () function */
 
-void QEP_disable_unit_timer (eqepBASE_t *eqep)
+/** @brief Disable unit timer
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_012 */
+/* DesignId : EQEP_DesignId_012 */
+/* Requirements : HL_QEP_SR12 */
+void eqepDisableUnitTimer (eqepBASE_t *eqep)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_UTE);
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_UTE);
   
   return; 	
-} // end of QEP_disable_unit_timer () function
+} /*end of eQEP_disable_unit_timer () function */
 
-void QEP_disable_watchdog (eqepBASE_t *eqep)
+/** @brief Disable watchdog timer
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_013 */
+/* DesignId : EQEP_DesignId_013 */
+/* Requirements : HL_QEP_SR13 */
+void eqepDisableWatchdog (eqepBASE_t *eqep)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_WDE); 	
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_WDE); 	
   
   return;
-} // end of QEP_disable_watchdog () function
+} /*end of eQEP_disable_watchdog () function */
 
-void QEP_enable_capture (eqepBASE_t *eqep)
+/** @brief Enable capture
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_014 */
+/* DesignId : EQEP_DesignId_014 */
+/* Requirements : HL_QEP_SR14 */
+void eqepEnableCapture (eqepBASE_t *eqep)
 {
   
-  eqep->QCAPCTL |= QEP_QCAPCTL_CEN;	
+  eqep->QCAPCTL |= eQEP_QCAPCTL_CEN;	
   
   return;
-} // end of QEP_enable_capture () function
+} /*end of eQEP_enable_capture () function */
 
-void QEP_enable_counter (eqepBASE_t *eqep)
+/** @brief Enable counter
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_015 */
+/* DesignId : EQEP_DesignId_015 */
+/* Requirements : HL_QEP_SR15 */
+void eqepEnableCounter (eqepBASE_t *eqep)
 {
   
-  eqep->QEPCTL |= QEP_QEPCTL_QPEN;	
+  eqep->QEPCTL |= eQEP_QEPCTL_QPEN;	
   
   return;
-} // end of QEP_enable_counter () function
+} /*end of eQEP_enable_counter () function */
 
-void QEP_enable_gate_index (eqepBASE_t *eqep)
+/** @brief Enable gating of index pulse
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_016 */
+/* DesignId : EQEP_DesignId_016 */
+/* Requirements : HL_QEP_SR16 */
+void eqepEnableGateIndex (eqepBASE_t *eqep)
 {
   
-  eqep->QDECCTL |= QEP_Igate_Enable;	
+  eqep->QDECCTL |= (uint16)eQEP_Igate_Enable;	
   
   return;
-} // end of QEP_enable_gate_index () function
+} /*end of eQEP_enable_gate_index () function */
 
-void QEP_enable_interrupt (eqepBASE_t *eqep, const QEINT_e QEINT)
+/** @brief Enable individual interrupt
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEINT_type			Individual interrupts
+*/
+/* SourceId : EQEP_SourceId_017 */
+/* DesignId : EQEP_DesignId_017 */
+/* Requirements : HL_QEP_SR17 */
+void eqepEnableInterrupt (eqepBASE_t *eqep, QEINT_t QEINT_type)
 {
   
-  eqep->QEINT |= QEINT;	
+  eqep->QEINT |= (uint16)QEINT_type;	
   
   return;
-} // end of QEP_enable_interrupt () function
+} /*end of eQEP_enable_interrupt () function */
 
-void QEP_enable_posn_compare (eqepBASE_t *eqep)
+/** @brief Enable position compare
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_018 */
+/* DesignId : EQEP_DesignId_018 */
+/* Requirements : HL_QEP_SR18 */
+void eqepEnablePosnCompare (eqepBASE_t *eqep)
 {
   
-  eqep->QPOSCTL |= QEP_QPOSCTL_PCE;	
+  eqep->QPOSCTL |= eQEP_QPOSCTL_PCE;	
   
   return;
-} // end of QEP_enable_posn_compare () function
+} /*end of eQEP_enable_posn_compare () function */
 
-void QEP_enable_posn_compare_shadow (eqepBASE_t *eqep)
+/** @brief Enable position compare shadowing
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_019 */
+/* DesignId : EQEP_DesignId_019 */
+/* Requirements : HL_QEP_SR19 */
+void eqepEnablePosnCompareShadow (eqepBASE_t *eqep)
 {
   
-  eqep->QPOSCTL |= QEP_QPOSCTL_PCSHDW;	
+  eqep->QPOSCTL |= eQEP_QPOSCTL_PCSHDW;	
   
   return;
-} // end of QEP_enable_posn_compare_shadow () function
+} /*end of eQEP_enable_posn_compare_shadow () function */
 
-void QEP_enable_sync_out (eqepBASE_t *eqep)
+/** @brief Enable output sync pulse
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_020 */
+/* DesignId : EQEP_DesignId_020 */
+/* Requirements : HL_QEP_SR46 */
+void eqepEnableSyncOut (eqepBASE_t *eqep)
 {
   
-  eqep->QDECCTL |= QEP_QDECCTL_SOEN;
+  eqep->QDECCTL |= eQEP_QDECCTL_SOEN;
   
   return;
-} // end of QEP_enable_sync_out () function
+} /*end of eQEP_enable_sync_out () function */
 
-void QEP_enable_unit_timer (eqepBASE_t *eqep)
+/** @brief Enable unit timer
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_021 */
+/* DesignId : EQEP_DesignId_021 */
+/* Requirements : HL_QEP_SR20 */
+void eqepEnableUnitTimer (eqepBASE_t *eqep)
 {
   
-  eqep->QEPCTL |= QEP_QEPCTL_UTE;
+  eqep->QEPCTL |= eQEP_QEPCTL_UTE;
   
   return; 	
-} // end of QEP_enable_unit_timer () function
+} /*end of eQEP_enable_unit_timer () function */
 
-void QEP_enable_watchdog (eqepBASE_t *eqep)
+/** @brief Enable watchdog timer
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_022 */
+/* DesignId : EQEP_DesignId_022 */
+/* Requirements : HL_QEP_SR21 */
+void eqepEnableWatchdog (eqepBASE_t *eqep)
 {
   
-  eqep->QEPCTL |= QEP_QEPCTL_WDE; 	
+  eqep->QEPCTL |= eQEP_QEPCTL_WDE; 	
   
   return;
-} // end of QEP_enable_watchdog () function
+} /*end of eQEP_enable_watchdog () function */
 
-void QEP_force_interrupt (eqepBASE_t *eqep, const QEINT_e QEINT)
+/** @brief Manually force QEP interrupt
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEINT			Individual interrupt
+*/
+/* SourceId : EQEP_SourceId_023 */
+/* DesignId : EQEP_DesignId_023 */
+/* Requirements : HL_QEP_SR22 */
+void eqepForceInterrupt (eqepBASE_t *eqep, QEINT_t QEINT_type)
 {
   
-  eqep->QFRC |= QEINT;
+  eqep->QFRC |= (uint16)QEINT_type;
   
   return;	
-} // end of QEP_force_interrupt () function
+} /*end of eQEP_force_interrupt () function */
 
 
-uint16_t QEP_read_capture_period_latch (eqepBASE_t *eqep)
+/** @brief Reads capture period latch
+*   @param[in] eqep		Handle to QEP object
+*   @return						Counter value
+*/
+/* SourceId : EQEP_SourceId_024 */
+/* DesignId : EQEP_DesignId_024 */
+/* Requirements : HL_QEP_SR23 */
+uint16 eqepReadCapturePeriodLatch (eqepBASE_t *eqep)
 {
-  
-
   return eqep->QCPRDLAT;	
-} // end of QEP_read_capture_period_latch () function
+} /*end of eQEP_read_capture_period_latch () function */
 
-uint16_t QEP_read_capture_timer_latch (eqepBASE_t *eqep)
+/** @brief Reads timer latch
+*   @param[in] eqep		Handle to QEP object
+*   @return						Timer value
+*/
+/* SourceId : EQEP_SourceId_025 */
+/* DesignId : EQEP_DesignId_025 */
+/* Requirements : HL_QEP_SR24 */
+uint16 eqepReadCaptureTimerLatch (eqepBASE_t *eqep)
 {
-  
-
   return eqep->QCTMRLAT;	
-} // end of QEP_read_capture_timer_latch () function
+} /*end of eQEP_read_capture_timer_latch () function */
 
-uint16_t QEP_read_interrupt_flag (eqepBASE_t *eqep, const QEINT_e QEINT)
+/** @brief Reads interrupt flag value
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEINT			Which interrupt to interrogate
+*   @return						Interrupt flag value
+*/
+/* SourceId : EQEP_SourceId_064 */
+/* DesignId : EQEP_DesignId_064 */
+/* Requirements : HL_QEP_SR25 */
+uint16 eqepReadInterruptFlag (eqepBASE_t *eqep, QEINT_t QEINT_type)
 {
-  
-	
-	return (uint16_t) (eqep->QFLG & QEINT); 
-} // end of QEP_read_interrupt_flag () function
+	return (uint16) (eqep->QFLG & (uint16)QEINT_type); 
+} /*end of eQEP_read_interrupt_flag () function */
 
-uint32_t QEP_read_posn_compare (eqepBASE_t *eqep)
+/** @brief Reads position compare register
+*   @param[in] eqep		Handle to QEP object
+*   @return						Counter value
+*/
+/* SourceId : EQEP_SourceId_026 */
+/* DesignId : EQEP_DesignId_026 */
+/* Requirements : HL_QEP_SR26 */
+uint32 eqepReadPosnCompare (eqepBASE_t *eqep)
 {
   
   return eqep->QPOSCMP;	
-} // end of QEP_read_posn_compare () function
+} /*end of eQEP_read_posn_compare () function */
 
-uint32_t QEP_read_posn_count (eqepBASE_t *eqep)
+/** @brief Reads position counter
+*   @param[in] eqep		Handle to QEP object
+*   @return						Counter value
+*/
+/* SourceId : EQEP_SourceId_027 */
+/* DesignId : EQEP_DesignId_027 */
+/* Requirements : HL_QEP_SR27 */
+uint32 eqepReadPosnCount (eqepBASE_t *eqep)
 {
   
   return eqep->QPOSCNT;	
-} // end of QEP_read_posn_count () function
+} /*end of eQEP_read_posn_count () function */
 
-uint32_t QEP_read_posn_index_latch (eqepBASE_t *eqep)
+/** @brief Reads position counter value index pulse latch register
+*   @param[in] eqep		Handle to QEP object
+*   @return						Counter value
+*/
+/* SourceId : EQEP_SourceId_028 */
+/* DesignId : EQEP_DesignId_028 */
+/* Requirements : HL_QEP_SR28 */
+uint32 eqepReadPosnIndexLatch (eqepBASE_t *eqep)
 {
   
   return eqep->QPOSILAT;	
-} // end of QEP_read_posn_index_latch () function
+} /*end of eQEP_read_posn_index_latch () function */
 
-uint32_t QEP_read_posn_latch (eqepBASE_t *eqep)
+/** @brief Reads position counter value
+*   @param[in] eqep		Handle to QEP object
+*   @return						Counter value
+*/
+/* SourceId : EQEP_SourceId_029 */
+/* DesignId : EQEP_DesignId_029 */
+/* Requirements : HL_QEP_SR29 */
+uint32 eqepReadPosnLatch (eqepBASE_t *eqep)
 {
   
   return eqep->QPOSLAT;	
-} // end of QEP_read_posn_latch () function
+} /*end of eQEP_read_posn_latch () function */
 
-uint32_t QEP_read_posn_strobe_latch (eqepBASE_t *eqep)
+/** @brief Reads position strobe latch
+*   @param[in] eqep		Handle to QEP object
+*   @return						Counter value
+*/
+/* SourceId : EQEP_SourceId_030 */
+/* DesignId : EQEP_DesignId_030 */
+/* Requirements : HL_QEP_SR30 */
+uint32 eqepReadPosnStrobeLatch (eqepBASE_t *eqep)
 {
   
   return eqep->QPOSSLAT;	
-} // end of QEP_read_posn_strobe_latch () function
+} /*end of eQEP_read_posn_strobe_latch () function */
 
-uint16_t QEP_read_status (eqepBASE_t *eqep)
+/** @brief Reads status register
+*   @param[in] eqep		Handle to QEP object
+*   @return						Status register value
+*/
+/* SourceId : EQEP_SourceId_031 */
+/* DesignId : EQEP_DesignId_031 */
+/* Requirements : HL_QEP_SR31 */
+uint16 eqepReadStatus (eqepBASE_t *eqep)
 {
   
   return eqep->QEPSTS;	
-} // end of QEP_read_status () function
+} /*end of eqepReadStatus () function */
 
-void QEP_reset_counter (eqepBASE_t *eqep)
+/** @brief Resets counter
+*   @param[in] eqep		Handle to QEP object
+*/
+/* SourceId : EQEP_SourceId_032 */
+/* DesignId : EQEP_DesignId_032 */
+/* Requirements : HL_QEP_SR32 */
+void eqepResetCounter (eqepBASE_t *eqep)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_QPEN);
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_QPEN);
   
   return;	
-} // end of QEP_reset_counter () function
+} /*end of eqepResetCounter () function */
 
-void QEP_set_capture_latch_mode (eqepBASE_t *eqep, const QEPCTL_Qclm_e QEPCTL_Qclm)
+/** @brief Sets capture latch mode
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Qclm		capture latch mode
+*/
+/* SourceId : EQEP_SourceId_033 */
+/* DesignId : EQEP_DesignId_033 */
+/* Requirements : HL_QEP_SR33 */
+void eqepSetCaptureLatchMode (eqepBASE_t *eqep, QEPCTL_Qclm_t QEPCTL_Qclm)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_QCLM);
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_QCLM);
   eqep->QEPCTL |= QEPCTL_Qclm;
   
   return;
-} // end of QEP_set_capture_latch_mode () function
+} /*end of eqepSetCaptureLatchMode () function */
 
-void QEP_set_capture_period (eqepBASE_t *eqep, const uint16_t period)
+/** @brief Sets capture period
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] period			Capture period
+*/
+/* SourceId : EQEP_SourceId_034 */
+/* DesignId : EQEP_DesignId_034 */
+/* Requirements : HL_QEP_SR34 */
+void eqepSetCapturePeriod (eqepBASE_t *eqep, uint16 period)
 {
   
   eqep->QCPRD = period;	
   
   return;
-} // end of QEP_set_capture_period () function
+} /*end of eqepSetCapturePeriod () function */
 
-void QEP_set_capture_prescale (eqepBASE_t *eqep, const QCAPCTL_Ccps_e QCAPCTL_Ccps)
+/** @brief Sets capture pre-scaler
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QCAPCTL_Ccps		Capture pre-scaler 
+*/
+/* SourceId : EQEP_SourceId_035 */
+/* DesignId : EQEP_DesignId_035 */
+/* Requirements : HL_QEP_SR35 */
+void eqepSetCapturePrescale (eqepBASE_t *eqep, QCAPCTL_Ccps_t QCAPCTL_Ccps)
 {
   
-  eqep->QCAPCTL &= (~QEP_QCAPCTL_CCPS);
+  eqep->QCAPCTL &= (uint16)(~eQEP_QCAPCTL_CCPS);
   eqep->QCAPCTL |= QCAPCTL_Ccps;
-} // end of QEP_set_capture_prescale () function
+} /*end of eqepSetCapturePrescale () function */
 
-void QEP_set_emu_control (eqepBASE_t *eqep, const QEPCTL_Freesoft_e QEPCTL_Freesoft)
+/** @brief Sets emulation control
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Freesoft	Emulation control bits
+*/
+/* SourceId : EQEP_SourceId_036 */
+/* DesignId : EQEP_DesignId_036 */
+/* Requirements : HL_QEP_SR36 */
+void eqepSetEmuControl (eqepBASE_t *eqep, QEPCTL_Freesoft_t QEPCTL_Freesoft)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_FREESOFT);
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_FREESOFT);
   eqep->QEPCTL |= QEPCTL_Freesoft; 	
   
   return;
-} // end of QEP_set_emu_control () function
+} /*end of eqepSetEmuControl () function */
 
-void QEP_set_ext_clock_rate (eqepBASE_t *eqep, const QEP_Xcr_e QEP_Xcr)
+/** @brief Sets external clock rate
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] eQEP_Xcr			External clock rate
+*/
+/* SourceId : EQEP_SourceId_037 */
+/* DesignId : EQEP_DesignId_037 */
+/* Requirements : HL_QEP_SR37 */
+void eqepSetExtClockRate (eqepBASE_t *eqep, eQEP_Xcr_t eQEP_Xcr)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_XCR);
-  eqep->QDECCTL |= QEP_Xcr;	
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_XCR);
+  eqep->QDECCTL |= (uint16)eQEP_Xcr;	
   
   return;
-} // end of QEP_set_ext_clock_rate () function
+} /*end of eqepSetExtClockRate () function */
 
-void QEP_set_index_event_init (eqepBASE_t *eqep, const QEPCTL_Iei_e QEPCTL_Iei)
+/** @brief Sets the event which initializes the counter register
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Iei		Index event
+*/
+/* SourceId : EQEP_SourceId_038 */
+/* DesignId : EQEP_DesignId_038 */
+/* Requirements : HL_QEP_SR38 */
+void eqepSetIndexEventInit (eqepBASE_t *eqep, QEPCTL_Iei_t QEPCTL_Iei)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_IEI);
-  eqep->QEPCTL |= QEPCTL_Iei;
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_IEI);
+  eqep->QEPCTL |= (uint16)QEPCTL_Iei;
   
   return;	
-} // end of QEP_set_index_event_init () function
+} /*end of eqepSetIndexEventInit () function */
 
-void QEP_set_index_event_latch (eqepBASE_t *eqep, const QEPCTL_Iel_e QEPCTL_Iel)
+/** @brief Sets the index event which latches the position counter 
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Iel		Latch event
+*/
+/* SourceId : EQEP_SourceId_039 */
+/* DesignId : EQEP_DesignId_039 */
+/* Requirements : HL_QEP_SR39 */
+void eqepSetIndexEventLatch (eqepBASE_t *eqep, QEPCTL_Iel_t QEPCTL_Iel)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_IEL);
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_IEL);
   eqep->QEPCTL |= QEPCTL_Iel;
   
   return;
-} // end of QEP_set_index_event_latch
+} /*end of eqepSetIndexEventLatch */
 
-void QEP_set_index_polarity (eqepBASE_t *eqep, const QEP_Qip_e QEP_Qip)
+/** @brief Sets index polarity
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] eQEP_Qip			Index polarity
+*/
+/* SourceId : EQEP_SourceId_040 */
+/* DesignId : EQEP_DesignId_040 */
+/* Requirements : HL_QEP_SR40 */
+void eqepSetIndexPolarity (eqepBASE_t *eqep, eQEP_Qip_t eQEP_Qip)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_QIP);
-  eqep->QDECCTL |= QEP_Qip;
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_QIP);
+  eqep->QDECCTL |= eQEP_Qip;
   
   return;
-} // end of QEP_set_index_polarity () function
+} /*end of eqepSetIndexPolarity () function */
 
-void QEP_set_max_posn_count (eqepBASE_t *eqep, const uint32_t max_count)
+/** @brief Sets max position count
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] max_count		Maximum counter value
+*/
+/* SourceId : EQEP_SourceId_041 */
+/* DesignId : EQEP_DesignId_041 */
+/* Requirements : HL_QEP_SR41 */
+void eqepSetMaxPosnCount (eqepBASE_t *eqep, uint32 max_count)
 {
   
   eqep->QPOSMAX = max_count;	
   
   return;
-} // end of QEP_set_max_posn_count () function
+} /*end of eqepSetMaxPosnCount () function */
 
-void QEP_set_posn_compare_pulse_width (eqepBASE_t *eqep, const uint16_t pulse_width)
+/** @brief Sets output pulse width when a match occur
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] pulse_width		Pulse width value
+*/
+/* SourceId : EQEP_SourceId_042 */
+/* DesignId : EQEP_DesignId_042 */
+/* Requirements : HL_QEP_SR42 */
+void eqepSetPosnComparePulseWidth (eqepBASE_t *eqep, uint16 pulse_width)
 {
   
-  uint16_t pulse_width_masked;
+  uint16 pulse_width_masked;
 
-  pulse_width_masked = pulse_width & 4095;
-  eqep->QPOSCTL &= (~QEP_QPOSCTL_PCSPW);
+  pulse_width_masked = pulse_width & 4095U;
+  eqep->QPOSCTL &= (uint16)(~eQEP_QPOSCTL_PCSPW);
   eqep->QPOSCTL |= pulse_width_masked;
   
   return;
-} // end of QEP_set_posn_compare_pulse_width () function
+} /*end of eqepSetPosnComparePulseWidth () function */
 
-void QEP_set_posn_compare_shadow_load (eqepBASE_t *eqep, const QPOSCTL_Pcload_e QPOSCTL_Pcload)
+/** @brief Sets position compare shadow load mode
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QPOSCTL_Pcload	PC load event	
+*/
+/* SourceId : EQEP_SourceId_043 */
+/* DesignId : EQEP_DesignId_043 */
+/* Requirements : HL_QEP_SR43 */
+void eqepSetPosnCompareShadowLoad (eqepBASE_t *eqep, QPOSCTL_Pcload_t QPOSCTL_Pcload)
 {
   
-  eqep->QPOSCTL &= (~QEP_QPOSCTL_PCLOAD);
-  eqep->QPOSCTL |= QPOSCTL_Pcload;
+  eqep->QPOSCTL &= (uint16)(~eQEP_QPOSCTL_PCLOAD);
+  eqep->QPOSCTL |= (uint16)QPOSCTL_Pcload;
   
   return;
-} // end of QEP_set_posn_compare_shadow_load () function
+} /*end of eqepSetPosnCompareShadowLoad () function */
 
-void QEP_set_posn_count_reset_mode (eqepBASE_t *eqep, const QEPCTL_Pcrm_e QEPCTL_Pcrm)
+/** @brief Sets position counter reset mode
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Pcrm		Position counter reset mode
+*/
+/* SourceId : EQEP_SourceId_044 */
+/* DesignId : EQEP_DesignId_044 */
+/* Requirements : HL_QEP_SR44 */
+void eqepSetPosnCountResetMode (eqepBASE_t *eqep, QEPCTL_Pcrm_t QEPCTL_Pcrm)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_PCRM);
-  eqep->QEPCTL |= QEPCTL_Pcrm;
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_PCRM);
+  eqep->QEPCTL |= (uint16)QEPCTL_Pcrm;
   
   return; 	
-} // end of QEP_set_posn_count_reset_mode () function
+} /*end of eqepSetPosnCountResetMode () function */
 
-void QEP_set_posn_init_count (eqepBASE_t *eqep, uint32_t init_count)
+/** @brief Sets initial position counter value
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] init_count		initial counter value
+*/
+/* SourceId : EQEP_SourceId_045 */
+/* DesignId : EQEP_DesignId_045 */
+/* Requirements : HL_QEP_SR45 */
+void eqepSetPosnInitCount (eqepBASE_t *eqep, uint32 init_count)
 {
   
   eqep->QPOSINIT = init_count;
   
   return;
-} // end of QEP_set_posn_init_count () function
+} /*end of eqepSetPosnInitCount () function */
 
-void QEP_set_select_sync_pin (eqepBASE_t *eqep, const QEP_Spsel_e QEP_SPsel)
+/** @brief Selects whether index or strobe pin is used for sync output
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] eQEP_SPsel		Selected pin
+*/
+/* SourceId : EQEP_SourceId_046 */
+/* DesignId : EQEP_DesignId_046 */
+/* Requirements : HL_QEP_SR47 */
+void eqepSetSelectSyncPin (eqepBASE_t *eqep, eQEP_Spsel_t eQEP_SPsel)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_SPSEL);
-  eqep->QDECCTL |= QEP_SPsel;
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_SPSEL);
+  eqep->QDECCTL |= (uint16)eQEP_SPsel;
   
   return;
-} // end of QEP_set_select_sync_pin () function
+} /*end of eQEP_set_select_sync_pin () function */
 
-void QEP_set_soft_init (eqepBASE_t *eqep, const QEPCTL_Swi_e QEPCTL_Swi)
+/** @brief Determines if software initialization of position counter enabled 
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Swi		Enable/disable position counter initialization
+*/
+/* SourceId : EQEP_SourceId_047 */
+/* DesignId : EQEP_DesignId_047 */
+/* Requirements : HL_QEP_SR48 */
+void eqepSetSoftInit (eqepBASE_t *eqep, QEPCTL_Swi_t QEPCTL_Swi)
 {
 
-  eqep->QEPCTL &= (~QEP_QEPCTL_SWI);
-  eqep->QEPCTL |= QEPCTL_Swi;
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_SWI);
+  eqep->QEPCTL |= (uint16)QEPCTL_Swi;
   
   return;
-} // end of QEP_set_soft_init () function
+} /*end of eQEP_set_soft_init () function */
 
-void QEP_set_strobe_event_init (eqepBASE_t *eqep, const QEPCTL_Sei_e QEPCTL_Sei)
+/** @brief Determines strobe initialization of position counter 
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Sei		Strobe initialization of position counter (disabled, rising edge of QEPI) or rising/falling depending on direction
+*/
+/* SourceId : EQEP_SourceId_048 */
+/* DesignId : EQEP_DesignId_048 */
+/* Requirements : HL_QEP_SR49 */
+void eqepSetStrobeEventInit (eqepBASE_t *eqep, QEPCTL_Sei_t QEPCTL_Sei)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_SEI);
-  eqep->QEPCTL |= QEPCTL_Sei;
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_SEI);
+  eqep->QEPCTL |= (uint16)QEPCTL_Sei;
   
   return;
-} // end of QEP_set_strobe_event_init () function
+} /*end of eQEP_set_strobe_event_init () function */
 
-void QEP_set_strobe_event_latch (eqepBASE_t *eqep, const QEPCTL_Sel_e QEPCTL_Sel)
+/** @brief Sets up strobe latch of position counter 
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Sel		Sets strobe latch of position counter
+*/
+/* SourceId : EQEP_SourceId_049 */
+/* DesignId : EQEP_DesignId_049 */
+/* Requirements : HL_QEP_SR50 */
+void eqepSetStrobeEventLatch (eqepBASE_t *eqep, QEPCTL_Sel_t QEPCTL_Sel)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_SEL);
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_SEL);
   eqep->QEPCTL |= QEPCTL_Sel;
   
   return;	
-} // end of QEP_set_strobe_event_latch () function
+} /*end of eQEP_set_strobe_event_latch () function */
 
-void QEP_set_strobe_polarity (eqepBASE_t *eqep, const QEP_Qsp_e QEP_Qsp)
+/** @brief Sets up strobe polarity 
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] eQEP_Qsp			Strobe polarity
+*/
+/* SourceId : EQEP_SourceId_050 */
+/* DesignId : EQEP_DesignId_050 */
+/* Requirements : HL_QEP_SR51 */
+void eqepSetStrobePolarity (eqepBASE_t *eqep, eQEP_Qsp_t eQEP_Qsp)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_QSP);
-  eqep->QDECCTL |= QEP_Qsp;
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_QSP);
+  eqep->QDECCTL |= eQEP_Qsp;
   
   return;
-} // end of QEP_set_strobe_polarity () function
+} /*end of eqepSetStrobePolarity () function */
 
-void QEP_set_swap_quad_inputs (eqepBASE_t *eqep, QEP_Swap_e QEP_Swap)
+/** @brief Sets up swapping of A/B channels
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] eQEP_Swap			Swap/don't swap A/B channels
+*/
+/* SourceId : EQEP_SourceId_051 */
+/* DesignId : EQEP_DesignId_051 */
+/* Requirements : HL_QEP_SR52 */
+void eqepSetSwapQuadInputs (eqepBASE_t *eqep, eQEP_Swap_t eQEP_Swap)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_SWAP);
-  eqep->QDECCTL |= QEP_Swap;
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_SWAP);
+  eqep->QDECCTL |= (uint16)eQEP_Swap;
   
   return;
-} // end of QEP_set_swap_quad_inputs () function
+} /*end of eqepSetSwapQuadInputs () function */
 
-void QEP_set_synch_output_compare_polarity (eqepBASE_t *eqep, const QPOSCTL_Pcpol_e QPOSCTL_Pcpol)
+/** @brief Sets sync output compare polarity
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QPOSCTL_Pcpol	Polarity of sync output
+*/
+/* SourceId : EQEP_SourceId_052 */
+/* DesignId : EQEP_DesignId_052 */
+/* Requirements : HL_QEP_SR53 */
+void eqepSetSynchOutputComparePolarity (eqepBASE_t *eqep, QPOSCTL_Pcpol_t QPOSCTL_Pcpol)
 {
   
-  eqep->QPOSCTL &= (~QEP_QPOSCTL_PCPOL);
-  eqep->QPOSCTL |= QPOSCTL_Pcpol;
+  eqep->QPOSCTL &= (uint16)(~eQEP_QPOSCTL_PCPOL);
+  eqep->QPOSCTL |= (uint16)QPOSCTL_Pcpol;
   
   return;
-} // end of QEP_set_synch_output_compare_polarity () function
+} /*end of eqepSetSynchOutputComparePolarity () function */
 
-void QEP_set_unit_period (eqepBASE_t *eqep, const uint16_t unit_period)
+/** @brief Sets unit timer period
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] unit_period		Unit period
+*/
+/* SourceId : EQEP_SourceId_053 */
+/* DesignId : EQEP_DesignId_053 */
+/* Requirements : HL_QEP_SR54 */
+void eqepSetUnitPeriod (eqepBASE_t *eqep, uint32 unit_period)
 {
   
   eqep->QUPRD = unit_period;
   
   return;	
-} // end of QEP_set_unit_period () function
+} /*end of eqepSetUnitPeriod () function */
 
-void QEP_set_unit_posn_prescale (eqepBASE_t *eqep, const QCAPCTL_Upps_e QCAPCTL_Upps)
+/** @brief Sets unit timer prescaling
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QCAPCTL_Upps		Unit timer prescaling
+*/
+/* SourceId : EQEP_SourceId_054 */
+/* DesignId : EQEP_DesignId_054 */
+/* Requirements : HL_QEP_SR55 */
+void eqepSetUnitPosnPrescale (eqepBASE_t *eqep, QCAPCTL_Upps_t QCAPCTL_Upps)
 {
   
-  eqep->QCAPCTL &= (~QEP_QCAPCTL_UPPS);
-  eqep->QCAPCTL |= QCAPCTL_Upps;
+  eqep->QCAPCTL &= (uint16)(~eQEP_QCAPCTL_UPPS);
+  eqep->QCAPCTL |= (uint16)QCAPCTL_Upps;
   
   return;
-} // end of QEP_set_unit_posn_prescale () function
+} /*end of eqepSetUnitPosnPrescale () function */
 
-void QEP_set_watchdog_period (eqepBASE_t *eqep, const uint16_t watchdog_period)
+/** @brief Sets watchdog period
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] watchdog_period	Watchdog period
+*/
+/* SourceId : EQEP_SourceId_055 */
+/* DesignId : EQEP_DesignId_055 */
+/* Requirements : HL_QEP_SR56 */
+void eqepSetWatchdogPeriod (eqepBASE_t *eqep, uint16 watchdog_period)
 {
   
   eqep->QWDPRD = watchdog_period;
   
   return;	
-} // end of QEP_set_watchdog_period () function
+} /*end of eqepSetWatchdogPeriod () function */
 
-void QEP_setup_strobe_event_latch (eqepBASE_t *eqep, const QEPCTL_Sel_e QEPCTL_Sel)
+/** @brief Sets strobe event latch
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] QEPCTL_Sel	Sets strobe latch of position counter
+*/
+/* SourceId : EQEP_SourceId_056 */
+/* DesignId : EQEP_DesignId_056 */
+/* Requirements : HL_QEP_SR57 */
+void eqepSetupStrobeEventLatch (eqepBASE_t *eqep, QEPCTL_Sel_t QEPCTL_Sel)
 {
   
-  eqep->QEPCTL &= (~QEP_QEPCTL_SEL);
-  eqep->QEPCTL |= QEPCTL_Sel;
+  eqep->QEPCTL &= (uint16)(~eQEP_QEPCTL_SEL);
+  eqep->QEPCTL |= (uint16)QEPCTL_Sel;
   
   return;
-} // end of QEP_setup_strobe_event_latch () function
+} /*end of eqepSetupStrobeEventLatch () function */
 
-
-void QEP_set_A_polarity (eqepBASE_t *eqep, const QEP_Qap_e QEP_Qap)
+/** @brief Sets A polarity
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] eQEP_Qap			Channel A polarity
+*/
+/* SourceId : EQEP_SourceId_057 */
+/* DesignId : EQEP_DesignId_057 */
+/* Requirements : HL_QEP_SR58 */
+void eqepSetAPolarity (eqepBASE_t *eqep, eQEP_Qap_t eQEP_Qap)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_QAP);
-  eqep->QDECCTL |= QEP_Qap;
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_QAP);
+  eqep->QDECCTL |= (uint16)eQEP_Qap;
   
   return;
-} // end of QEP_set_A_polarity () function
+} /*end of eqepSetAPolarity () function */
 
-void QEP_set_B_polarity (eqepBASE_t *eqep, const QEP_Qbp_e QEP_Qbp)
+/** @brief Sets B polarity
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] eQEP_Qbp			Channel B polarity
+*/
+/* SourceId : EQEP_SourceId_058 */
+/* DesignId : EQEP_DesignId_058 */
+/* Requirements : HL_QEP_SR59 */
+void eqepSetBPolarity (eqepBASE_t *eqep, eQEP_Qbp_t eQEP_Qbp)
 {
   
-  eqep->QDECCTL &= (~QEP_QDECCTL_QBP);
-  eqep->QDECCTL |= QEP_Qbp;
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_QBP);
+  eqep->QDECCTL |= (uint16)eQEP_Qbp;
   
   return;
-} // end of QEP_set_B_polarity () function
+} /*end of eQEP_set_B_polarity () function */
 
-void QEP_set_QEP_source (eqepBASE_t *eqep, const QEP_Qsrc_e QEP_Qsrc)
+/** @brief Set QEP counting mode
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] eQEP_Qsrc Sets QEP counting mode	
+*/
+/* SourceId : EQEP_SourceId_059 */
+/* DesignId : EQEP_DesignId_059 */
+/* Requirements : HL_QEP_SR60*/
+void eqepSetQEPSource (eqepBASE_t *eqep, eQEP_Qsrc_t eQEP_Qsrc)
 {
     
-  // set the value
-  eqep->QDECCTL &= (~QEP_QDECCTL_QSRC);
-  eqep->QDECCTL |= QEP_Qsrc;
+  /* set the value */
+  eqep->QDECCTL &= (uint16)(~eQEP_QDECCTL_QSRC);
+  eqep->QDECCTL |= (uint16)eQEP_Qsrc;
   
   return;
-} // end of QEP_set_QEP_source () function
+} /*end of eQEP_set_eQEP_source () function */
 
-void QEP_write_posn_compare (eqepBASE_t *eqep, const uint32_t posn)
+/** @brief Writes a value to the position compare register
+*   @param[in] eqep		Handle to QEP object
+*   @param[in] posn				Position compare register value
+*/
+/* SourceId : EQEP_SourceId_060 */
+/* DesignId : EQEP_DesignId_060 */
+/* Requirements : HL_QEP_SR61 */
+void eqepWritePosnCompare (eqepBASE_t *eqep, uint32 posn)
 {
   
   eqep->QPOSCMP = posn;
   
   return;
-} // end of QEP_write_posn_compare () function
+} /*end of eQEP_write_posn_compare () function */
+
+/** @fn void eqep1GetConfigValue(eqep_config_reg_t *config_reg, config_value_type_t type)
+*   @brief Get the initial or current values of the configuration registers
+*
+*    @param[in] *config_reg: pointer to the struct to which the initial or current
+*                           value of the configuration registers need to be stored
+*    @param[in] type:     whether initial or current value of the configuration registers need to be stored
+*                        - InitialValue: initial value of the configuration registers will be stored
+*                                       in the struct pointed by config_reg
+*                        - CurrentValue: initial value of the configuration registers will be stored
+*                                       in the struct pointed by config_reg
+*
+*   This function will copy the initial or current value (depending on the parameter 'type')
+*   of the configuration registers to the struct pointed by config_reg
+*
+*/
+/* SourceId : EQEP_SourceId_061 */
+/* DesignId : EQEP_DesignId_061 */
+/* Requirements : HL_QEP_SR63 */
+void eqep1GetConfigValue(eqep_config_reg_t *config_reg, config_value_type_t type)
+{
+    if (type == InitialValue)
+    {
+        config_reg->CONFIG_QPOSINIT		= EQEP1_QPOSINIT_CONFIGVALUE;
+        config_reg->CONFIG_QPOSMAX		= EQEP1_QPOSMAX_CONFIGVALUE;
+        config_reg->CONFIG_QPOSCMP      = EQEP1_QPOSCMP_CONFIGVALUE;
+        config_reg->CONFIG_QUPRD      	= EQEP1_QUPRD_CONFIGVALUE;
+        config_reg->CONFIG_QWDPRD      	= EQEP1_QWDPRD_CONFIGVALUE;
+        config_reg->CONFIG_QDECCTL      = EQEP1_QDECCTL_CONFIGVALUE;
+        config_reg->CONFIG_QEPCTL      	= EQEP1_QEPCTL_CONFIGVALUE;
+        config_reg->CONFIG_QCAPCTL      = EQEP1_QCAPCTL_CONFIGVALUE;
+        config_reg->CONFIG_QPOSCTL      = EQEP1_QPOSCTL_CONFIGVALUE;
+        config_reg->CONFIG_QEINT       	= EQEP1_QEINT_CONFIGVALUE;
+    }
+    else
+    {
+    /*SAFETYMCUSW 134 S MR:12.2 <APPROVED> "LDRA Tool issue" */
+        config_reg->CONFIG_QPOSINIT		= eqepREG1->QPOSINIT;
+        config_reg->CONFIG_QPOSMAX		= eqepREG1->QPOSMAX;
+        config_reg->CONFIG_QPOSCMP      = eqepREG1->QPOSCMP;
+        config_reg->CONFIG_QUPRD      	= eqepREG1->QUPRD;
+        config_reg->CONFIG_QWDPRD      	= eqepREG1->QWDPRD;
+        config_reg->CONFIG_QDECCTL      = eqepREG1->QDECCTL;
+        config_reg->CONFIG_QEPCTL      	= eqepREG1->QEPCTL;
+        config_reg->CONFIG_QCAPCTL      = eqepREG1->QCAPCTL;
+        config_reg->CONFIG_QPOSCTL      = eqepREG1->QPOSCTL;
+        config_reg->CONFIG_QEINT       	= eqepREG1->QEINT;
+    }
+}
 
 
-// end of file
+/** @fn void eqep2GetConfigValue(eqep_config_reg_t *config_reg, config_value_type_t type)
+*   @brief Get the initial or current values of the configuration registers
+*
+*    @param[in] *config_reg: pointer to the struct to which the initial or current
+*                           value of the configuration registers need to be stored
+*    @param[in] type:     whether initial or current value of the configuration registers need to be stored
+*                        - InitialValue: initial value of the configuration registers will be stored
+*                                       in the struct pointed by config_reg
+*                        - CurrentValue: initial value of the configuration registers will be stored
+*                                       in the struct pointed by config_reg
+*
+*   This function will copy the initial or current value (depending on the parameter 'type')
+*   of the configuration registers to the struct pointed by config_reg
+*
+*/
+/* SourceId : EQEP_SourceId_062 */
+/* DesignId : EQEP_DesignId_062 */
+/* Requirements : HL_QEP_SR63 */
+void eqep2GetConfigValue(eqep_config_reg_t *config_reg, config_value_type_t type)
+{
+    if (type == InitialValue)
+    {
+        config_reg->CONFIG_QPOSINIT		= EQEP2_QPOSINIT_CONFIGVALUE;
+        config_reg->CONFIG_QPOSMAX		= EQEP2_QPOSMAX_CONFIGVALUE;
+        config_reg->CONFIG_QPOSCMP      = EQEP2_QPOSCMP_CONFIGVALUE;
+        config_reg->CONFIG_QUPRD      	= EQEP2_QUPRD_CONFIGVALUE;
+        config_reg->CONFIG_QWDPRD      	= EQEP2_QWDPRD_CONFIGVALUE;
+        config_reg->CONFIG_QDECCTL      = EQEP2_QDECCTL_CONFIGVALUE;
+        config_reg->CONFIG_QEPCTL      	= EQEP2_QEPCTL_CONFIGVALUE;
+        config_reg->CONFIG_QCAPCTL      = EQEP2_QCAPCTL_CONFIGVALUE;
+        config_reg->CONFIG_QPOSCTL      = EQEP2_QPOSCTL_CONFIGVALUE;
+        config_reg->CONFIG_QEINT       	= EQEP2_QEINT_CONFIGVALUE;
+    }
+    else
+    {
+    /*SAFETYMCUSW 134 S MR:12.2 <APPROVED> "LDRA Tool issue" */
+        config_reg->CONFIG_QPOSINIT		= eqepREG2->QPOSINIT;
+        config_reg->CONFIG_QPOSMAX		= eqepREG2->QPOSMAX;
+        config_reg->CONFIG_QPOSCMP      = eqepREG2->QPOSCMP;
+        config_reg->CONFIG_QUPRD      	= eqepREG2->QUPRD;
+        config_reg->CONFIG_QWDPRD      	= eqepREG2->QWDPRD;
+        config_reg->CONFIG_QDECCTL      = eqepREG2->QDECCTL;
+        config_reg->CONFIG_QEPCTL      	= eqepREG2->QEPCTL;
+        config_reg->CONFIG_QCAPCTL      = eqepREG2->QCAPCTL;
+        config_reg->CONFIG_QPOSCTL      = eqepREG2->QPOSCTL;
+        config_reg->CONFIG_QEINT       	= eqepREG2->QEINT;
+    }
+}
+
+
+
+/*end of file*/

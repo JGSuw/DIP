@@ -1,7 +1,7 @@
 /** @file sys_pcr.h
 *   @brief PCR Driver Header File
-*   @date 15.Aug.2012
-*   @version 03.02.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 *   This file contains:
 *   - Definitions
@@ -10,19 +10,23 @@
 *   which are relevant for the System driver.
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __SYS_PCR_H__
 #define __SYS_PCR_H__
 
-#include "sys_common.h"
+#include "reg_pcr.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
 
 /* PCR General Definitions */
 
-typedef uint8_t peripheralFrame_CS;
+typedef uint32 peripheralFrame_CS_t;
 
 #define PeripheralFrame_CS0 0U
 #define PeripheralFrame_CS1 1U
@@ -61,7 +65,7 @@ typedef uint8_t peripheralFrame_CS;
 /* USER CODE END */
 
 
-typedef uint8_t quadrant_Select;
+typedef uint32 quadrant_Select_t;
 #define Quadrant0 1U
 #define Quadrant1 2U
 #define Quadrant2 4U
@@ -70,16 +74,16 @@ typedef uint8_t quadrant_Select;
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
 
-/** @typedef peripheral_Frame_t
+/** @typedef peripheral_Frame_Select_t
 *   @brief PCR Peripheral Frame Type Definition
 *
 *   This type is used to access the PCR peripheral Frame configuration register.
 */
-typedef struct
+typedef struct peripheral_Frame_Select
 {
-	peripheralFrame_CS Peripheral_CS;
-	quadrant_Select Peripheral_Quadrant;
-}peripheral_Frame_t;
+	peripheralFrame_CS_t Peripheral_CS;
+	quadrant_Select_t Peripheral_Quadrant;
+}peripheral_Frame_Select_t;
 
 /* USER CODE BEGIN (3) */
 /* USER CODE END */
@@ -89,12 +93,12 @@ typedef struct
 *
 *   This type is used to access all the PCR peripheral Frame configuration registers.
 */
-typedef struct
+typedef struct peripheral_Quad_ChipSelect
 {
-	uint32_t Peripheral_Quad0_3_CS0_7;
-	uint32_t Peripheral_Quad4_7_CS8_15;
-	uint32_t Peripheral_Quad8_11_CS16_23;
-	uint32_t Peripheral_Quad12_15_CS24_31;
+	uint32 Peripheral_Quad0_3_CS0_7;
+	uint32 Peripheral_Quad4_7_CS8_15;
+	uint32 Peripheral_Quad8_11_CS16_23;
+	uint32 Peripheral_Quad12_15_CS24_31;
 }peripheral_Quad_ChipSelect_t;
 
 /* USER CODE BEGIN (4) */
@@ -105,16 +109,16 @@ typedef struct
 *
 *   This type is used to access all the PCR peripheral Memory Frame configuration registers.
 */
-typedef struct
+typedef struct peripheral_Memory_ChipSelect
 {
-	uint32_t Peripheral_Mem_CS0_31;
-	uint32_t Peripheral_Mem_CS32_63;
+	uint32 Peripheral_Mem_CS0_31;
+	uint32 Peripheral_Mem_CS32_63;
 }peripheral_Memory_ChipSelect_t;
 
 /* USER CODE BEGIN (5) */
 /* USER CODE END */
 
-typedef uint8_t peripheral_MemoryFrame_CS;
+typedef uint32 peripheral_MemoryFrame_CS_t;
 
 #define PeripheralMemoryFrame_CS0 0U
 #define PeripheralMemoryFrame_CS1 1U
@@ -184,101 +188,77 @@ typedef uint8_t peripheral_MemoryFrame_CS;
 /* USER CODE BEGIN (6) */
 /* USER CODE END */
 
-/** @struct pcrBase
-*   @brief Pcr Register Frame Definition
-*
-*   This type is used to access the Pcr Registers.
-*/
-/** @typedef pcrBASE_t
-*   @brief PCR Register Frame Type Definition
-*
-*   This type is used to access the PCR Registers.
-*/
-typedef volatile struct pcrBase
+typedef struct pcr_config_reg
 {
-    uint32_t PMPROTSET0;    /* 0x0000 */
-    uint32_t PMPROTSET1;    /* 0x0004 */
-    uint32_t : 32U;         /* 0x0008 */
-    uint32_t : 32U;         /* 0x000C */
-    uint32_t PMPROTCLR0;    /* 0x0010 */
-    uint32_t PMPROTCLR1;    /* 0x0014 */
-    uint32_t : 32U;         /* 0x0018 */
-    uint32_t : 32U;         /* 0x001C */
-    uint32_t PPROTSET0;     /* 0x0020 */
-    uint32_t PPROTSET1;     /* 0x0024 */
-    uint32_t PPROTSET2;     /* 0x0028 */
-    uint32_t PPROTSET3;     /* 0x002C */
-    uint32_t : 32U;         /* 0x0030 */
-    uint32_t : 32U;         /* 0x0034 */
-    uint32_t : 32U;         /* 0x0038 */
-    uint32_t : 32U;         /* 0x003C */
-    uint32_t PPROTCLR0;     /* 0x0040 */
-    uint32_t PPROTCLR1;     /* 0x0044 */
-    uint32_t PPROTCLR2;     /* 0x0048 */
-    uint32_t PPROTCLR3;     /* 0x004C */
-    uint32_t : 32U;         /* 0x0050 */
-    uint32_t : 32U;         /* 0x0054 */
-    uint32_t : 32U;         /* 0x0058 */
-    uint32_t : 32U;         /* 0x005C */
-    uint32_t PCSPWRDWNSET0; /* 0x0060 */
-    uint32_t PCSPWRDWNSET1; /* 0x0064 */
-    uint32_t : 32U;         /* 0x0068 */
-    uint32_t : 32U;         /* 0x006C */
-    uint32_t PCSPWRDWNCLR0; /* 0x0070 */
-    uint32_t PCSPWRDWNCLR1; /* 0x0074 */
-    uint32_t : 32U;         /* 0x0078 */
-    uint32_t : 32U;         /* 0x007C */
-    uint32_t PSPWRDWNSET0;  /* 0x0080 */
-    uint32_t PSPWRDWNSET1;  /* 0x0084 */
-    uint32_t PSPWRDWNSET2;  /* 0x0088 */
-    uint32_t PSPWRDWNSET3;  /* 0x008C */
-    uint32_t : 32U;         /* 0x0090 */
-    uint32_t : 32U;         /* 0x0094 */
-    uint32_t : 32U;         /* 0x0098 */
-    uint32_t : 32U;         /* 0x009C */
-    uint32_t PSPWRDWNCLR0;  /* 0x00A0 */
-    uint32_t PSPWRDWNCLR1;  /* 0x00A4 */
-    uint32_t PSPWRDWNCLR2;  /* 0x00A8 */
-    uint32_t PSPWRDWNCLR3;  /* 0x00AC */
-} pcrBASE_t;
+    uint32 CONFIG_PMPROTSET0;
+    uint32 CONFIG_PMPROTSET1;
+    uint32 CONFIG_PPROTSET0;
+    uint32 CONFIG_PPROTSET1;
+    uint32 CONFIG_PPROTSET2;
+    uint32 CONFIG_PPROTSET3;
+    uint32 CONFIG_PCSPWRDWNSET0;
+    uint32 CONFIG_PCSPWRDWNSET1;
+    uint32 CONFIG_PSPWRDWNSET0;
+    uint32 CONFIG_PSPWRDWNSET1;
+    uint32 CONFIG_PSPWRDWNSET2;
+    uint32 CONFIG_PSPWRDWNSET3;
+} pcr_config_reg_t;
 
-/** @def pcrREG
-*   @brief Pcr Register Frame Pointer
-*
-*   This pointer is used by the system driver to access the Pcr registers.
-*/
-#define pcrREG ((pcrBASE_t *)0xFFFFE000U)
-
-/* USER CODE BEGIN (7) */
-/* USER CODE END */
-
+/**
+ * @defgroup PCR PCR
+ * @brief Peripheral Central Resource Controller
+ *
+ * The PCR manages the accesses to the peripheral registers and peripheral
+ * memories. It provides a global reset for all the peripherals. It also supports the
+ * capability to selectively enable or disable the clock for each peripheral
+ * individually. The PCR also manages the accesses to the system module
+ * registers required to configure the device’s clocks, interrupts, and so on. The
+ * system module registers also include status flags for indicating exception
+ * conditions – resets, aborts, errors, interrupts.
+ *
+ * Related files:
+ * - reg_pcr.h
+ * - sys_pcr.h
+ * - sys_pcr.c
+ *
+ * @addtogroup PCR
+ * @{
+ */
+ 
 /* PCR Interface Functions */
 
-void peripheral_Frame_Protection_Set(peripheral_Frame_t peripheral_Frame);
-void peripheral_Frame_Protection_Clr(peripheral_Frame_t peripheral_Frame);
-void peripheral_Frame_Powerdown_Set(peripheral_Frame_t peripheral_Frame);
-void peripheral_Frame_Powerdown_Clr(peripheral_Frame_t peripheral_Frame);
+void peripheral_Frame_Protection_Set(peripheral_Frame_Select_t peripheral_Frame);
+void peripheral_Frame_Protection_Clr(peripheral_Frame_Select_t peripheral_Frame);
+void peripheral_Frame_Powerdown_Set(peripheral_Frame_Select_t peripheral_Frame);
+void peripheral_Frame_Powerdown_Clr(peripheral_Frame_Select_t peripheral_Frame);
 
 void peripheral_Protection_Set(peripheral_Quad_ChipSelect_t peripheral_Quad_CS);
 void peripheral_Protection_Clr(peripheral_Quad_ChipSelect_t peripheral_Quad_CS);
-peripheral_Quad_ChipSelect_t peripheral_Protection_Status();
+void peripheral_Protection_Status(peripheral_Quad_ChipSelect_t* peripheral_Quad_CS);
 void peripheral_Powerdown_Set(peripheral_Quad_ChipSelect_t peripheral_Quad_CS);
 void peripheral_Powerdown_Clr(peripheral_Quad_ChipSelect_t peripheral_Quad_CS);
-peripheral_Quad_ChipSelect_t peripheral_Powerdown_Status();
+void peripheral_Powerdown_Status(peripheral_Quad_ChipSelect_t* peripheral_Quad_CS);
 
 void peripheral_Memory_Protection_Set(peripheral_Memory_ChipSelect_t peripheral_Memory_CS);
 void peripheral_Memory_Protection_Clr(peripheral_Memory_ChipSelect_t peripheral_Memory_CS);
-peripheral_Memory_ChipSelect_t peripheral_Memory_Protection_Status();
+void peripheral_Memory_Protection_Status(peripheral_Memory_ChipSelect_t* peripheral_Memory_CS);
 void peripheral_Memory_Powerdown_Set(peripheral_Memory_ChipSelect_t peripheral_Memory_CS);
 void peripheral_Memory_Powerdown_Clr(peripheral_Memory_ChipSelect_t peripheral_Memory_CS);
-peripheral_Memory_ChipSelect_t Periipheral_Memory_Powerdown_Status();
+void peripheral_Memory_Powerdown_Status(peripheral_Memory_ChipSelect_t* peripheral_Memory_CS);
 
-void peripheral_Memory_Frame_Protection_Set(peripheral_MemoryFrame_CS peripheral_Memory_Frame_CS);
-void peripheral_Memory_Frame_Protection_Clr(peripheral_MemoryFrame_CS peripheral_Memory_Frame_CS);
-void peripheral_Memory_Frame_Powerdown_Set(peripheral_MemoryFrame_CS peripheral_Memory_Frame_CS);
-void peripheral_Memory_Frame_Powerdown_Clr(peripheral_MemoryFrame_CS peripheral_Memory_Frame_CS);
+void peripheral_Mem_Frame_Prot_Set(peripheral_MemoryFrame_CS_t peripheral_Memory_Frame_CS);
+void peripheral_Mem_Frame_Prot_Clr(peripheral_MemoryFrame_CS_t peripheral_Memory_Frame_CS);
+void peripheral_Mem_Frame_Pwrdwn_Set(peripheral_MemoryFrame_CS_t peripheral_Memory_Frame_CS);
+void peripheral_Mem_Frame_Pwrdwn_Clr (peripheral_MemoryFrame_CS_t peripheral_Memory_Frame_CS);
 
-/* USER CODE BEGIN (8) */
+void pcrGetConfigValue(pcr_config_reg_t *config_reg, config_value_type_t type);
+
+/**@}*/
+/* USER CODE BEGIN (7) */
 /* USER CODE END */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

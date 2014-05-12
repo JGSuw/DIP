@@ -1,13 +1,13 @@
 /** @file sys_main.c 
 *   @brief Application main file
-*   @date 15.Aug.2012
-*   @version 03.02.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *
 *   This file contains an empty main function,
 *   which can be used for the application.
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
@@ -15,7 +15,6 @@
 /* Include Files */
 
 #include "sys_common.h"
-#include "system.h"
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */

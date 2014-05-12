@@ -97,10 +97,4 @@ S64_DEPS__QUOTED :=
 SUBDIRS := \
 . \
 source \
-source/SupportFunctions \
-source/StatisticsFunctions \
-source/MatrixFunctions \
-source/FastMathFunctions \
-source/CommonTables \
-source/BasicMathFunctions \
 

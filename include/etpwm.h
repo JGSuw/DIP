@@ -1,1375 +1,711 @@
 /** @file etpwm.h
 *   @brief ETPWM Driver Header File
-*   @date 22.June.2012
-*   @version 03.02.00
-*   
-*   This file contains:
-*   - Definitions
-*   - Types
-*   - Interface Prototypes
-*   .
-*   which are relevant for the ETPWM driver.
+*   @date 25.April.2014
+*   @version 03.09.00
+*
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __ETPWM_H__
 #define __ETPWM_H__
 
-// **************************************************************************
-// the includes
-
-#include "sys_common.h"
-
-
-//!
-//! \defgroup ETPWM
-
-//!
-//! \ingroup ETPWM
-//@{
+#include "reg_etpwm.h"
 
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
-// **************************************************************************
-// the defines
-
-
-//! \brief Defines the base address of the pulse width modulation (ETPWM) 1 registers
-//!
-#define ETPWM_ETPWM1_BASE_ADDR          (0x00006800)
-
-//! \brief Defines the base address of the pulse width modulation (ETPWM) 2 registers
-//!
-#define ETPWM_ETPWM2_BASE_ADDR          (0x00006840)
-
-//! \brief Defines the base address of the pulse width modulation (ETPWM) 3 registers
-//!
-#define ETPWM_ETPWM3_BASE_ADDR          (0x00006880)
-
-//! \brief Defines the base address of the pulse width modulation (ETPWM) 4 registers
-//!
-#define ETPWM_ETPWM4_BASE_ADDR          (0x000068C0)
-
-//! \brief Defines the base address of the pulse width modulation (ETPWM) 5 registers
-//!
-#define ETPWM_ETPWM5_BASE_ADDR          (0x00006900)
-
-//! \brief Defines the base address of the pulse width modulation (ETPWM) 6 registers
-//!
-#define ETPWM_ETPWM6_BASE_ADDR          (0x00006940)
-
-//! \brief Defines the base address of the pulse width modulation (ETPWM) 7 registers
-//!
-#define ETPWM_ETPWM7_BASE_ADDR          (0x00006980)
-
-
-//! \brief Defines the location of the ZRO bits in the AQCTL register
-//!
-#define ETPWM_AQCTL_ZRO_BITS              (3 << 0)
-
-//! \brief Defines the location of the PRD bits in the AQCTL register
-//!
-#define ETPWM_AQCTL_PRD_BITS              (3 << 2)
-
-//! \brief Defines the location of the CAU bits in the AQCTL register
-//!
-#define ETPWM_AQCTL_CAU_BITS              (3 << 4)
-
-//! \brief Defines the location of the CAD bits in the AQCTL register
-//!
-#define ETPWM_AQCTL_CAD_BITS              (3 << 6)
-
-//! \brief Defines the location of the CBU bits in the AQCTL register
-//!
-#define ETPWM_AQCTL_CBU_BITS              (3 << 8)
-
-//! \brief Defines the location of the CBD bits in the AQCTL register
-//!
-#define ETPWM_AQCTL_CBD_BITS              (3 << 10)
-
-
-//! \brief Defines the location of the LOADAMODE bits in the CMPCTL register
-//!
-#define ETPWM_CMPCTL_LOADAMODE_BITS       (3 << 0)
-
-//! \brief Defines the location of the LOADBMODE bits in the CMPCTL register
-//!
-#define ETPWM_CMPCTL_LOADBMODE_BITS       (3 << 2)
-
-//! \brief Defines the location of the SHDWAMODE bits in the CMPCTL register
-//!
-#define ETPWM_CMPCTL_SHDWAMODE_BITS       (1 << 4)
-
-//! \brief Defines the location of the SHDWBMODE bits in the CMPCTL register
-//!
-#define ETPWM_CMPCTL_SHDWBMODE_BITS       (1 << 6)
-
-//! \brief Defines the location of the SHDWAFULL bits in the CMPCTL register
-//!
-#define ETPWM_CMPCTL_SHDWAFULL_BITS       (1 << 8)
-
-//! \brief Defines the location of the SHDWBFULL bits in the CMPCTL register
-//!
-#define ETPWM_CMPCTL_SHDWBFULL_BITS       (1 << 9)
-
-
-//! \brief Defines the location of the OUTMODE bits in the DBCTL register
-//!
-#define ETPWM_DBCTL_OUTMODE_BITS          (3 << 0)
-
-//! \brief Defines the location of the POLSEL bits in the DBCTL register
-//!
-#define ETPWM_DBCTL_POLSEL_BITS           (3 << 2)
-
-//! \brief Defines the location of the INMODE bits in the DBCTL register
-//!
-#define ETPWM_DBCTL_INMODE_BITS           (3 << 4)
-
-//! \brief Defines the location of the HALFCYCLE bits in the DBCTL register
-//!
-#define ETPWM_DBCTL_HALFCYCLE_BITS        (1 << 15)
-
-
-//! \brief Defines the location of the ETCR bits in the ETCLR register
-//!
-#define ETPWM_ETCLR_INT_BITS              (1 << 0)
-
-//! \brief Defines the location of the SOCA bits in the ETCLR register
-//!
-#define ETPWM_ETCLR_SOCA_BITS             (1 << 2)
-
-//! \brief Defines the location of the SOCB bits in the ETCLR register
-//!
-#define ETPWM_ETCLR_SOCB_BITS             (1 << 3)
-
-
-//! \brief Defines the location of the INTPRD bits in the ETPS register
-//!
-#define ETPWM_ETPS_INTPRD_BITS            (3 << 0)
-
-//! \brief Defines the location of the INTCNT bits in the ETPS register
-//!
-#define ETPWM_ETPS_INTCNT_BITS            (3 << 2)
-
-//! \brief Defines the location of the SOCAPRD bits in the ETPS register
-//!
-#define ETPWM_ETPS_SOCAPRD_BITS           (3 << 8)
-
-//! \brief Defines the location of the SOCACNT bits in the ETPS register
-//!
-#define ETPWM_ETPS_SOCACNT_BITS           (3 << 10)
-
-//! \brief Defines the location of the SOCBPRD bits in the ETPS register
-//!
-#define ETPWM_ETPS_SOCBPRD_BITS           (3 << 12)
-
-//! \brief Defines the location of the SOCBCNT bits in the ETPS register
-//!
-#define ETPWM_ETPS_SOCBCNT_BITS           (3 << 14)
-
-
-//! \brief Defines the location of the INTSEL bits in the ETSEL register
-//!
-#define ETPWM_ETSEL_INTSEL_BITS           (7 << 0)
-
-//! \brief Defines the location of the INTEN bits in the ETSEL register
-//!
-#define ETPWM_ETSEL_INTEN_BITS            (1 << 3)
-
-//! \brief Defines the location of the SOCASEL bits in the ETSEL register
-//!
-#define ETPWM_ETSEL_SOCASEL_BITS          (7 << 8)
-
-//! \brief Defines the location of the SOCAEN bits in the ETSEL register
-//!
-#define ETPWM_ETSEL_SOCAEN_BITS           (1 << 11)
-
-//! \brief Defines the location of the SOCBSEL bits in the ETSEL register
-//!
-#define ETPWM_ETSEL_SOCBSEL_BITS          (7 << 12)
-
-//! \brief Defines the location of the SOCBEN bits in the ETSEL register
-//!
-#define ETPWM_ETSEL_SOCBEN_BITS           (1 << 15)
-
-
-//! \brief Defines the location of the CHPEN bits in the PCCTL register
-//!
-#define ETPWM_PCCTL_CHPEN_BITS            (1 << 0)
-
-//! \brief Defines the location of the OSHTWTH bits in the PCCTL register
-//!
-#define ETPWM_PCCTL_OSHTWTH_BITS          (15 << 1)
-
-//! \brief Defines the location of the CHPFREQ bits in the PCCTL register
-//!
-#define ETPWM_PCCTL_CHPFREQ_BITS          (7 << 5)
-
-//! \brief Defines the location of the CHPDUTY bits in the PCCTL register
-//!
-#define ETPWM_PCCTL_CHPDUTY_BITS          (7 << 8)
-
-
-
-//! \brief Defines the location of the CTRMODE bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_CTRMODE_BITS          (3 << 0)
-
-//! \brief Defines the location of the PHSEN bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_PHSEN_BITS            (1 << 2)
-
-//! \brief Defines the location of the PRDLD bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_PRDLD_BITS            (1 << 3)
-
-//! \brief Defines the location of the SYNCOSEL bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_SYNCOSEL_BITS         (3 << 4)
-
-//! \brief Defines the location of the SWFSYNC bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_SWFSYNC_BITS          (1 << 6)
-
-//! \brief Defines the location of the HSPCLKDIV bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_HSPCLKDIV_BITS        (7 << 7)
-
-//! \brief Defines the location of the CLKDIV bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_CLKDIV_BITS           (7 << 10)
-
-//! \brief Defines the location of the PHSDIR bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_PHSDIR_BITS           (1 << 13)
-
-//! \brief Defines the location of the FREESOFT bits in the TBCTL register
-//!
-#define ETPWM_TBCTL_FREESOFT_BITS         (3 << 14)
-
-
-//! \brief Defines the location of the INT bits in the TXCLR register
-//!
-#define ETPWM_TZCLR_INT_BITS              (1 << 0)
-
-//! \brief Defines the location of the CBC bits in the TXCLR register
-//!
-#define ETPWM_TZCLR_CBC_BITS              (1 << 1)
-
-//! \brief Defines the location of the OST bits in the TXCLR register
-//!
-#define ETPWM_TZCLR_OST_BITS              (1 << 2)
-
-//! \brief Defines the location of the DCAEVT1 bits in the TXCLR register
-//!
-#define ETPWM_TZCLR_DCAEVT1_BITS          (1 << 3)
-
-//! \brief Defines the location of the DCAEVT2 bits in the TXCLR register
-//!
-#define ETPWM_TZCLR_DCAEVT2_BITS          (1 << 4)
-
-//! \brief Defines the location of the DCBEVT1 bits in the TXCLR register
-//!
-#define ETPWM_TZCLR_DCBEVT1_BITS          (1 << 5)
-
-//! \brief Defines the location of the DCBEVT2 bits in the TXCLR register
-//!
-#define ETPWM_TZCLR_DCBEVT2_BITS          (1 << 6)
-
-
-//! \brief Defines the location of the TZA bits in the TZCTL register
-//!
-#define ETPWM_TZCTL_TZA_BITS              (3 << 0)
-
-//! \brief Defines the location of the  TZB bits in the TZCTL register
-//!
-#define ETPWM_TZCTL_TZB_BITS              (3 << 2)
-
-//! \brief Defines the location of the DCAEVT1 bits in the TZCTL register
-//!
-#define ETPWM_TZCTL_DCAEVT1_BITS          (3 << 4)
-
-//! \brief Defines the location of the DCAEVT2 bits in the TZCTL register
-//!
-#define ETPWM_TZCTL_DCAEVT2_BITS          (3 << 6)
-
-//! \brief Defines the location of the DCBEVT1 bits in the TZCTL register
-//!
-#define ETPWM_TZCTL_DCBEVT1_BITS          (3 << 8)
-
-//! \brief Defines the location of the DCBEVT2 bits in the TZCTL register
-//!
-#define ETPWM_TZCTL_DCBEVT2_BITS          (3 << 10)
-
-
-//! \brief Defines the location of the CBC bits in the TZFRC register
-//!
-#define ETPWM_TZFRC_CBC_BITS              (1 << 1)
-
-//! \brief Defines the location of the OST bits in the TZFRC register
-//!
-#define ETPWM_TZFRC_OST_BITS              (1 << 2)
-
-//! \brief Defines the location of the DCAEVT1 bits in the TZFRC register
-//!
-#define ETPWM_TZFRC_DCAEVT1_BITS          (1 << 3)
-
-//! \brief Defines the location of the DCAEVT2 bits in the TZFRC register
-//!
-#define ETPWM_TZFRC_DCAEVT2_BITS          (1 << 4)
-
-//! \brief Defines the location of the DCBEVT1 bits in the TZFRC register
-//!
-#define ETPWM_TZFRC_DCBEVT1_BITS          (1 << 5)
-
-//! \brief Defines the location of the DCBEVT2 bits in the TZFRC register
-//!
-#define ETPWM_TZFRC_DCBEVT2_BITS          (1 << 6)
-
-
-// **************************************************************************
-// the typedefs
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) action qualifiers
-//!
-typedef enum
-{
-  ETPWM_ActionQual_Disabled=0,
-  ETPWM_ActionQual_Clear,
-  ETPWM_ActionQual_Set,
-  ETPWM_ActionQual_Toggle
-} ETPWM_ActionQual_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) clock dividers
-//!
-typedef enum
-{
-  ETPWM_ClkDiv_by_1=(0 << 10),
-  ETPWM_ClkDiv_by_2=(1 << 10),
-  ETPWM_ClkDiv_by_4=(2 << 10),
-  ETPWM_ClkDiv_by_8=(3 << 10),
-  ETPWM_ClkDiv_by_16=(4 << 10),
-  ETPWM_ClkDiv_by_32=(5 << 10),
-  ETPWM_ClkDiv_by_64=(6 << 10),
-  ETPWM_ClkDiv_by_128=(7 << 10)
-} ETPWM_ClkDiv_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) chopping clock frequencies
-//!
-typedef enum
-{
-  ETPWM_ChoppingClkFreq_SysClkOut_by_1=(0 << 5),
-  ETPWM_ChoppingClkFreq_SysClkOut_by_2=(1 << 5),
-  ETPWM_ChoppingClkFreq_SysClkOut_by_3=(2 << 5),
-  ETPWM_ChoppingClkFreq_SysClkOut_by_4=(3 << 5),
-  ETPWM_ChoppingClkFreq_SysClkOut_by_5=(4 << 5),
-  ETPWM_ChoppingClkFreq_SysClkOut_by_6=(5 << 5),
-  ETPWM_ChoppingClkFreq_SysClkOut_by_7=(6 << 5),
-  ETPWM_ChoppingClkFreq_SysClkOut_by_8=(7 << 5)
-} ETPWM_ChoppingClkFreq_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) chopping clock duty cycles
-//!
-typedef enum
-{
-  ETPWM_ChoppingDutyCycle_One_Eighth=(0 << 8),
-  ETPWM_ChoppingDutyCycle_Two_Eighths=(1 << 8),
-  ETPWM_ChoppingDutyCycle_Three_Eighths=(2 << 8),
-  ETPWM_ChoppingDutyCycle_Four_Eighths=(3 << 8),
-  ETPWM_ChoppingDutyCycle_Five_Eighths=(4 << 8),
-  ETPWM_ChoppingDutyCycle_Six_Eighths=(5 << 8),
-  ETPWM_ChoppingDutyCycle_Seven_Eighths=(6 << 8)
-} ETPWM_ChoppingDutyCycle_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) chopping clock pulse widths
-//!
-typedef enum
-{
-  ETPWM_ChoppingPulseWidth_One_Eighth_SysClkOut=(0 << 1),
-  ETPWM_ChoppingPulseWidth_Two_Eighths_SysClkOut=(1 << 1),
-  ETPWM_ChoppingPulseWidth_Three_Eighths_SysClkOut=(2 << 1),
-  ETPWM_ChoppingPulseWidth_Four_Eighths_SysClkOut=(3 << 1),
-  ETPWM_ChoppingPulseWidth_Five_Eighths_SysClkOut=(4 << 1),
-  ETPWM_ChoppingPulseWidth_Six_Eighths_SysClkOut=(5 << 1),
-  ETPWM_ChoppingPulseWidth_Seven_Eighths_SysClkOut=(6 << 1),
-  ETPWM_ChoppingPulseWidth_Eight_Eighths_SysClkOut=(7 << 1),
-  ETPWM_ChoppingPulseWidth_Nine_Eighths_SysClkOut=(8 << 1),
-  ETPWM_ChoppingPulseWidth_Ten_Eighths_SysClkOut=(9 << 1),
-  ETPWM_ChoppingPulseWidth_Eleven_Eighths_SysClkOut=(10 << 1),
-  ETPWM_ChoppingPulseWidth_Twelve_Eighths_SysClkOut=(11 << 1),
-  ETPWM_ChoppingPulseWidth_Thirteen_Eighths_SysClkOut=(12 << 1),
-  ETPWM_ChoppingPulseWidth_Fourteen_Eighths_SysClkOut=(13 << 1),
-  ETPWM_ChoppingPulseWidth_Fifteen_Eighths_SysClkOut=(14 << 1),
-  ETPWM_ChoppingPulseWidth_Sixteen_Eighths_SysClkOut=(15 << 1)
-} ETPWM_ChoppingPulseWidth_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) counter modes
-//!
-typedef enum
-{
-  ETPWM_CounterMode_Up=(0 << 0),
-  ETPWM_Countermode_Down=(1 << 0),
-  ETPWM_CounterMode_UpDown=(2 << 0),
-  ETPWM_CounterMode_Stop=(3 << 0)
-} ETPWM_CounterMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) deadband options
-//!
-typedef enum
-{
-  ETPWM_DeadBandInputMode_ETPWMxA_Rising_and_Falling=(0 << 4),
-  ETPWM_DeadBandInputMode_ETPWMxA_Falling_ETPWMxB_Rising=(1 << 4),
-  ETPWM_DeadBandInputMode_ETPWMxA_Rising_ETPWMxB_Falling=(2 << 4),
-  ETPWM_DeadBandInputMode_ETPWMxB_Rising_and_Falling=(3 << 4)
-} ETPWM_DeadBandInputMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) deadband output modes
-//!
-typedef enum
-{
-  ETPWM_DeadBandOutputMode_Bypass=(0 << 0),
-  ETPWM_DeadBandOutputMode_ETPWMxA_Disable_ETPWMxB_Falling=(1 << 0),
-  ETPWM_DeadBandOutputMode_ETPWMxA_Rising_ETPWMxB_Disable=(2 << 0),
-  ETPWM_DeadBandOutputMode_ETPWMxA_Rising_ETPWMxB_Falling=(3 << 0)
-} ETPWM_DeadBandOutputMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) deadband polarity
-//!
-typedef enum
-{
-  ETPWM_DeadBandPolarity_ETPWMxA_ETPWMxB=(0 << 2),
-  ETPWM_DeadBandPolarity_ETPWMxA_Inverted=(1 << 2),
-  ETPWM_DeadBandPolarity_ETPWMxB_Inverted=(2 << 2),
-  ETPWM_DeadBandPolarity_ETPWMxA_Inverted_ETPWMxB_Inverted=(3 << 2)
-} ETPWM_DeadBandPolarity_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) high speed clock divide options
-//!
-typedef enum
-{
-  ETPWM_HspClkDiv_by_1=(0 << 7),
-  ETPWM_HspClkDiv_by_2=(1 << 7),
-  ETPWM_HspClkDiv_by_4=(2 << 7),
-  ETPWM_HspClkDiv_by_6=(3 << 7),
-  ETPWM_HspClkDiv_by_8=(4 << 7),
-  ETPWM_HspClkDiv_by_10=(5 << 7),
-  ETPWM_HspClkDiv_by_12=(6 << 7),
-  ETPWM_HspClkDiv_by_14=(7 << 7)
-} ETPWM_HspClkDiv_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) interrupt generation modes
-//!
-typedef enum
-{
-  ETPWM_IntMode_CounterEqualZero=(1 << 0),
-  ETPWM_IntMode_CounterEqualPeriod=(2 << 0),
-  ETPWM_IntMode_CounterEqualZeroOrPeriod=(3 << 0),
-  ETPWM_IntMode_CounterEqualCmpAIncr=(4 << 0),
-  ETPWM_IntMode_CounterEqualCmpADecr=(5 << 0),
-  ETPWM_IntMode_CounterEqualCmpBIncr=(6 << 0),
-  ETPWM_IntMode_CounterEqualCmpBDecr=(7 << 0)
-} ETPWM_IntMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) interrupt period options
-//!
-typedef enum
-{
-  ETPWM_IntPeriod_Disable=(0 << 0),
-  ETPWM_IntPeriod_FirstEvent=(1 << 0),
-  ETPWM_IntPeriod_SecondEvent=(2 << 0),
-  ETPWM_IntPeriod_ThirdEvent=(3 << 0)
-} ETPWM_IntPeriod_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) load modes
-//!
-typedef enum
-{
-  ETPWM_LoadMode_Zero=0,
-  ETPWM_LoadMode_Period,
-  ETPWM_LoadMode_Either,
-  ETPWM_LoadMode_Freeze
-} ETPWM_LoadMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) numbers
-//!
-typedef enum
-{
-  ETPWM_Number_1=0,
-  ETPWM_Number_2,
-  ETPWM_Number_3,
-  ETPWM_Number_4,
-  ETPWM_Number_5,
-  ETPWM_Number_6,
-  ETPWM_Number_7
-} ETPWM_Number_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) period load options
-//!
-typedef enum
-{
-  ETPWM_PeriodLoad_Shadow=(0 << 3),
-  ETPWM_PeriodLoad_Immediate=(1 << 3)
-} ETPWM_PeriodLoad_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) phase direction modes
-//!
-typedef enum
-{
-  ETPWM_PhaseDir_CountDown=(0 << 13),
-  ETPWM_PhaseDir_CountUp=(1 << 13)
-} ETPWM_PhaseDir_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) run modes
-//!
-typedef enum
-{
-  ETPWM_RunMode_SoftStopAfterIncr=(0 << 14),
-  ETPWM_RunMode_SoftStopAfterDecr=(0 << 14),
-  ETPWM_RunMode_SoftStopAfterCycle=(1 << 14),
-  ETPWM_RunMode_FreeRun=(2 << 14)
-} ETPWM_RunMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) shadow modes
-//!
-typedef enum
-{
-  ETPWM_ShadowMode_Shadow=0,
-  ETPWM_ShadowMode_Immediate
-} ETPWM_ShadowMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) shadow status options
-//!
-typedef enum
-{
-  ETPWM_ShadowStatus_NotFull=0,
-  ETPWM_ShadowStatus_Full
-} ETPWM_ShadowStatus_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) start of conversion (SOC) period options
-//!
-typedef enum
-{
-  ETPWM_SocPeriod_Disable=0,
-  ETPWM_SocPeriod_FirstEvent,
-  ETPWM_SocPeriod_SecondEvent,
-  ETPWM_SocPeriod_ThirdEvent
-} ETPWM_SocPeriod_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) start of conversion (SOC) sources
-//!
-typedef enum
-{
-  ETPWM_SocPulseSrc_DcEvt=0,
-  ETPWM_SocPulseSrc_CounterEqualZero,
-  ETPWM_SocPulseSrc_CounterEqualPeriod,
-  ETPWM_SocPulseSrc_CounterEqualZeroOrPeriod,
-  ETPWM_SocPulseSrc_CounterEqualCmpAIncr,
-  ETPWM_SocPulseSrc_CounterEqualCmpADecr,
-  ETPWM_SocPulseSrc_CounterEqualCmpBIncr,
-  ETPWM_SocPulseSrc_CounterEqualCmpBDecr
-} ETPWM_SocPulseSrc_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) sync modes
-//!
-typedef enum
-{
-  ETPWM_SyncMode_ETPWMxSYNC=(0 << 4),
-  ETPWM_SyncMode_CounterEqualZero=(1 << 4),
-  ETPWM_SyncMode_CounterEqualCounterCompareZero=(2 << 4),
-  ETPWM_SyncMode_Disable=(3 << 4)
-} ETPWM_SyncMode_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) trip zone sources
-//!
-typedef enum
-{
-  ETPWM_TripZoneSrc_CycleByCycle_TZ1_NOT=(1 << 0),
-  ETPWM_TripZoneSrc_CycleByCycle_TZ2_NOT=(1 << 1),
-  ETPWM_TripZoneSrc_CycleByCycle_TZ3_NOT=(1 << 2),
-  ETPWM_TripZoneSrc_CycleByCycle_TZ4_NOT=(1 << 3),
-  ETPWM_TripZoneSrc_CycleByCycle_TZ5_NOT=(1 << 4),
-  ETPWM_TripZoneSrc_CycleByCycle_TZ6_NOT=(1 << 5),
-  ETPWM_TripZoneSrc_CycleByCycle_CmpA=(1 << 6),
-  ETPWM_TripZoneSrc_CycleByCycle_CmpB=(1 << 7),
-  ETPWM_TripZoneSrc_OneShot_TZ1_NOT=(1 << 8),
-  ETPWM_TripZoneSrc_OneShot_TZ2_NOT=(1 << 9),
-  ETPWM_TripZoneSrc_OneShot_TZ3_NOT=(1 << 10),
-  ETPWM_TripZoneSrc_OneShot_TZ4_NOT=(1 << 11),
-  ETPWM_TripZoneSrc_OneShot_TZ5_NOT=(1 << 12),
-  ETPWM_TripZoneSrc_OneShot_TZ6_NOT=(1 << 13),
-  ETPWM_TripZoneSrc_OneShot_CmpA=(1 << 14),
-  ETPWM_TripZoneSrc_OneShot_CmpB=(1 << 15)
-} ETPWM_TripZoneSrc_e;
-
-
-//! \brief Enumeration to define the pulse width modulation (ETPWM) trip zone states
-//!
-typedef enum
-{
-  ETPWM_TripZoneState_HighImp=0,
-  ETPWM_TripZoneState_ETPWM_High,
-  ETPWM_TripZoneState_ETPWM_Low,
-  ETPWM_TripZoneState_DoNothing
-} ETPWM_TripZoneState_e;
-
-
-typedef enum
-{
-  NO_EVENT=0,
-  CTR_ZERO=1,
-  CTR_PRD=2,
-  CTR_ZERO_PRD=3,
-  CTR_UP_CMPA=4,
-  CTR_D0WM_CMPA=5,
-  CTR_UP_CMPB=6,
-  CTR_D0WM_CMPB=7
-} ETPWM_Event_e;
-
-typedef enum
-{
-  DCAEVT1=0,
-  DCBEVT1=0
-} ETPWM_DCEvent_e;
-
-typedef enum
-{
-  PWMA_RED_FED=0,
-  PWMA_FED_PWMB_RED=1,
-  PWMA_RED_PWMB_FED=2,
-  PWMB_RED_FED=3
-} ETPWM_DeadBandInput_e;
-
-typedef enum
-{
-  PWMA_PWMB_NIL=0,
-  PWMA_NIL_PWMB_FED=1,
-  PWMA_RED_PWMB_NIL=2,
-  PWMB_FED_PWMA_RED=3
-} ETPWM_DeadBandOutput_e;
-
-//! \brief Defines the pulse width modulation (ETPWM) object
-//!
-
-#if ((__little_endian__ == 1) || (__LITTLE_ENDIAN__ == 1)) 
-
-typedef struct _etpwmBASE_t_
-{
-
-    uint16_t TBCTL;           /**<  0x0000 Time-Base Control Register*/
-    uint16_t TBSTS;           /**<  0x0002 Time-Base Status Register*/
-    uint16_t TBPHSHR;         /**<  0x0004 Extension for HRPWM Phase Register*/
-    uint16_t TBPHS;           /**<  0x0006 Time-Base Phase Register*/
-    uint16_t TBCTR;           /**<  0x0008 Time-Base Counter Register*/
-    uint16_t TBPRD;           /**<  0x000A Time-Base Period Register*/
-    uint16_t TBPRDHR;         /**<  0x000C Time Base Period High Resolution Register*/
-    uint16_t CMPCTL;          /**<  0x000E Counter-Compare Control Register*/
-    uint16_t CMPAHR;          /**<  0x0010 Extension for HRPWM Counter-Compare A Register*/
-    uint16_t CMPA;            /**<  0x0012 Counter-Compare A Register*/
-    uint16_t CMPB;            /**<  0x0014 Counter-Compare B Register*/
-    uint16_t AQCTLA;          /**<  0x0016 Action-Qualifier Control Register for Output A (ETPWMxA)*/
-    uint16_t AQCTLB;          /**<  0x0018 Action-Qualifier Control Register for Output B (ETPWMxB)*/
-    uint16_t AQSFRC;          /**<  0x001A Action-Qualifier Software Force Register*/
-    uint16_t AQCSFRC;         /**<  0x001C Action-Qualifier Continuous S/W Force Register Set*/
-    uint16_t DBCTL;           /**<  0x001E Dead-Band Generator Control Register*/
-    uint16_t DBRED;           /**<  0x0020 Dead-Band Generator Rising Edge Delay Count Register*/
-    uint16_t DBFED;           /**<  0x0022 Dead-Band Generator Falling Edge Delay Count Register*/
-    uint16_t TZSEL;           /**<  0x0024 Trip-Zone Select Register*/
-    uint16_t TZDCSEL;         /**<  0x0026 Trip Zone Digital Compare Select Register*/
-    uint16_t TZCTL;           /**<  0x0028 Trip-Zone Control Register*/
-    uint16_t TZEINT;          /**<  0x002A Trip-Zone Enable Interrupt Register*/
-    uint16_t TZFLG;           /**<  0x002C Trip-Zone Flag Register*/
-    uint16_t TZCLR;           /**<  0x002E Trip-Zone Clear Register*/
-    uint16_t TZFRC;           /**<  0x0030 Trip-Zone Force Register*/
-    uint16_t ETSEL;           /**<  0x0032 Event-Trigger Selection Register*/
-    uint16_t ETPS;            /**<  0x0034 Event-Trigger Pre-Scale Register*/
-    uint16_t ETFLG;           /**<  0x0036 Event-Trigger Flag Register*/
-    uint16_t ETCLR;           /**<  0x0038 Event-Trigger Clear Register*/
-    uint16_t ETFRC;           /**<  0x003A Event-Trigger Force Register*/
-    uint16_t PCCTL;           /**<  0x003C PWM-Chopper Control Register*/
-    uint16_t   rsvd_1;        /**<  0x003C Reserved*/
-    uint16_t HRCNFG;          /**<  0x003E HRPWM Configuration Register*/
-    uint16_t HRPWR;           /**<  0x0040 HRPWM Power Register*/
-    uint16_t   rsvd_2;        /**<  0x0042 Reserved*/
-    uint16_t   rsvd_3;        /**<  0x0044 Reserved*/
-    uint16_t   rsvd_4;        /**<  0x0046 Reserved*/
-    uint16_t   rsvd_5;        /**<  0x0048 Reserved*/
-    uint16_t HRMSTEP;         /**<  0x004A HRPWM MEP Step Register*/
-    uint16_t   rsvd_6;        /**<  0x004C Reserved*/
-    uint16_t HRPCTL;          /**<  0x004E High Resolution Period Control Register*/
-    uint16_t   rsvd_7;        /**<  0x0050 Reserved*/
-    uint16_t TBPRDHRM;        /**<  0x0052 Time Base Period High Resolution Register Mirror*/
-    uint16_t TBPRDM;          /**<  0x0054 Time Base Period Register Mirror*/
-    uint16_t CMPAHRM;         /**<  0x0056 Compare A High Resolution Register Mirror*/
-    uint16_t CMPAM;           /**<  0x0058 Compare A Register Mirror*/
-    uint16_t DCTRIPSEL;       /**<  0x005A Digital Compare Trip Select Register*/
-    uint16_t DCACTL;          /**<  0x005C Digital Compare A Control Register*/
-    uint16_t DCBCTL;          /**<  0x005E Digital Compare B Control Register*/
-    uint16_t DCFCTL;          /**<  0x0060 Digital Compare Filter Control Register*/
-    uint16_t DCCAPCTL;        /**<  0x0062 Digital Compare Capture Control Register*/
-    uint16_t DCFOFFSET;       /**<  0x0064 Digital Compare Filter Offset Register*/
-    uint16_t DCFOFFSETCNT;    /**<  0x0066 Digital Compare Filter Offset Counter Register*/
-    uint16_t DCFWINDOW;       /**<  0x0068 Digital Compare Filter Window Register*/
-    uint16_t DCFWINDOWCNT;    /**<  0x006A Digital Compare Filter Window Counter Register*/
-    uint16_t DCCAP;           /**<  0x006C Digital Compare Counter Capture Register*/
-
-} etpwmBASE_t;
-
-#else
-
-typedef struct _etpwmBASE_t_
-{
-
-    uint16_t TBSTS;           /**<  0x0002 Time-Base Status Register*/
-    uint16_t TBCTL;           /**<  0x0000 Time-Base Control Register*/
-    uint16_t TBPHS;           /**<  0x0006 Time-Base Phase Register*/
-    uint16_t TBPHSHR;         /**<  0x0004 Extension for HRPWM Phase Register*/
-    uint16_t TBPRD;           /**<  0x000A Time-Base Period Register*/
-    uint16_t TBCTR;           /**<  0x0008 Time-Base Counter Register*/
-    uint16_t CMPCTL;          /**<  0x000E Counter-Compare Control Register*/
-    uint16_t TBPRDHR;         /**<  0x000C Time Base Period High Resolution Register*/
-    uint16_t CMPA;            /**<  0x0012 Counter-Compare A Register*/
-    uint16_t CMPAHR;          /**<  0x0010 Extension for HRPWM Counter-Compare A Register*/
-    uint16_t AQCTLA;          /**<  0x0016 Action-Qualifier Control Register for Output A (ETPWMxA)*/
-    uint16_t CMPB;            /**<  0x0014 Counter-Compare B Register*/
-    uint16_t AQSFRC;          /**<  0x001A Action-Qualifier Software Force Register*/
-    uint16_t AQCTLB;          /**<  0x0018 Action-Qualifier Control Register for Output B (EETPWMxB)*/
-    uint16_t DBCTL;           /**<  0x001E Dead-Band Generator Control Register*/
-    uint16_t AQCSFRC;         /**<  0x001C Action-Qualifier Continuous S/W Force Register Set*/
-    uint16_t DBFED;           /**<  0x0022 Dead-Band Generator Falling Edge Delay Count Register*/
-    uint16_t DBRED;           /**<  0x0020 Dead-Band Generator Rising Edge Delay Count Register*/
-    uint16_t TZDCSEL;         /**<  0x0026 Trip Zone Digital Compare Select Register*/
-    uint16_t TZSEL;           /**<  0x0024 Trip-Zone Select Register*/
-    uint16_t TZEINT;          /**<  0x002A Trip-Zone Enable Interrupt Register*/
-    uint16_t TZCTL;           /**<  0x0028 Trip-Zone Control Register*/
-    uint16_t TZCLR;           /**<  0x002E Trip-Zone Clear Register*/
-    uint16_t TZFLG;           /**<  0x002C Trip-Zone Flag Register*/
-    uint16_t ETSEL;           /**<  0x0032 Event-Trigger Selection Register*/
-    uint16_t TZFRC;           /**<  0x0030 Trip-Zone Force Register*/
-    uint16_t ETFLG;           /**<  0x0036 Event-Trigger Flag Register*/
-    uint16_t ETPS;            /**<  0x0034 Event-Trigger Pre-Scale Register*/
-    uint16_t ETFRC;           /**<  0x003A Event-Trigger Force Register*/
-    uint16_t ETCLR;           /**<  0x0038 Event-Trigger Clear Register*/
-    uint16_t   rsvd_1;        /**<  0x003C Reserved*/
-    uint16_t PCCTL;           /**<  0x003C PWM-Chopper Control Register*/
-    uint16_t HRPWR;           /**<  0x0040 HRPWM Power Register*/
-    uint16_t HRCNFG;          /**<  0x003E HRPWM Configuration Register*/
-    uint16_t   rsvd_3;        /**<  0x0044 Reserved*/
-    uint16_t   rsvd_2;        /**<  0x0042 Reserved*/
-    uint16_t   rsvd_5;        /**<  0x0048 Reserved*/
-    uint16_t   rsvd_4;        /**<  0x0046 Reserved*/
-    uint16_t   rsvd_6;        /**<  0x004C Reserved*/
-    uint16_t HRMSTEP;         /**<  0x004A HRPWM MEP Step Register*/
-    uint16_t   rsvd_7;        /**<  0x0050 Reserved*/
-    uint16_t HRPCTL;          /**<  0x004E High Resolution Period Control Register*/
-    uint16_t TBPRDM;          /**<  0x0054 Time Base Period Register Mirror*/
-    uint16_t TBPRDHRM;        /**<  0x0052 Time Base Period High Resolution Register Mirror*/
-    uint16_t CMPAM;           /**<  0x0058 Compare A Register Mirror*/
-    uint16_t CMPAHRM;         /**<  0x0056 Compare A High Resolution Register Mirror*/
-    uint16_t DCACTL;          /**<  0x005C Digital Compare A Control Register*/
-    uint16_t DCTRIPSEL;       /**<  0x005A Digital Compare Trip Select Register*/
-    uint16_t DCFCTL;          /**<  0x0060 Digital Compare Filter Control Register*/
-    uint16_t DCBCTL;          /**<  0x005E Digital Compare B Control Register*/
-    uint16_t DCFOFFSET;       /**<  0x0064 Digital Compare Filter Offset Register*/
-    uint16_t DCCAPCTL;        /**<  0x0062 Digital Compare Capture Control Register*/
-    uint16_t DCFWINDOW;       /**<  0x0068 Digital Compare Filter Window Register*/
-    uint16_t DCFOFFSETCNT;    /**<  0x0066 Digital Compare Filter Offset Counter Register*/
-    uint16_t DCCAP;           /**<  0x006C Digital Compare Counter Capture Register*/
-    uint16_t DCFWINDOWCNT;    /**<  0x006A Digital Compare Filter Window Counter Register*/
-
-} etpwmBASE_t;
-
-#endif
-
-
-
-/** @def etpwmREG1
-*   @brief ETPWM1 Register Frame Pointer
-*
-*   This pointer is used by the ETPWM driver to access the ETPWM1 registers.
+/* USER CODE BEGIN (0) */
+/* USER CODE END */
+#define COUNT_UP     (1U << 13U)
+#define COUNT_DOWN    0U
+
+/** @brief Enumeration to define the pulse width modulation (ETPWM) clock divider
+*   TBCLK = VCLK4 / (HSPCLKDIV × CLKDIV)
 */
-#define etpwmREG1 ((etpwmBASE_t *)0xFCF78C00U)
+typedef enum
+{
+    ClkDiv_by_1   = ((uint16)0U << 10U), /** CLKDIV = 1   */
+    ClkDiv_by_2   = ((uint16)1U << 10U), /** CLKDIV = 2   */
+    ClkDiv_by_4   = ((uint16)2U << 10U), /** CLKDIV = 4   */
+    ClkDiv_by_8   = ((uint16)3U << 10U), /** CLKDIV = 8   */
+    ClkDiv_by_16  = ((uint16)4U << 10U), /** CLKDIV = 16  */
+    ClkDiv_by_32  = ((uint16)5U << 10U), /** CLKDIV = 32  */
+    ClkDiv_by_64  = ((uint16)6U << 10U), /** CLKDIV = 64  */
+    ClkDiv_by_128 = ((uint16)7U << 10U)  /** CLKDIV = 128 */
+} etpwmClkDiv_t;
 
-/** @def etpwmREG2
-*   @brief ETPWM2 Register Frame Pointer
-*
-*   This pointer is used by the ETPWM driver to access the ETPWM2 registers.
+/** @brief Enumeration to define the pulse width modulation (ETPWM) high speed clock divider
+*   TBCLK = VCLK4 / (HSPCLKDIV × CLKDIV)
 */
-#define etpwmREG2 ((etpwmBASE_t *)0xFCF78D00U)
+typedef enum
+{
+    HspClkDiv_by_1  = ((uint16)0U << 7U), /** HSPCLKDIV = 1   */
+    HspClkDiv_by_2  = ((uint16)1U << 7U), /** HSPCLKDIV = 2   */
+    HspClkDiv_by_4  = ((uint16)2U << 7U), /** HSPCLKDIV = 4   */
+    HspClkDiv_by_6  = ((uint16)3U << 7U), /** HSPCLKDIV = 8   */
+    HspClkDiv_by_8  = ((uint16)4U << 7U), /** HSPCLKDIV = 16  */
+    HspClkDiv_by_10 = ((uint16)5U << 7U), /** HSPCLKDIV = 32  */
+    HspClkDiv_by_12 = ((uint16)6U << 7U), /** HSPCLKDIV = 64  */
+    HspClkDiv_by_14 = ((uint16)7U << 7U)  /** HSPCLKDIV = 128 */
+} etpwmHspClkDiv_t;
 
-/** @def etpwmREG3
-*   @brief ETPWM3 Register Frame Pointer
-*
-*   This pointer is used by the ETPWM driver to access the ETPWM3 registers.
+/** @brief Enumeration to select the source of Synchronization Output signal (EPWMxSYNCO)
 */
-#define etpwmREG3 ((etpwmBASE_t *)0xFCF78E00U)
+typedef enum
+{
+    SyncOut_EPWMxSYNCI = 0x00U, /** EPWMxSYNCI                */
+    SyncOut_CtrEqZero  = 0x10U, /** CTR = zero                */
+    SyncOut_CtrEqCmpB  = 0x20U, /** CTR = CMPB                */
+    SyncOut_Disable    = 0x30U  /** Disable EPWMxSYNCO signal */
+} etpwmSyncOut_t;
 
-/** @def etpwmREG4
-*   @brief ETPWM4 Register Frame Pointer
-*
-*   This pointer is used by the ETPWM driver to access the ETPWM4 registers.
+/** @brief Enumeration to define the pulse width modulation (ETPWM) counter modes
 */
-#define etpwmREG4 ((etpwmBASE_t *)0xFCF78F00U)
+typedef enum
+{
+    CounterMode_Up     = 0U, /** Up-count mode                  */
+    Countermode_Down   = 1U, /** Down-count mode                */
+    CounterMode_UpDown = 2U, /** Up-down-count mode             */
+    CounterMode_Stop   = 3U  /** Stop - freeze counter operaton */
+} etpwmCounterMode_t;
 
-/** @def etpwmREG5
-*   @brief ETPWM5 Register Frame Pointer
-*
-*   This pointer is used by the ETPWM driver to access the ETPWM5 registers.
+/** @brief Enumeration to the behavior of the ePWM time-base counter during emulation events
 */
-#define etpwmREG5 ((etpwmBASE_t *)0xFCF79000U)
+typedef enum
+{
+    RunMode_SoftStopAfterIncr  = ((uint16)0U << 14U), /** Stop after the next time-base counter increment */
+    RunMode_SoftStopAfterDecr  = ((uint16)0U << 14U), /** Stop after the next time-base counter decrement */
+    RunMode_SoftStopAfterCycle = ((uint16)1U << 14U), /** Stop when counter completes a whole cycle       */
+    RunMode_FreeRun            = ((uint16)2U << 14U)  /** Free run                                        */
+} etpwmRunMode_t;
 
-/** @def etpwmREG6
-*   @brief ETPWM6 Register Frame Pointer
-*
-*   This pointer is used by the ETPWM driver to access the ETPWM6 registers.
+/** @brief Enumeration to define the pulse width modulation (ETPWM) load modes
 */
-#define etpwmREG6 ((etpwmBASE_t *)0xFCF79100U)
+typedef enum
+{                                                                      
+    LoadMode_CtrEqZero       = 0U, /** Load on CTR = Zero              */
+    LoadMode_CtrEqPeriod     = 1U, /** Load on CTR = PRD               */
+    LoadMode_CtrEqZeroPeriod = 2U, /** Load on CTR = Zero or CTR = PRD */
+    LoadMode_Freeze          = 3U  /** Freeze (no loads possible)      */
+} etpwmLoadMode_t;
 
-/** @def etpwmREG7
-*   @brief ETPWM7 Register Frame Pointer
-*
-*   This pointer is used by the ETPWM driver to access the ETPWM7 registers.
+/** @brief Enumeration to define the pulse width modulation (ETPWM) trip zone sources
 */
-#define etpwmREG7 ((etpwmBASE_t *)0xFCF79200U)
-
-
-
-// **************************************************************************
-// the globals
-
-
-// **************************************************************************
-// the function prototypes
-
-//! \brief     Initializes the ETPWM module
-void ETPWM_init(void);
-
-//! \brief     Clears the pulse width modulation (ETPWM) interrupt flag
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-inline void ETPWM_clearIntFlag(etpwmBASE_t *etpwm)
+typedef enum
 {
-  
+    CycleByCycle_TZ1     = ((uint16)1U << 0U),
+    CycleByCycle_TZ2     = ((uint16)1U << 1U),
+    CycleByCycle_TZ3     = ((uint16)1U << 2U),
+    CycleByCycle_TZ4     = ((uint16)1U << 3U),
+    CycleByCycle_TZ5     = ((uint16)1U << 4U),
+    CycleByCycle_TZ6     = ((uint16)1U << 5U),
+    CycleByCycle_DCAEVT2 = ((uint16)1U << 6U),
+    CycleByCycle_DCBEVT2 = ((uint16)1U << 7U),
+    OneShot_TZ1          = ((uint16)1U << 8U),
+    OneShot_TZ2          = ((uint16)1U << 9U),
+    OneShot_TZ3          = ((uint16)1U << 10U),
+    OneShot_TZ4          = ((uint16)1U << 11U),
+    OneShot_TZ5          = ((uint16)1U << 12U),
+    OneShot_TZ6          = ((uint16)1U << 13U),
+    OneShot_DCAEVT1      = ((uint16)1U << 14U),
+    OneShot_DCBEVT1      = ((uint16)1U << 15U)
+} etpwmTripZoneSrc_t;
 
-
-  // set the bits
-  etpwm->ETCLR = ETPWM_ETCLR_INT_BITS;
-
-  return;
-} // end of ETPWM_clearIntFlag() function
-
-
-//! \brief     Clears the pulse width modulation (ETPWM) one shot trip
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-inline void ETPWM_clearOneShotTrip(etpwmBASE_t *etpwm)
+/** @brief Enumeration to define the pulse width modulation (ETPWM) trip events
+*/
+typedef enum
 {
-  
+    CycleByCycleTrip = ((uint16)1U << 1U), /** Trip Zone Cycle-By-Cycle            */
+    OneShotTrip      = ((uint16)1U << 2U), /** TripZone One-shot                   */
+    DCAEVT1_inter    = ((uint16)1U << 3U), /** Digital Comparator Output A Event 1 */
+    DCAEVT2_inter    = ((uint16)1U << 4U), /** Digital Comparator Output A Event 2 */
+    DCBEVT1_inter    = ((uint16)1U << 5U), /** Digital Comparator Output B Event 1 */
+    DCBEVT2_inter    = ((uint16)1U << 6U)  /** Digital Comparator Output B Event 2 */
+}etpwmTrip_t;
 
-
-
-
-  // set the bits
-  etpwm->TZCLR = ETPWM_TZCLR_OST_BITS;
-
-
-
-  return;
-} // end of ETPWM_clearOneShotTrip() function
-
-
-//! \brief     Clears the pulse width modulation (ETPWM) start of conversion (SOC) A flag
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-inline void ETPWM_clearSocAFlag(etpwmBASE_t *etpwm)
+/** @brief Enumeration to define the sources for EPWMx_INT, SOCA or SOCB
+*/
+typedef enum
 {
-  
+    NO_EVENT      = 0U, /** Reserved                                             */
+    DCAEVT1       = 0U, /** DCAEVT1.soc event                                    */
+    DCBEVT1       = 0U, /** DCBEVT1.soc event                                    */
+    CTR_ZERO      = 1U, /** Event CTR = Zero                                     */
+    CTR_PRD       = 2U, /** Event CTR = PRD                                      */
+    CTR_ZERO_PRD  = 3U, /** Event CTR = Zero or CTR = PRD                        */
+    CTR_UP_CMPA   = 4U, /** Event CTR = CMPA when when the timer is incrementing */
+    CTR_D0WM_CMPA = 5U, /** Event CTR = CMPA when when the timer is decrementing */
+    CTR_UP_CMPB   = 6U, /** Event CTR = CMPB when when the timer is incrementing */
+    CTR_D0WM_CMPB = 7U  /** Event CTR = CMPB when when the timer is decrementing */
+} etpwmEventSrc_t;
 
-
-  // set the bits
-  etpwm->ETCLR = ETPWM_ETCLR_SOCA_BITS;
-
-  return;
-} // end of ETPWM_clearSocAFlag() function
-
-
-//! \brief     Clears the pulse width modulation (ETPWM) start of conversion (SOC) B flag
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-inline void ETPWM_clearSocBFlag(etpwmBASE_t *etpwm)
+/** @brief Enumeration to define the period of EPWMx_INT, SOCA or SOCB
+*/
+typedef enum
 {
-  
-
-
-  // set the bits
-  etpwm->ETCLR = ETPWM_ETCLR_SOCB_BITS;
-
-  return;
-} // end of ETPWM_clearSocBFlag() function
-
-
-//! \brief     Disables the pulse width modulation (ETPWM) chopping
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_disableChopping(etpwmBASE_t *etpwm);
-
-
-//! \brief     Disables the pulse width modulation (ETPWM) counter loading from the phase register
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_disableCounterLoad(etpwmBASE_t *etpwm);
-
-
-//! \brief     Disables the pulse width modulation (ETPWM) deadband
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_disableDeadBand(etpwmBASE_t *etpwm);
-
-
-//! \brief     Disables the pulse width modulation (ETPWM) deadband half cycle clocking
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_disableDeadBandHalfCycle(etpwmBASE_t *etpwm);
-
-
-//! \brief     Disables the pulse width modulation (ETPWM) interrupt
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_disableInt(etpwmBASE_t *etpwm);
-
-
-//! \brief     Disables the pulse width modulation (ETPWM) start of conversion (SOC) B pulse generation
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_disableSocAPulse(etpwmBASE_t *etpwm);
-
-
-//! \brief     Disables the pulse width modulation (ETPWM) start of conversion (SOC) B pulse generation
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_disableSocBPulse(etpwmBASE_t *etpwm);
-
-
-//! \brief     Disables the pulse width modulation (ETPWM) trip zones
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_disableTripZones(etpwmBASE_t *etpwm);
-
-
-//! \brief     Disable the pulse width modulation (ETPWM) trip zone source
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] src        The pulse width modulation (ETPWM) trip zone source
-void ETPWM_disableTripZoneSrc(etpwmBASE_t *etpwm,const ETPWM_TripZoneSrc_e src);
-
-
-//! \brief     Enables the pulse width modulation (ETPWM) chopping
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_enableChopping(etpwmBASE_t *etpwm);
-
-
-//! \brief     Enables the pulse width modulation (ETPWM) counter loading from the phase register
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_enableCounterLoad(etpwmBASE_t *etpwm);
-
-
-//! \brief     Enables the pulse width modulation (ETPWM) deadband half cycle clocking
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_enableDeadBandHalfCycle(etpwmBASE_t *etpwm);
-
-
-//! \brief     Enables the pulse width modulation (ETPWM) interrupt
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_enableInt(etpwmBASE_t *etpwm);
-
-
-//! \brief     Enables the pulse width modulation (ETPWM) start of conversion (SOC) A pulse generation
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_enableSocAPulse(etpwmBASE_t *etpwm);
-
-
-//! \brief     Enables the pulse width modulation (ETPWM) start of conversion (SOC) B pulse generation
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-void ETPWM_enableSocBPulse(etpwmBASE_t *etpwm);
-
-
-//! \brief     Enable the pulse width modulation (ETPWM) trip zone source
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] src        The pulse width modulation (ETPWM) trip zone source
-void ETPWM_enableTripZoneSrc(etpwmBASE_t *etpwm,const ETPWM_TripZoneSrc_e src);
-
-
-//! \brief     Gets the pulse width modulation (ETPWM) interrupt event count
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \return    The interrupt event count
-uint16_t ETPWM_getIntCount(etpwmBASE_t *etpwm);
-
-
-//! \brief     Gets the pulse width modulation (ETPWM) start of conversion (SOC) A count
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \return    The SOC A count
-uint16_t ETPWM_getSocACount(etpwmBASE_t *etpwm);
-
-
-//! \brief     Gets the pulse width modulation (ETPWM) start of conversion (SOC) B count
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \return    The SOC B count
-uint16_t ETPWM_getSocBCount(etpwmBASE_t *etpwm);
-
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM A when the counter equals CMPA and the counter is decrementing
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_CntDown_CmpA_PwmA(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM B when the counter equals CMPA and the counter is decrementing
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_CntDown_CmpA_PwmB(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM A when the counter equals CMPB and the counter is decrementing
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_CntDown_CmpB_PwmA(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM B when the counter equals CMPB and the counter is decrementing
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_CntDown_CmpB_PwmB(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM A when the counter equals CMPA and the counter is incrementing
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_CntUp_CmpA_PwmA(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM B when the counter equals CMPA and the counter is incrementing
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_CntUp_CmpA_PwmB(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM A when the counter equals CMPB and the counter is incrementing
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_CntUp_CmpB_PwmA(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM B when the counter equals CMPB and the counter is incrementing
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_CntUp_CmpB_PwmB(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM A when the counter equals the period
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_Period_PwmA(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM B when the counter equals the period
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_Period_PwmB(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM A when the counter equals the zero
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_Zero_PwmA(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) object action for ETPWM B when the counter equals the zero
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] actionQual  The action qualifier
-void ETPWM_setActionQual_Zero_PwmB(etpwmBASE_t *etpwm,const ETPWM_ActionQual_e actionQual);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) chopping clock frequency
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] clkFreq    The clock frequency
-void ETPWM_setChoppingClkFreq(etpwmBASE_t *etpwm,const ETPWM_ChoppingClkFreq_e clkFreq);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) chopping clock duty cycle
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] dutyCycle  The duty cycle
-void ETPWM_setChoppingDutyCycle(etpwmBASE_t *etpwm,const ETPWM_ChoppingDutyCycle_e dutyCycle);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) chopping clock pulse width
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] pulseWidth  The pulse width
-void ETPWM_setChoppingPulseWidth(etpwmBASE_t *etpwm,const ETPWM_ChoppingPulseWidth_e pulseWidth);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) clock divisor
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] clkDiv     The clock divisor
-void ETPWM_setClkDiv(etpwmBASE_t *etpwm,const ETPWM_ClkDiv_e clkDiv);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) count
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] count      The count
-void ETPWM_setCount(etpwmBASE_t *etpwm,const uint16_t count);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) counter mode
-//! \param[in] etpwm    The pulse width modulation (ETPWM) object handle
-//! \param[in] counterMode  The count mode
-void ETPWM_setCounterMode(etpwmBASE_t *etpwm,const ETPWM_CounterMode_e counterMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) deadband falling edge delay
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] delay      The delay
-void ETPWM_setDeadBandFallingEdgeDelay(etpwmBASE_t *etpwm,const uint8_t delay);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) deadband input mode
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] inputMode  The input mode
-void ETPWM_setDeadBandInputMode(etpwmBASE_t *etpwm,const ETPWM_DeadBandInputMode_e inputMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) deadband output mode
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] outputMode  The output mode
-void ETPWM_setDeadBandOutputMode(etpwmBASE_t *etpwm,const ETPWM_DeadBandOutputMode_e outputMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) deadband polarity
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] polarity   The polarity
-void ETPWM_setDeadBandPolarity(etpwmBASE_t *etpwm,const ETPWM_DeadBandPolarity_e polarity);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) deadband rising edge delay
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] delay      The delay
-void ETPWM_setDeadBandRisingEdgeDelay(etpwmBASE_t *etpwm,const uint8_t delay);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) period
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] period     The period
-void ETPWM_setPeriod(etpwmBASE_t *etpwm,const uint16_t period);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) high speed clock divisor
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] clkDiv     The clock divisor
-void ETPWM_setHighSpeedClkDiv(etpwmBASE_t *etpwm,const ETPWM_HspClkDiv_e clkDiv);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) interrupt mode
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] intMode    The interrupt mode
-void ETPWM_setIntMode(etpwmBASE_t *etpwm,const ETPWM_IntMode_e intMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) interrupt period
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] intPeriod  The interrupt period
-void ETPWM_setIntPeriod(etpwmBASE_t *etpwm,const ETPWM_IntPeriod_e intPeriod);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) load mode for CMPA
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] loadMode   The load mode
-void ETPWM_setLoadMode_CmpA(etpwmBASE_t *etpwm,const ETPWM_LoadMode_e loadMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) load mode for CMPB
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] loadMode   The load mode
-void ETPWM_setLoadMode_CmpB(etpwmBASE_t *etpwm,const ETPWM_LoadMode_e loadMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) period load mode
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] periodLoad  The period load mode
-void ETPWM_setPeriodLoad(etpwmBASE_t *etpwm,const ETPWM_PeriodLoad_e periodLoad);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) one shot trip
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-inline void ETPWM_setOneShotTrip(etpwmBASE_t *etpwm)
+    EventPeriod_Disable     = 0U, /** Disable EPWMx_INT/SOCA/SOCB event counter              */
+    EventPeriod_FirstEvent  = 1U, /** Generate EPWMx_INT/SOCA/SOCB pulse on the first event  */
+    EventPeriod_SecondEvent = 2U, /** Generate EPWMx_INT/SOCA/SOCB pulse on the second event */
+    EventPeriod_ThirdEvent  = 3U  /** Generate EPWMx_INT/SOCA/SOCB pulse on the third event  */
+}etpwmEventPeriod_t;
+
+/** @brief Enumeration to define the output events from ETPWMx
+*/
+typedef enum
 {
-  
+    Event_Interrupt = 1U, /** EPWM Interrupt        */
+    Event_SOCA      = 4U, /** Start Of Conversion A */
+    Event_SOCB      = 8U  /** Start Of conversion B */
+}etpwmEvent_t;
 
-
-
-
-  // set the bits
-  etpwm->TZFRC |= ETPWM_TZFRC_OST_BITS;
-
-
-
-  return;
-} // end of ETPWM_setOneShotTrip() function
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) phase
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] phase      The phase
-void ETPWM_setPhase(etpwmBASE_t *etpwm,const uint16_t phase);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) phase direction
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] phaseDir   The phase direction
-void ETPWM_setPhaseDir(etpwmBASE_t *etpwm,const ETPWM_PhaseDir_e phaseDir);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) run mode
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] runMode    The run mode
-void ETPWM_setRunMode(etpwmBASE_t *etpwm,const ETPWM_RunMode_e runMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) start of conversion (SOC) A interrupt period
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] intPeriod  The interrupt period
-void ETPWM_setSocAPeriod(etpwmBASE_t *etpwm,const ETPWM_SocPeriod_e intPeriod);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) start of conversion (SOC) A interrupt pulse source
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] pulseSrc   The interrupt pulse source
-void ETPWM_setSocAPulseSrc(etpwmBASE_t *etpwm,const ETPWM_SocPulseSrc_e pulseSrc);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) start of conversion (SOC) B interrupt period
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] intPeriod  The interrupt period
-void ETPWM_setSocBPeriod(etpwmBASE_t *etpwm,const ETPWM_SocPeriod_e intPeriod);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) start of conversion (SOC) B interrupt pulse source
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] pulseSrc   The interrupt pulse source
-void ETPWM_setSocBPulseSrc(etpwmBASE_t *etpwm,const ETPWM_SocPulseSrc_e pulseSrc);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) shadow mode for CMPA
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] shadowMode  The shadow mode
-void ETPWM_setShadowMode_CmpA(etpwmBASE_t *etpwm,const ETPWM_ShadowMode_e shadowMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) shadow mode for CMPB
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-//! \param[in] shadowMode  The shadow mode
-void ETPWM_setShadowMode_CmpB(etpwmBASE_t *etpwm,const ETPWM_ShadowMode_e shadowMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) software sync
-//! \param[in] etpwm   The pulse width modulation (ETPWM) object handle
-void ETPWM_setSwSync(etpwmBASE_t *etpwm);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) sync mode
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] syncMode   The sync mode
-void ETPWM_setSyncMode(etpwmBASE_t *etpwm,const ETPWM_SyncMode_e syncMode);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) trip zone state for Digital Compare Output A Event 1 (DCAEVT1)
-//! \param[in] etpwm      The pulse width modulation (ETPWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-void ETPWM_setTripZoneState_DCAEVT1(etpwmBASE_t *etpwm,const ETPWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) trip zone state for Digital Compare Output A Event 2 (DCAEVT1)
-//! \param[in] etpwm      The pulse width modulation (ETPWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-void ETPWM_setTripZoneState_DCAEVT2(etpwmBASE_t *etpwm,const ETPWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) trip zone state for Digital Compare Output B Event 1 (DCBEVT1)
-//! \param[in] etpwm      The pulse width modulation (ETPWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-void ETPWM_setTripZoneState_DCBEVT1(etpwmBASE_t *etpwm,const ETPWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) trip zone state for Digital Compare Output B Event 2 (DCBEVT1)
-//! \param[in] etpwm      The pulse width modulation (ETPWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-void ETPWM_setTripZoneState_DCBEVT2(etpwmBASE_t *etpwm,const ETPWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) trip zone state for Output A (TZA)
-//! \param[in] etpwm      The pulse width modulation (ETPWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-void ETPWM_setTripZoneState_TZA(etpwmBASE_t *etpwm,const ETPWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Sets the pulse width modulation (ETPWM) trip zone state for Output B (TZB)
-//! \param[in] etpwm      The pulse width modulation (ETPWM) object handle
-//! \param[in] tripZoneState  The trip zone state
-void ETPWM_setTripZoneState_TZB(etpwmBASE_t *etpwm,const ETPWM_TripZoneState_e tripZoneState);
-
-
-//! \brief     Writes the pulse width modulation (ETPWM) data value to the Counter Compare A hardware
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] etpwmData    The ETPWM compare value for A
-inline void ETPWM_write_CmpA(etpwmBASE_t *etpwm,const uint16_t etpwmData)
+/** @brief Enumeration to define the pulse width modulation (ETPWM) action qualifiers
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the APIs etpwmSetActionQualPwmA and etpwmSetActionQualPwmB
+*/
+typedef enum
 {
-  
-  etpwm->CMPA = etpwmData;
+    ActionQual_Disabled = 0U, /** Do nothing (action disabled)           */
+    ActionQual_Clear    = 1U, /** Clear: force EPTWMxA/ETPWMB output low */
+    ActionQual_Set      = 2U, /** Set: force ETPWMxA/ETPWMxB output high */
+    ActionQual_Toggle   = 3U, /** Toggle EPWMxA/ETPWMxB output           */
+	
+    ForceSize_ActionQual = 0xFFFFU  /** Do not use (Makes sure that etpwmActionQual_t is at least 16 bits wide)  */
+} etpwmActionQual_t;
 
-  return;
-} // end of ETPWM_write_CmpA() function
-
-
-//! \brief     Writes the pulse width modulation (ETPWM) data value to the Counter Compare B hardware
-//! \param[in] etpwm  The pulse width modulation (ETPWM) object handle
-//! \param[in] etpwmData    The ETPWM compare value for B
-inline void ETPWM_write_CmpB(etpwmBASE_t *etpwm,const uint16_t etpwmData)
+/** @brief Enumeration to define the DeadBand input mode
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmEnableDeadBand
+*/
+typedef enum
 {
-  
-  etpwm->CMPB = etpwmData;
+    PWMA_RED_FED      = 0x00U,   /** Source of Rising edge delay: ETPWMxA, Source of Falling edge delay: ETPWMxA */
+    PWMA_FED_PWMB_RED = 0x10U,   /** Source of Rising edge delay: ETPWMxB, Source of Falling edge delay: ETPWMxA */
+    PWMA_RED_PWMB_FED = 0x20U,   /** Source of Rising edge delay: ETPWMxA, Source of Falling edge delay: ETPWMxB */
+    PWMB_RED_FED      = 0x30U,   /** Source of Rising edge delay: ETPWMxB, Source of Falling edge delay: ETPWMxB */
+   
+    ForceSize_DBInput = 0xFFFFU  /** Do not use (Makes sure that etpwmDeadBandInputMode_t is at least 16 bits wide)  */
+} etpwmDeadBandInputMode_t;
 
-  return;
-} // end of ETPWM_write_CmpB() function
+/** @brief Enumeration to define the DeadBand output mode
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmEnableDeadBand
+*/
+typedef enum
+{                                                                                                                                     
+    PWMA_PWMB_NIL      = 0U,     /** Deadband generation is bypassed for both output signals                                       */
+    PWMA_NIL_PWMB_FED  = 1U,     /** Disable rising-edge delay. The falling-edge delayed signal is seen on output EPWMxB.          */
+    PWMA_RED_PWMB_NIL  = 2U,     /** Disable falling-edge delay. The rising-edge delayed signal is seen on output EPWMxA.          */
+    PWMB_FED_PWMA_RED  = 3U,     /** Rising-edge delayed signal on output EPWMxA and falling-edge delayed signal on output EPWMxB. */
+    
+	ForceSize_DBOutput = 0xFFFFU /** Do not use (Makes sure that etpwmDeadBandOutputMode_t is at least 16 bits wide)  */
+} etpwmDeadBandOutputMode_t;
 
-//! \brief     Notification for ETPWMx Interrupts
-//! \param[in] node  The pulse width modulation (ETPWM) object handle
-//! \param[in] flags  Event and Interrupt flag.
-void etpwmNotification(etpwmBASE_t *node,uint16_t flags);
+/** @brief Enumeration to define the DeadBand polarity
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmEnableDeadBand
+*
+*/
+typedef enum
+{
+    DisableInvert    = ((uint16)0U << 2U), /** Neither EPWMxA nor EPWMxB is inverted */
+    Invert_PWMA      = ((uint16)1U << 2U), /** EPWMxA is inverted                    */
+    Invert_PWMB      = ((uint16)2U << 2U), /** EPWMxB is inverted                    */
+    Invert_PWMA_PWMB = ((uint16)3U << 2U), /** Both EPWMxA and EPWMxB are inverted   */
+	
+    ForceSize_DBPol = 0xFFFFU /** Do not use (Makes sure that etpwmDeadBandPolarity_t is at least 16 bits wide)  */
+} etpwmDeadBandPolarity_t;
 
-//! \brief     Notification for ETPWM Trip zone Interrupts
-//! \param[in] node  The pulse width modulation (ETPWM) object handle
-//! \param[in] flags  Event and Interrupt flag.
-void etpwmTripNotification(etpwmBASE_t *node,uint16_t flags);
+/** @brief Enumeration to define the action on EPWMA/EPWMB when a trip event happens
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmSetTripAction
+*
+*/
+typedef enum
+{
+    TripZoneState_HighImp   = 0U, /** High-Impedance state */
+    TripZoneState_EPWM_High = 1U, /** Force to High state  */
+    TripZoneState_EPWM_Low  = 2U, /** Force to Low state   */
+    TripZoneState_DoNothing = 3U, /** Do nothing           */
 
+    ForceSize_TripZoneState = 0xFFFFU /** Do not use (Makes sure that etpwmTripZoneState_t is at least 16 bits wide)  */
+} etpwmTripZoneState_t;
+
+/** @brief Enumeration to define One-Shot Pulse Width in chopper submodule
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmEnableChopping
+*
+*/
+typedef enum
+{
+    ChoppingPulseWidth_8_VCLK4   = ((uint16)0U << 1U),  /** 1 x VCLK4/8 wide  */
+    ChoppingPulseWidth_16_VCLK4  = ((uint16)1U << 1U),  /** 2 x VCLK4/8 wide  */
+    ChoppingPulseWidth_24_VCLK4  = ((uint16)2U << 1U),  /** 3 x VCLK4/8 wide  */
+    ChoppingPulseWidth_32_VCLK4  = ((uint16)3U << 1U),  /** 4 x VCLK4/8 wide  */
+    ChoppingPulseWidth_40_VCLK4  = ((uint16)4U << 1U),  /** 5 x VCLK4/8 wide  */
+    ChoppingPulseWidth_48_VCLK4  = ((uint16)5U << 1U),  /** 6 x VCLK4/8 wide  */
+    ChoppingPulseWidth_56_VCLK4  = ((uint16)6U << 1U),  /** 7 x VCLK4/8 wide  */
+    ChoppingPulseWidth_64_VCLK4  = ((uint16)7U << 1U),  /** 8 x VCLK4/8 wide  */
+    ChoppingPulseWidth_72_VCLK4  = ((uint16)8U << 1U),  /** 9 x VCLK4/8 wide  */
+    ChoppingPulseWidth_80_VCLK4  = ((uint16)9U << 1U),  /** 10 x VCLK4/8 wide */
+    ChoppingPulseWidth_88_VCLK4  = ((uint16)10U << 1U), /** 11 x VCLK4/8 wide */
+    ChoppingPulseWidth_96_VCLK4  = ((uint16)11U << 1U), /** 12 x VCLK4/8 wide */
+    ChoppingPulseWidth_104_VCLK4 = ((uint16)12U << 1U), /** 13 x VCLK4/8 wide */
+    ChoppingPulseWidth_112_VCLK4 = ((uint16)13U << 1U), /** 14 x VCLK4/8 wide */
+    ChoppingPulseWidth_120_VCLK4 = ((uint16)14U << 1U), /** 15 x VCLK4/8 wide */
+    ChoppingPulseWidth_128_VCLK4 = ((uint16)15U << 1U), /** 16 x VCLK4/8 wide */
+	
+    ForceSize_ChopPulseWidth = 0xFFFFU /** Do not use (Makes sure that etpwmChoppingPulseWidth_t is at least 16 bits wide)  */
+} etpwmChoppingPulseWidth_t;
+
+/** @brief Enumeration to define Chopping Clock Frequency
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmEnableChopping
+*
+*/
+typedef enum
+{
+    ChoppingClkFreq_VCLK4_by_8  = ((uint16)0U << 5U), /** VCLK4/8 divided by 1 */
+    ChoppingClkFreq_VCLK4_by_16 = ((uint16)1U << 5U), /** VCLK4/8 divided by 2 */
+    ChoppingClkFreq_VCLK4_by_24 = ((uint16)2U << 5U), /** VCLK4/8 divided by 3 */
+    ChoppingClkFreq_VCLK4_by_32 = ((uint16)3U << 5U), /** VCLK4/8 divided by 4 */
+    ChoppingClkFreq_VCLK4_by_40 = ((uint16)4U << 5U), /** VCLK4/8 divided by 5 */
+    ChoppingClkFreq_VCLK4_by_48 = ((uint16)5U << 5U), /** VCLK4/8 divided by 6 */
+    ChoppingClkFreq_VCLK4_by_56 = ((uint16)6U << 5U), /** VCLK4/8 divided by 7 */
+    ChoppingClkFreq_VCLK4_by_64 = ((uint16)7U << 5U), /** VCLK4/8 divided by 8 */
+
+    ForceSize_ChopClkFreq = 0xFFFFU /** Do not use (Makes sure that etpwmChoppingClkFreq_t is at least 16 bits wide)  */
+}etpwmChoppingClkFreq_t;
+
+/** @brief Enumeration to define Chopping Clock duty cycle
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmEnableChopping
+*
+*/
+typedef enum
+{
+    ChoppingDutyCycle_One_Eighth    = 0x0000U, /** Duty = 1/8 (12.5%) */
+    ChoppingDutyCycle_Two_Eighths   = 0x0100U, /** Duty = 2/8 (25.0%) */
+    ChoppingDutyCycle_Three_Eighths = 0x0200U, /** Duty = 3/8 (37.5%) */
+    ChoppingDutyCycle_Four_Eighths  = 0x0300U, /** Duty = 4/8 (50.0%) */
+    ChoppingDutyCycle_Five_Eighths  = 0x0400U, /** Duty = 5/8 (62.5%) */
+    ChoppingDutyCycle_Six_Eighths   = 0x0500U, /** Duty = 6/8 (75.0%) */
+    ChoppingDutyCycle_Seven_Eighths = 0x0600U, /** Duty = 7/8 (87.5%) */
+
+    ForceSize_ChopDuty = 0xFFFFU /** Do not use (Makes sure that etpwmChoppingDutyCycle_t is at least 16 bits wide)  */
+} etpwmChoppingDutyCycle_t;
+
+/** @brief Enumeration to define Digital Compare Input
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmEnableDigitalCompareEvents
+*
+*/
+typedef enum
+{
+	TZ1 = 0U,
+	TZ2 = 1U,
+	TZ3 = 2U,
+
+    ForceSize_DCInput = 0xFFFFU /** Do not use (Makes sure that etpwmDCInput_t is at least 16 bits wide)  */
+}etpwmDCInput_t;
+
+/** @brief Enumeration to define Digital Compare Output selection
+*   
+*   @note This enum should be use to populate the struct passed as the parameter 
+*   to the API etpwmEnableDigitalCompareEvents.
+*   @note DCAH_Low, DCAH_High, DCAL_Low, DCAL_High, DCAL_High_DCAH_Low should be used only for selecting DCAEVT1_event and DCAEVT2_event
+*   and DCBH_Low, DCBH_High, DCBL_Low, DCBL_High, DCBL_High_DCBH_Low should be used only for selecting DCBEVT1_event and DCBEVT2_event
+*
+*/
+typedef enum
+{
+	Event_Disabled     = 0U,  /** Event Disabled */
+
+	DCAH_Low           = 1U,  /** DCAEVTx selection : DCAH = low,  DCAL = don't care  */
+	DCAH_High          = 2U,  /** DCAEVTx selection : DCAH = high, DCAL = don't care  */
+	DCAL_Low           = 3U,  /** DCAEVTx selection : DCAL = low,  DCAH = don't care  */
+	DCAL_High          = 4U,  /** DCAEVTx selection : DCAL = high, DCAH = don't care  */
+	DCAL_High_DCAH_Low = 5U,  /** DCAEVTx selection : DCAL = high, DCAH = low         */
+
+	DCBH_Low           = 1U,  /** DCBEVTx selection : DCBH = low,  DCBL = don't care  */
+	DCBH_High          = 2U,  /** DCBEVTx selection : DCBH = high, DCBL = don't care  */
+	DCBL_Low           = 3U,  /** DCBEVTx selection : DCBL = low,  DCBH = don't care  */
+	DCBL_High          = 4U,  /** DCBEVTx selection : DCBL = high, DCBH = don't care  */
+	DCBL_High_DCBH_low = 5U,  /** DCBEVTx selection : DCBL = high, DCBH = low         */
+
+    ForceSize_DCSelect = 0xFFFFU /** Do not use (Makes sure that etpwmDCInput_t is at least 16 bits wide)  */
+}etpwmDCOutputSelect_t;
+
+/** @brief ETPWMx Action Qualifier configuration
+*/
+typedef struct
+{
+    etpwmActionQual_t CtrEqZero_Action;
+    etpwmActionQual_t CtrEqPeriod_Action;
+    etpwmActionQual_t CtrEqCmpAUp_Action;
+    etpwmActionQual_t CtrEqCmpADown_Action;
+    etpwmActionQual_t CtrEqCmpBUp_Action;
+    etpwmActionQual_t CtrEqCmpBDown_Action;
+}etpwmActionQualConfig_t;
+
+/** @brief ETPWMx Deadband configuration
+*/
+typedef struct
+{
+    etpwmDeadBandInputMode_t inputmode;
+    etpwmDeadBandOutputMode_t outputmode;
+    etpwmDeadBandPolarity_t polarity;
+    boolean halfCycleEnable;
+}etpwmDeadBandConfig_t;
+
+/** @brief ETPWMx Chopper configuration
+*/
+typedef struct
+{
+    etpwmChoppingPulseWidth_t oswdth;
+    etpwmChoppingClkFreq_t freq;
+    etpwmChoppingDutyCycle_t duty;
+}etpwmChoppingConfig_t;
+
+/** @brief ETPWMx Trip action configuration
+*/
+typedef struct
+{
+    etpwmTripZoneState_t TripEvent_ActionOnPWMA;
+    etpwmTripZoneState_t TripEvent_ActionOnPWMB;
+    etpwmTripZoneState_t DCAEVT1_ActionOnPWMA;
+    etpwmTripZoneState_t DCAEVT2_ActionOnPWMA;
+    etpwmTripZoneState_t DCBEVT1_ActionOnPWMB;
+    etpwmTripZoneState_t DCBEVT2_ActionOnPWMB;
+}etpwmTripActionConfig_t;
+
+/** @brief ETPWMx Digital Compare configuration
+*/
+typedef struct
+{
+	etpwmDCInput_t DCAH_src;
+	etpwmDCInput_t DCAL_src;
+	etpwmDCInput_t DCBH_src;
+	etpwmDCInput_t DCBL_src;
+	etpwmDCOutputSelect_t DCAEVT1_event;
+	etpwmDCOutputSelect_t DCAEVT2_event;
+	etpwmDCOutputSelect_t DCBEVT1_event;
+	etpwmDCOutputSelect_t DCBEVT2_event;
+}etpwmDigitalCompareConfig_t;
+
+typedef struct etpwm_config_reg
+{
+    uint16 CONFIG_TBCTL;
+    uint16 CONFIG_TBPHS;
+    uint16 CONFIG_TBPRD;
+    uint16 CONFIG_CMPCTL;
+    uint16 CONFIG_CMPA;
+    uint16 CONFIG_CMPB;
+    uint16 CONFIG_AQCTLA;
+    uint16 CONFIG_AQCTLB;
+    uint16 CONFIG_DBCTL;
+    uint16 CONFIG_DBRED;
+    uint16 CONFIG_DBFED;
+    uint16 CONFIG_TZSEL;
+    uint16 CONFIG_TZDCSEL;
+    uint16 CONFIG_TZCTL;
+    uint16 CONFIG_TZEINT;
+    uint16 CONFIG_ETSEL;
+    uint16 CONFIG_ETPS;
+    uint16 CONFIG_PCCTL;
+    uint16 CONFIG_DCTRIPSEL;
+    uint16 CONFIG_DCACTL;
+    uint16 CONFIG_DCBCTL;
+    uint16 CONFIG_DCFCTL;
+    uint16 CONFIG_DCCAPCTL;
+    uint16 CONFIG_DCFWINDOW;
+    uint16 CONFIG_DCFWINDOWCNT;
+} etpwm_config_reg_t;
+
+#define ETPWM1_TBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 7U) | (uint16)((uint16)0U << 10U))
+#define ETPWM1_TBPHS_CONFIGVALUE          0x00000000U
+#define ETPWM1_TBPRD_CONFIGVALUE          79U
+#define ETPWM1_CMPCTL_CONFIGVALUE         0x00000000U
+#define ETPWM1_CMPA_CONFIGVALUE           40U
+#define ETPWM1_CMPB_CONFIGVALUE           40U
+#define ETPWM1_AQCTLA_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 4U))
+#define ETPWM1_AQCTLB_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 8U))
+#define ETPWM1_DBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 5U) | (uint16)((uint16)0u << 4U) | (uint16)((uint16)0U << 3U) | (uint16)((uint16)0U << 2U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)0U << 0U)) 
+#define ETPWM1_DBRED_CONFIGVALUE          80U
+#define ETPWM1_DBFED_CONFIGVALUE          80U
+#define ETPWM1_TZSEL_CONFIGVALUE          (0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U)
+#define ETPWM1_TZDCSEL_CONFIGVALUE        0x00000000U
+#define ETPWM1_TZCTL_CONFIGVALUE          0x00000000U
+#define ETPWM1_TZEINT_CONFIGVALUE         (0x0000U  | 0x0000U | 0x0000U | 0x0000U | 0x0000U| 0x0000U)
+#define ETPWM1_ETSEL_CONFIGVALUE          ((((uint16)NO_EVENT == 0U)? 0x0000U : 0x0008U) | (uint16)NO_EVENT | (uint16)0x0000U | (uint16)0x0000U | (uint16)((uint16)DCAEVT1 << 8U) | (uint16)((uint16)DCBEVT1 << 12U))
+#define ETPWM1_ETPS_CONFIGVALUE           (1U | (uint16)((uint16)1U << 8U)  | (uint16)((uint16)1U << 12U))
+#define ETPWM1_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)1U << 1U) | (uint16)((uint16)50U << 8U) | (uint16)((uint16)1000U << 5U))
+#define ETPWM1_DCTRIPSEL_CONFIGVALUE      0x00000000U
+#define ETPWM1_DCACTL_CONFIGVALUE         0x00000000U
+#define ETPWM1_DCBCTL_CONFIGVALUE         0x00000000U
+#define ETPWM1_DCFCTL_CONFIGVALUE         0x00000000U
+#define ETPWM1_DCCAPCTL_CONFIGVALUE       0x00000000U
+#define ETPWM1_DCFWINDOW_CONFIGVALUE      0x00000000U
+#define ETPWM1_DCFWINDOWCNT_CONFIGVALUE   0x00000000U
+
+#define ETPWM2_TBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 7U) | (uint16)((uint16)0U << 10U))
+#define ETPWM2_TBPHS_CONFIGVALUE          0x00000000U
+#define ETPWM2_TBPRD_CONFIGVALUE          1000U
+#define ETPWM2_CMPCTL_CONFIGVALUE         0x00000000U
+#define ETPWM2_CMPA_CONFIGVALUE           50U
+#define ETPWM2_CMPB_CONFIGVALUE           50U
+#define ETPWM2_AQCTLA_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 4U))
+#define ETPWM2_AQCTLB_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 8U))
+#define ETPWM2_DBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 5U) | (uint16)((uint16)0u << 4U) | (uint16)((uint16)0U << 3U) | (uint16)((uint16)0U << 2U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)0U << 0U)) 
+#define ETPWM2_DBRED_CONFIGVALUE          1U
+#define ETPWM2_DBFED_CONFIGVALUE          1U
+#define ETPWM2_TZSEL_CONFIGVALUE          (0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U)
+#define ETPWM2_TZDCSEL_CONFIGVALUE        0x00000000U
+#define ETPWM2_TZCTL_CONFIGVALUE          0x00000000U
+#define ETPWM2_TZEINT_CONFIGVALUE         (0x0000U  | 0x0000U | 0x0000U | 0x0000U | 0x0000U| 0x0000U)
+#define ETPWM2_ETSEL_CONFIGVALUE          ((((uint16)NO_EVENT == 0U)? 0x0000U : 0x0008U) | (uint16)NO_EVENT | (uint16)0x0000U | (uint16)0x0000U | (uint16)((uint16)DCAEVT1 << 8U) | (uint16)((uint16)DCBEVT1 << 12U))
+#define ETPWM2_ETPS_CONFIGVALUE           (1U | (uint16)((uint16)1U << 8U)  | (uint16)((uint16)1U << 12U))
+#define ETPWM2_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)1U << 1U) | (uint16)((uint16)50U << 8U) | (uint16)((uint16)1000U << 5U))
+#define ETPWM2_DCTRIPSEL_CONFIGVALUE      0x00000000U
+#define ETPWM2_DCACTL_CONFIGVALUE         0x00000000U
+#define ETPWM2_DCBCTL_CONFIGVALUE         0x00000000U
+#define ETPWM2_DCFCTL_CONFIGVALUE         0x00000000U
+#define ETPWM2_DCCAPCTL_CONFIGVALUE       0x00000000U
+#define ETPWM2_DCFWINDOW_CONFIGVALUE      0x00000000U
+#define ETPWM2_DCFWINDOWCNT_CONFIGVALUE   0x00000000U
+
+#define ETPWM3_TBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 7U) | (uint16)((uint16)0U << 10U))
+#define ETPWM3_TBPHS_CONFIGVALUE          0x00000000U
+#define ETPWM3_TBPRD_CONFIGVALUE          1000U
+#define ETPWM3_CMPCTL_CONFIGVALUE         0x00000000U
+#define ETPWM3_CMPA_CONFIGVALUE           50U
+#define ETPWM3_CMPB_CONFIGVALUE           50U
+#define ETPWM3_AQCTLA_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 4U))
+#define ETPWM3_AQCTLB_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 8U))
+#define ETPWM3_DBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 5U) | (uint16)((uint16)0u << 4U) | (uint16)((uint16)0U << 3U) | (uint16)((uint16)0U << 2U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)0U << 0U)) 
+#define ETPWM3_DBRED_CONFIGVALUE          1U
+#define ETPWM3_DBFED_CONFIGVALUE          1U
+#define ETPWM3_TZSEL_CONFIGVALUE          (0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U)
+#define ETPWM3_TZDCSEL_CONFIGVALUE        0x00000000U
+#define ETPWM3_TZCTL_CONFIGVALUE          0x00000000U
+#define ETPWM3_TZEINT_CONFIGVALUE         (0x0000U  | 0x0000U | 0x0000U | 0x0000U | 0x0000U| 0x0000U)
+#define ETPWM3_ETSEL_CONFIGVALUE          ((((uint16)NO_EVENT == 0U)? 0x0000U : 0x0008U) | (uint16)NO_EVENT | (uint16)0x0000U | (uint16)0x0000U | (uint16)((uint16)DCAEVT1 << 8U) | (uint16)((uint16)DCBEVT1 << 12U))
+#define ETPWM3_ETPS_CONFIGVALUE           (1U | (uint16)((uint16)1U << 8U)  | (uint16)((uint16)1U << 12U))
+#define ETPWM3_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)1U << 1U) | (uint16)((uint16)50U << 8U) | (uint16)((uint16)1000U << 5U))
+#define ETPWM3_DCTRIPSEL_CONFIGVALUE      0x00000000U
+#define ETPWM3_DCACTL_CONFIGVALUE         0x00000000U
+#define ETPWM3_DCBCTL_CONFIGVALUE         0x00000000U
+#define ETPWM3_DCFCTL_CONFIGVALUE         0x00000000U
+#define ETPWM3_DCCAPCTL_CONFIGVALUE       0x00000000U
+#define ETPWM3_DCFWINDOW_CONFIGVALUE      0x00000000U
+#define ETPWM3_DCFWINDOWCNT_CONFIGVALUE   0x00000000U
+
+#define ETPWM4_TBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 7U) | (uint16)((uint16)0U << 10U))
+#define ETPWM4_TBPHS_CONFIGVALUE          0x00000000U
+#define ETPWM4_TBPRD_CONFIGVALUE          1000U
+#define ETPWM4_CMPCTL_CONFIGVALUE         0x00000000U
+#define ETPWM4_CMPA_CONFIGVALUE           50U
+#define ETPWM4_CMPB_CONFIGVALUE           50U
+#define ETPWM4_AQCTLA_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 4U))
+#define ETPWM4_AQCTLB_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 8U))
+#define ETPWM4_DBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 5U) | (uint16)((uint16)0u << 4U) | (uint16)((uint16)0U << 3U) | (uint16)((uint16)0U << 2U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)0U << 0U)) 
+#define ETPWM4_DBRED_CONFIGVALUE          1U
+#define ETPWM4_DBFED_CONFIGVALUE          1U
+#define ETPWM4_TZSEL_CONFIGVALUE          (0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U)
+#define ETPWM4_TZDCSEL_CONFIGVALUE        0x00000000U
+#define ETPWM4_TZCTL_CONFIGVALUE          0x00000000U
+#define ETPWM4_TZEINT_CONFIGVALUE         (0x0000U  | 0x0000U | 0x0000U | 0x0000U | 0x0000U| 0x0000U)
+#define ETPWM4_ETSEL_CONFIGVALUE          ((((uint16)NO_EVENT == 0U)? 0x0000U : 0x0008U) | (uint16)NO_EVENT | (uint16)0x0000U | (uint16)0x0000U | (uint16)((uint16)DCAEVT1 << 8U) | (uint16)((uint16)DCBEVT1 << 12U))
+#define ETPWM4_ETPS_CONFIGVALUE           (1U | (uint16)((uint16)1U << 8U)  | (uint16)((uint16)1U << 12U))
+#define ETPWM4_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)1U << 1U) | (uint16)((uint16)50U << 8U) | (uint16)((uint16)1000U << 5U))
+#define ETPWM4_DCTRIPSEL_CONFIGVALUE      0x00000000U
+#define ETPWM4_DCACTL_CONFIGVALUE         0x00000000U
+#define ETPWM4_DCBCTL_CONFIGVALUE         0x00000000U
+#define ETPWM4_DCFCTL_CONFIGVALUE         0x00000000U
+#define ETPWM4_DCCAPCTL_CONFIGVALUE       0x00000000U
+#define ETPWM4_DCFWINDOW_CONFIGVALUE      0x00000000U
+#define ETPWM4_DCFWINDOWCNT_CONFIGVALUE   0x00000000U
+
+#define ETPWM5_TBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 7U) | (uint16)((uint16)0U << 10U))
+#define ETPWM5_TBPHS_CONFIGVALUE          0x00000000U
+#define ETPWM5_TBPRD_CONFIGVALUE          1000U
+#define ETPWM5_CMPCTL_CONFIGVALUE         0x00000000U
+#define ETPWM5_CMPA_CONFIGVALUE           50U
+#define ETPWM5_CMPB_CONFIGVALUE           50U
+#define ETPWM5_AQCTLA_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 4U))
+#define ETPWM5_AQCTLB_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 8U))
+#define ETPWM5_DBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 5U) | (uint16)((uint16)0u << 4U) | (uint16)((uint16)0U << 3U) | (uint16)((uint16)0U << 2U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)0U << 0U)) 
+#define ETPWM5_DBRED_CONFIGVALUE          1U
+#define ETPWM5_DBFED_CONFIGVALUE          1U
+#define ETPWM5_TZSEL_CONFIGVALUE          (0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U)
+#define ETPWM5_TZDCSEL_CONFIGVALUE        0x00000000U
+#define ETPWM5_TZCTL_CONFIGVALUE          0x00000000U
+#define ETPWM5_TZEINT_CONFIGVALUE         (0x0000U  | 0x0000U | 0x0000U | 0x0000U | 0x0000U| 0x0000U)
+#define ETPWM5_ETSEL_CONFIGVALUE          ((((uint16)NO_EVENT == 0U)? 0x0000U : 0x0008U) | (uint16)NO_EVENT | (uint16)0x0000U | (uint16)0x0000U | (uint16)((uint16)DCAEVT1 << 8U) | (uint16)((uint16)DCBEVT1 << 12U))
+#define ETPWM5_ETPS_CONFIGVALUE           (1U | (uint16)((uint16)1U << 8U)  | (uint16)((uint16)1U << 12U))
+#define ETPWM5_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)1U << 1U) | (uint16)((uint16)50U << 8U) | (uint16)((uint16)1000U << 5U))
+#define ETPWM5_DCTRIPSEL_CONFIGVALUE      0x00000000U
+#define ETPWM5_DCACTL_CONFIGVALUE         0x00000000U
+#define ETPWM5_DCBCTL_CONFIGVALUE         0x00000000U
+#define ETPWM5_DCFCTL_CONFIGVALUE         0x00000000U
+#define ETPWM5_DCCAPCTL_CONFIGVALUE       0x00000000U
+#define ETPWM5_DCFWINDOW_CONFIGVALUE      0x00000000U
+#define ETPWM5_DCFWINDOWCNT_CONFIGVALUE   0x00000000U
+
+#define ETPWM6_TBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 7U) | (uint16)((uint16)0U << 10U))
+#define ETPWM6_TBPHS_CONFIGVALUE          0x00000000U
+#define ETPWM6_TBPRD_CONFIGVALUE          1000U
+#define ETPWM6_CMPCTL_CONFIGVALUE         0x00000000U
+#define ETPWM6_CMPA_CONFIGVALUE           50U
+#define ETPWM6_CMPB_CONFIGVALUE           50U
+#define ETPWM6_AQCTLA_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 4U))
+#define ETPWM6_AQCTLB_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 8U))
+#define ETPWM6_DBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 5U) | (uint16)((uint16)0u << 4U) | (uint16)((uint16)0U << 3U) | (uint16)((uint16)0U << 2U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)0U << 0U)) 
+#define ETPWM6_DBRED_CONFIGVALUE          1U
+#define ETPWM6_DBFED_CONFIGVALUE          1U
+#define ETPWM6_TZSEL_CONFIGVALUE          (0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U)
+#define ETPWM6_TZDCSEL_CONFIGVALUE        0x00000000U
+#define ETPWM6_TZCTL_CONFIGVALUE          0x00000000U
+#define ETPWM6_TZEINT_CONFIGVALUE         (0x0000U  | 0x0000U | 0x0000U | 0x0000U | 0x0000U| 0x0000U)
+#define ETPWM6_ETSEL_CONFIGVALUE          ((((uint16)NO_EVENT == 0U)? 0x0000U : 0x0008U) | (uint16)NO_EVENT | (uint16)0x0000U | (uint16)0x0000U | (uint16)((uint16)DCAEVT1 << 8U) | (uint16)((uint16)DCBEVT1 << 12U))
+#define ETPWM6_ETPS_CONFIGVALUE           (1U | (uint16)((uint16)1U << 8U)  | (uint16)((uint16)1U << 12U))
+#define ETPWM6_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)1U << 1U) | (uint16)((uint16)50U << 8U) | (uint16)((uint16)1000U << 5U))
+#define ETPWM6_DCTRIPSEL_CONFIGVALUE      0x00000000U
+#define ETPWM6_DCACTL_CONFIGVALUE         0x00000000U
+#define ETPWM6_DCBCTL_CONFIGVALUE         0x00000000U
+#define ETPWM6_DCFCTL_CONFIGVALUE         0x00000000U
+#define ETPWM6_DCCAPCTL_CONFIGVALUE       0x00000000U
+#define ETPWM6_DCFWINDOW_CONFIGVALUE      0x00000000U
+#define ETPWM6_DCFWINDOWCNT_CONFIGVALUE   0x00000000U
+
+#define ETPWM7_TBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 7U) | (uint16)((uint16)0U << 10U))
+#define ETPWM7_TBPHS_CONFIGVALUE          0x00000000U
+#define ETPWM7_TBPRD_CONFIGVALUE          1000U
+#define ETPWM7_CMPCTL_CONFIGVALUE         0x00000000U
+#define ETPWM7_CMPA_CONFIGVALUE           50U
+#define ETPWM7_CMPB_CONFIGVALUE           50U
+#define ETPWM7_AQCTLA_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 4U))
+#define ETPWM7_AQCTLB_CONFIGVALUE         ((uint16)((uint16)ActionQual_Set << 0U) | (uint16)((uint16)ActionQual_Clear << 8U))
+#define ETPWM7_DBCTL_CONFIGVALUE          ((uint16)((uint16)0U << 5U) | (uint16)((uint16)0u << 4U) | (uint16)((uint16)0U << 3U) | (uint16)((uint16)0U << 2U) | (uint16)((uint16)0U << 1U) | (uint16)((uint16)0U << 0U)) 
+#define ETPWM7_DBRED_CONFIGVALUE          1U
+#define ETPWM7_DBFED_CONFIGVALUE          1U
+#define ETPWM7_TZSEL_CONFIGVALUE          (0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U | 0x0000U)
+#define ETPWM7_TZDCSEL_CONFIGVALUE        0x00000000U
+#define ETPWM7_TZCTL_CONFIGVALUE          0x00000000U
+#define ETPWM7_TZEINT_CONFIGVALUE         (0x0000U  | 0x0000U | 0x0000U | 0x0000U | 0x0000U| 0x0000U)
+#define ETPWM7_ETSEL_CONFIGVALUE          ((((uint16)NO_EVENT == 0U)? 0x0000U : 0x0008U) | (uint16)NO_EVENT | (uint16)0x0000U | (uint16)0x0000U | (uint16)((uint16)DCAEVT1 << 8U) | (uint16)((uint16)DCBEVT1 << 12U))
+#define ETPWM7_ETPS_CONFIGVALUE           (1U | (uint16)((uint16)1U << 8U)  | (uint16)((uint16)1U << 12U))
+#define ETPWM7_PCCTL_CONFIGVALUE          ((uint16)((uint16)0U << 0U) | (uint16)((uint16)1U << 1U) | (uint16)((uint16)50U << 8U) | (uint16)((uint16)1000U << 5U))
+#define ETPWM7_DCTRIPSEL_CONFIGVALUE      0x00000000U
+#define ETPWM7_DCACTL_CONFIGVALUE         0x00000000U
+#define ETPWM7_DCBCTL_CONFIGVALUE         0x00000000U
+#define ETPWM7_DCFCTL_CONFIGVALUE         0x00000000U
+#define ETPWM7_DCCAPCTL_CONFIGVALUE       0x00000000U
+#define ETPWM7_DCFWINDOW_CONFIGVALUE      0x00000000U
+#define ETPWM7_DCFWINDOWCNT_CONFIGVALUE   0x00000000U	
+
+/**
+ *  @defgroup ePWM ePWM
+ *  @brief Enhanced Pulse Width Modulator.
+ *  
+ *  The enhanced pulse width modulator (ePWM) peripheral is a key element in controlling many of the power
+ *  electronic systems found in both commercial and industrial equipments. The features supported by the
+ *  ePWM make it especially suitable for digital motor control.
+ *
+ *    Related Files
+ *   - HL_reg_etpwm.h
+ *   - HL_etpwm.h
+ *   - HL_etpwm.c
+ *  @addtogroup ePWM
+ *  @{
+ */
+void etpwmInit(void);
+void etpwmStartTBCLK(void);
+void etpwmStopTBCLK(void);
+
+void etpwmSetClkDiv(etpwmBASE_t *etpwm, etpwmClkDiv_t clkdiv, etpwmHspClkDiv_t hspclkdiv);
+void etpwmSetTimebasePeriod(etpwmBASE_t *etpwm, uint16 period);
+void etpwmSetCount(etpwmBASE_t *etpwm, uint16 count);
+void etpwmDisableTimebasePeriodShadowMode(etpwmBASE_t *etpwm);
+void etpwmEnableTimebasePeriodShadowMode(etpwmBASE_t *etpwm);
+void etpwmEnableCounterLoadOnSync(etpwmBASE_t *etpwm, uint16 phase, uint16 direction);
+void etpwmDisableCounterLoadOnSync(etpwmBASE_t *etpwm);
+void etpwmSetSyncOut(etpwmBASE_t *etpwm, etpwmSyncOut_t syncOutSrc);
+void etpwmSetCounterMode(etpwmBASE_t *etpwm, etpwmCounterMode_t countermode);
+void etpwmTriggerSWSync(etpwmBASE_t *etpwm);
+void etpwmSetRunMode(etpwmBASE_t *etpwm, etpwmRunMode_t runmode);
+
+void etpwmSetCmpA(etpwmBASE_t *etpwm, uint16 value);
+void etpwmSetCmpB(etpwmBASE_t *etpwm, uint16 value);
+void etpwmEnableCmpAShadowMode(etpwmBASE_t *etpwm, etpwmLoadMode_t loadmode);
+void etpwmDisableCmpAShadowMode(etpwmBASE_t *etpwm);
+void etpwmEnableCmpBShadowMode(etpwmBASE_t *etpwm, etpwmLoadMode_t loadmode);
+void etpwmDisableCmpBShadowMode(etpwmBASE_t *etpwm);
+
+void etpwmSetActionQualPwmA(etpwmBASE_t *etpwm, etpwmActionQualConfig_t actionqualconfig);
+void etpwmSetActionQualPwmB(etpwmBASE_t *etpwm, etpwmActionQualConfig_t actionqualconfig);
+
+void etpwmEnableDeadBand(etpwmBASE_t *etpwm, etpwmDeadBandConfig_t deadbandconfig);
+void etpwmDisableDeadband(etpwmBASE_t *etpwm);
+void etpwmSetDeadBandDelay(etpwmBASE_t *etpwm, uint16 Rdelay, uint16 Fdelay);
+
+void etpwmEnableChopping(etpwmBASE_t *etpwm, etpwmChoppingConfig_t choppingconfig);
+void etpwmDisableChopping(etpwmBASE_t *etpwm);
+
+void etpwmEnableTripZoneSources(etpwmBASE_t *etpwm, etpwmTripZoneSrc_t sources);
+void etpwmDisableTripZoneSources(etpwmBASE_t *etpwm, etpwmTripZoneSrc_t sources);
+void etpwmSetTripAction(etpwmBASE_t *etpwm, etpwmTripActionConfig_t tripactionconfig);
+
+void etpwmEnableTripInterrupt(etpwmBASE_t *etpwm, etpwmTrip_t interrupts);
+void etpwmDisableTripInterrupt(etpwmBASE_t *etpwm, etpwmTrip_t interrupts);
+void etpwmClearTripCondition(etpwmBASE_t *etpwm, etpwmTrip_t trips);
+void etpwmClearTripInterruptFlag(etpwmBASE_t *etpwm);
+void etpwmForceTripEvent(etpwmBASE_t *etpwm, etpwmTrip_t trip);
+void etpwmEnableSOCA(etpwmBASE_t *etpwm, etpwmEventSrc_t eventsource, etpwmEventPeriod_t eventperiod);
+void etpwmDisableSOCA(etpwmBASE_t *etpwm);
+void etpwmEnableSOCB(etpwmBASE_t *etpwm, etpwmEventSrc_t eventsource, etpwmEventPeriod_t eventperiod);
+void etpwmDisableSOCB(etpwmBASE_t *etpwm);
+void etpwmEnableInterrupt(etpwmBASE_t *etpwm, etpwmEventSrc_t eventsource, etpwmEventPeriod_t eventperiod);
+void etpwmDisableInterrupt(etpwmBASE_t *etpwm);
+uint16 etpwmGetEventStatus(etpwmBASE_t *etpwm);
+void etpwmClearEventFlag(etpwmBASE_t *etpwm, etpwmEvent_t events);
+void etpwmTriggerEvent(etpwmBASE_t *etpwm, etpwmEvent_t events);
+void etpwmEnableDigitalCompareEvents(etpwmBASE_t *etpwm, etpwmDigitalCompareConfig_t digitalcompareconfig);
+void etpwm1GetConfigValue(etpwm_config_reg_t *config_reg, config_value_type_t type);
+void etpwm2GetConfigValue(etpwm_config_reg_t *config_reg, config_value_type_t type);
+void etpwm3GetConfigValue(etpwm_config_reg_t *config_reg, config_value_type_t type);
+void etpwm4GetConfigValue(etpwm_config_reg_t *config_reg, config_value_type_t type);
+void etpwm5GetConfigValue(etpwm_config_reg_t *config_reg, config_value_type_t type);
+void etpwm6GetConfigValue(etpwm_config_reg_t *config_reg, config_value_type_t type);
+void etpwm7GetConfigValue(etpwm_config_reg_t *config_reg, config_value_type_t type);
+/** @brief     Notification for ETPWMx Interrupts
+*   @param[in] node  The pulse width modulation (ETPWM) object handle
+*/
+void etpwmNotification(etpwmBASE_t *node);
+
+/** @brief     Notification for ETPWM Trip zone Interrupts
+*   @param[in] node  The pulse width modulation (ETPWM) object handle
+*   @param[in] flags  Event and Interrupt flag.
+*/
+void etpwmTripNotification(etpwmBASE_t *node,uint16 flags);
+
+/**@}*/
 
 #ifdef __cplusplus
 }
-#endif // extern "C"
+#endif /*extern "C" */
 
-//@}  // ingroup
-
-
-#endif  // end of _ETPWM_H_ definition
-
+/* USER CODE BEGIN (1) */
+/* USER CODE END */
+#endif  /* end of _ETPWM_H_ definition */

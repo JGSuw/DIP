@@ -1,96 +1,141 @@
 /** @file gio.h
 *   @brief GIO Driver Definition File
-*   @date 15.Mar.2012
-*   @version 03.01.00
-*   
+*   @date 25.April.2014
+*   @version 03.09.00
+*
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
-
-#include "sys_common.h"
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __GIO_H__
 #define __GIO_H__
 
-/** @struct gioBase
-*   @brief GIO Base Register Definition
-*
-*   This structure is used to access the GIO module registers.
-*/
-/** @typedef gioBASE_t
-*   @brief GIO Register Frame Type Definition
-*
-*   This type is used to access the GIO Registers.
-*/
-typedef volatile struct gioBase
+#include "reg_gio.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* USER CODE BEGIN (0) */
+/* USER CODE END */
+
+typedef struct gio_config_reg
 {
-    uint32_t GCR0;      /**< 0x0000: Global Control Register */
-    uint32_t PWDN;      /**< 0x0004: Power Down Register */
-    uint32_t INTDET;    /**< 0x0008: Interrupt Detect Register*/
-    uint32_t POL;       /**< 0x000C: Interrupt Polarity Register */
-    uint32_t INTENASET; /**< 0x0010: Interrupt Enable Set Register */
-    uint32_t INTENACLR; /**< 0x0014: Interrupt Enable Clear Register */
-    uint32_t LVLSET;    /**< 0x0018: Interrupt Priority Set Register */
-    uint32_t LVLCLR;    /**< 0x001C: Interrupt Priority Clear Register */
-    uint32_t FLG;       /**< 0x0020: Interrupt Flag Register */
-    uint32_t OFFSET0;   /**< 0x0024: Interrupt Offset A Register */
-    uint32_t OFFSET1;   /**< 0x0028: Interrupt Offset B Register */
-} gioBASE_t;
+    uint32 CONFIG_INTDET;
+    uint32 CONFIG_POL;
+    uint32 CONFIG_INTENASET;
+    uint32 CONFIG_LVLSET;
+
+	uint32 CONFIG_PORTADIR;
+	uint32 CONFIG_PORTAPDR;
+	uint32 CONFIG_PORTAPSL;
+	uint32 CONFIG_PORTAPULDIS;
+
+	uint32 CONFIG_PORTBDIR;
+	uint32 CONFIG_PORTBPDR;
+	uint32 CONFIG_PORTBPSL;
+	uint32 CONFIG_PORTBPULDIS;
+}gio_config_reg_t;
+
+#define GIO_INTDET_CONFIGVALUE    0U
+#define GIO_POL_CONFIGVALUE	      ((uint32)((uint32)0U << 0U) \
+								 | (uint32)((uint32)0U << 1U) \
+								 | (uint32)((uint32)0U << 2U) \
+								 | (uint32)((uint32)0U << 3U) \
+								 | (uint32)((uint32)0U << 4U) \
+								 | (uint32)((uint32)0U << 5U) \
+								 | (uint32)((uint32)0U << 6U) \
+								 | (uint32)((uint32)0U << 7U) \
+								 | (uint32)((uint32)0U << 8U) \
+								 | (uint32)((uint32)0U << 9U) \
+								 | (uint32)((uint32)0U << 10U)\
+								 | (uint32)((uint32)0U << 11U)\
+								 | (uint32)((uint32)0U << 12U)\
+								 | (uint32)((uint32)0U << 13U)\
+								 | (uint32)((uint32)0U << 14U)\
+								 | (uint32)((uint32)0U << 15U))
 
 
-/** @struct gioPort
-*   @brief GIO Port Register Definition
-*/
-/** @typedef gioPORT_t
-*   @brief GIO Port Register Type Definition
-*
-*   This type is used to access the GIO Port Registers.
-*/
-typedef volatile struct gioPort
-{
-    uint32_t DIR;    /**< 0x0000: Data Direction Register */
-    uint32_t DIN;    /**< 0x0004: Data Input Register */
-    uint32_t DOUT;   /**< 0x0008: Data Output Register */
-    uint32_t DSET;   /**< 0x000C: Data Output Set Register */
-    uint32_t DCLR;   /**< 0x0010: Data Output Clear Register */
-    uint32_t PDR;    /**< 0x0014: Open Drain Register */
-    uint32_t PULDIS; /**< 0x0018: Pullup Disable Register */
-    uint32_t PSL;    /**< 0x001C: Pull Up/Down Selection Register */
-} gioPORT_t;
+#define GIO_INTENASET_CONFIGVALUE ((uint32)((uint32)0U << 0U) \
+							     | (uint32)((uint32)0U << 1U) \
+							     | (uint32)((uint32)0U << 2U) \
+							     | (uint32)((uint32)0U << 3U) \
+							     | (uint32)((uint32)0U << 4U) \
+							     | (uint32)((uint32)0U << 5U) \
+							     | (uint32)((uint32)0U << 6U) \
+							     | (uint32)((uint32)0U << 7U) \
+								 | (uint32)((uint32)0U << 8U) \
+								 | (uint32)((uint32)0U << 9U) \
+								 | (uint32)((uint32)0U << 10U)\
+								 | (uint32)((uint32)0U << 11U)\
+								 | (uint32)((uint32)0U << 12U)\
+								 | (uint32)((uint32)0U << 13U)\
+								 | (uint32)((uint32)0U << 14U)\
+								 | (uint32)((uint32)0U << 15U))
+
+#define GIO_LVLSET_CONFIGVALUE    ((uint32)((uint32)0U << 0U) \
+								 | (uint32)((uint32)0U << 1U) \
+								 | (uint32)((uint32)0U << 2U) \
+								 | (uint32)((uint32)0U << 3U) \
+								 | (uint32)((uint32)0U << 4U) \
+								 | (uint32)((uint32)0U << 5U) \
+								 | (uint32)((uint32)0U << 6U) \
+								 | (uint32)((uint32)0U << 7U) \
+								 | (uint32)((uint32)0U << 8U) \
+								 | (uint32)((uint32)0U << 9U) \
+								 | (uint32)((uint32)0U << 10U)\
+								 | (uint32)((uint32)0U << 11U)\
+								 | (uint32)((uint32)0U << 12U)\
+								 | (uint32)((uint32)0U << 13U)\
+								 | (uint32)((uint32)0U << 14U)\
+								 | (uint32)((uint32)0U << 15U))
+
+#define GIO_PORTADIR_CONFIGVALUE	((uint32)((uint32)0U << 0U) | (uint32)((uint32)0U << 1U) | (uint32)((uint32)0U << 2U) | (uint32)((uint32)0U << 3U) | (uint32)((uint32)0U << 4U) | (uint32)((uint32)0U << 5U) | (uint32)((uint32)0U << 6U) | (uint32)((uint32)0U << 7U))
+#define GIO_PORTAPDR_CONFIGVALUE	((uint32)((uint32)0U << 0U) | (uint32)((uint32)0U << 1U) | (uint32)((uint32)0U << 2U) | (uint32)((uint32)0U << 3U) | (uint32)((uint32)0U << 4U) | (uint32)((uint32)0U << 5U) | (uint32)((uint32)0U << 6U) | (uint32)((uint32)0U << 7U))
+#define GIO_PORTAPSL_CONFIGVALUE	((uint32)((uint32)0U << 0U) | (uint32)((uint32)0U << 1U) | (uint32)((uint32)0U << 2U) | (uint32)((uint32)0U << 3U) | (uint32)((uint32)0U << 4U) | (uint32)((uint32)0U << 5U) | (uint32)((uint32)0U << 6U) | (uint32)((uint32)0U << 7U))
+#define GIO_PORTAPULDIS_CONFIGVALUE	((uint32)((uint32)0U << 0U) | (uint32)((uint32)0U << 1U) | (uint32)((uint32)0U << 2U) |(uint32)((uint32)0U << 3U) | (uint32)((uint32)0U << 4U) | (uint32)((uint32)0U << 5U) | (uint32)((uint32)0U << 6U) | (uint32)((uint32)0U << 7U))
+
+#define GIO_PORTBDIR_CONFIGVALUE	((uint32)((uint32)0U << 0U) | (uint32)((uint32)0U << 1U) | (uint32)((uint32)0U << 2U) | (uint32)((uint32)0U << 3U) | (uint32)((uint32)0U << 4U) | (uint32)((uint32)0U << 5U) | (uint32)((uint32)0U << 6U) | (uint32)((uint32)0U << 7U))
+#define GIO_PORTBPDR_CONFIGVALUE	((uint32)((uint32)0U << 0U) | (uint32)((uint32)0U << 1U) | (uint32)((uint32)0U << 2U) | (uint32)((uint32)0U << 3U) | (uint32)((uint32)0U << 4U) | (uint32)((uint32)0U << 5U) | (uint32)((uint32)0U << 6U) | (uint32)((uint32)0U << 7U))
+#define GIO_PORTBPSL_CONFIGVALUE	((uint32)((uint32)0U << 0U) | (uint32)((uint32)0U << 1U) | (uint32)((uint32)0U << 2U) | (uint32)((uint32)0U << 3U) | (uint32)((uint32)0U << 4U) | (uint32)((uint32)0U << 5U) | (uint32)((uint32)0U << 6U) | (uint32)((uint32)0U << 7U))
+#define GIO_PORTBPULDIS_CONFIGVALUE	((uint32)((uint32)0U << 0U) | (uint32)((uint32)0U << 1U) | (uint32)((uint32)0U << 2U) |(uint32)((uint32)0U << 3U) | (uint32)((uint32)0U << 4U) | (uint32)((uint32)0U << 5U) | (uint32)((uint32)0U << 6U) | (uint32)((uint32)0U << 7U))
 
 
-/** @def gioREG
-*   @brief GIO Register Frame Pointer
-*
-*   This pointer is used by the GIO driver to access the gio module registers.
-*/
-#define gioREG   ((gioBASE_t *)0xFFF7BC00U)
-
-/** @def gioPORTA
-*   @brief GIO Port (A) Register Pointer
-*
-*   Pointer used by the GIO driver to access PORTA
-*/
-#define gioPORTA ((gioPORT_t *)0xFFF7BC34U)
-
-/** @def gioPORTB
-*   @brief GIO Port (B) Register Pointer
-*
-*   Pointer used by the GIO driver to access PORTB
-*/
-#define gioPORTB ((gioPORT_t *)0xFFF7BC54U)
-
+/**
+ *  @defgroup GIO GIO
+ *  @brief General-Purpose Input/Output Module.
+ *
+ *  The GIO module provides the family of devices with input/output (I/O) capability.
+ *  The I/O pins are bidirectional and bit-programmable.
+ *  The GIO module also supports external interrupt capability.
+ *
+ *	Related Files
+ *   - reg_gio.h
+ *   - gio.h
+ *   - gio.c
+ *  @addtogroup GIO
+ *  @{
+ */
 
 /* GIO Interface Functions */
 void gioInit(void);
-void gioSetDirection(gioPORT_t *port, uint32_t dir);
-void gioSetBit(gioPORT_t *port, uint32_t bit, uint32_t value);
-void gioSetPort(gioPORT_t *port, uint32_t value);
-uint32_t gioGetBit(gioPORT_t *port, uint32_t bit);
-uint32_t gioGetPort(gioPORT_t *port);
-void gioToggleBit(gioPORT_t *port, uint32_t bit);
-void gioEnableNotification(uint32_t bit);
-void gioDisableNotification(uint32_t bit);
-void gioNotification(uint32_t bit);
+void gioSetDirection(gioPORT_t *port, uint32 dir);
+void gioSetBit(gioPORT_t *port, uint32 bit, uint32 value);
+void gioSetPort(gioPORT_t *port, uint32 value);
+uint32 gioGetBit(gioPORT_t *port, uint32 bit);
+uint32 gioGetPort(gioPORT_t *port);
+void gioToggleBit(gioPORT_t *port, uint32 bit);
+void gioEnableNotification(gioPORT_t *port, uint32 bit);
+void gioDisableNotification(gioPORT_t *port, uint32 bit);
+void gioNotification(gioPORT_t *port, uint32 bit);
+void gioGetConfigValue(gio_config_reg_t *config_reg, config_value_type_t type);
+
+/* USER CODE BEGIN (1) */
+/* USER CODE END */
+
+/**@}*/
+#ifdef __cplusplus
+}
+#endif /*extern "C" */
 
 #endif

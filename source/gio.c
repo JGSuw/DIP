@@ -1,16 +1,17 @@
-/** @file gio.c 
+/** @file gio.c
 *   @brief GIO Driver Implementation File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
 
 #include "gio.h"
+#include "sys_vim.h"
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
@@ -18,122 +19,125 @@
 /** @fn void gioInit(void)
 *   @brief Initializes the GIO Driver
 *
-*   This function initializes the GIO module and set the GIO ports 
+*   This function initializes the GIO module and set the GIO ports
 *   to the initial values.
 */
+/* SourceId : GIO_SourceId_001 */
+/* DesignId : GIO_DesignId_001 */
+/* Requirements : HL_SR26 */
 void gioInit(void)
 {
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
 
     /** bring GIO module out of reset */
-    gioREG->GCR0      = 1;
-    gioREG->INTENACLR = 0xFF;
-    gioREG->LVLCLR    = 0xFF;              
+    gioREG->GCR0   = 1U;
+    gioREG->ENACLR = 0xFFU;
+    gioREG->LVLCLR = 0xFFU;
 
     /** @b initialize @b Port @b A */
 
     /** - Port A output values */
-    gioPORTA->DOUT =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7); /* Bit 7 */
+    gioPORTA->DOUT = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** - Port A direction */
-    gioPORTA->DIR  =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7); /* Bit 7 */
+    gioPORTA->DIR  = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** - Port A open drain enable */
-    gioPORTA->PDR  =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7); /* Bit 7 */
+    gioPORTA->PDR  = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** - Port A pullup / pulldown selection */
-    gioPORTA->PSL  =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7); /* Bit 7 */
+    gioPORTA->PSL  = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** - Port A pullup / pulldown enable*/
-    gioPORTA->PULDIS  =  0        /* Bit 0 */
-                      | (0 << 1)  /* Bit 1 */
-                      | (0 << 2)  /* Bit 2 */
-                      | (0 << 3)  /* Bit 3 */
-                      | (0 << 4)  /* Bit 4 */
-                      | (0 << 5)  /* Bit 5 */
-                      | (0 << 6)  /* Bit 6 */
-                      | (0 << 7); /* Bit 7 */
+    gioPORTA->PULDIS  = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                      | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                      | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                      | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                      | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                      | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                      | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                      | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** @b initialize @b Port @b B */
 
     /** - Port B output values */
-    gioPORTB->DOUT =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7); /* Bit 7 */
+    gioPORTB->DOUT = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** - Port B direction */
-    gioPORTB->DIR  =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7); /* Bit 7 */
+    gioPORTB->DIR  = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** - Port B open drain enable */
-    gioPORTB->PDR  =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7); /* Bit 7 */
+    gioPORTB->PDR  = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** - Port B pullup / pulldown selection */
-    gioPORTB->PSL  =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7); /* Bit 7 */
+    gioPORTB->PSL  = (uint32)((uint32)0U << 0U)  /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
     /** - Port B pullup / pulldown enable*/
-    gioPORTB->PULDIS  =  0        /* Bit 0 */
-                      | (0 << 1)  /* Bit 1 */
-                      | (0 << 2)  /* Bit 2 */
-                      | (0 << 3)  /* Bit 3 */
-                      | (0 << 4)  /* Bit 4 */
-                      | (0 << 5)  /* Bit 5 */
-                      | (0 << 6)  /* Bit 6 */
-                      | (0 << 7); /* Bit 7 */
+    gioPORTB->PULDIS  = (uint32)((uint32)0U << 0U) /* Bit 0 */
+                      | (uint32)((uint32)0U << 1U)  /* Bit 1 */
+                      | (uint32)((uint32)0U << 2U)  /* Bit 2 */
+                      | (uint32)((uint32)0U << 3U)  /* Bit 3 */
+                      | (uint32)((uint32)0U << 4U)  /* Bit 4 */
+                      | (uint32)((uint32)0U << 5U)  /* Bit 5 */
+                      | (uint32)((uint32)0U << 6U)  /* Bit 6 */
+                      | (uint32)((uint32)0U << 7U); /* Bit 7 */
 
 /* USER CODE BEGIN (3) */
 /* USER CODE END */
@@ -141,75 +145,72 @@ void gioInit(void)
     /** @b initialize @b interrupts */
 
     /** - interrupt polarity */
-    gioREG->POL =  0        /* Bit 0 */
-                | (0 << 1)  /* Bit 1 */
-                | (0 << 2)  /* Bit 2 */
-                | (0 << 3)  /* Bit 3 */
-                | (0 << 4)  /* Bit 4 */
-                | (0 << 5)  /* Bit 5 */
-                | (0 << 6)  /* Bit 6 */
-                | (0 << 7)  /* Bit 7 */
-
-                | (0 << 8)  /* Bit 8  */
-                | (0 << 9)  /* Bit 9  */
-                | (0 << 10) /* Bit 10 */
-                | (0 << 11) /* Bit 11 */
-                | (0 << 12) /* Bit 12 */
-                | (0 << 13) /* Bit 13 */
-                | (0 << 14) /* Bit 14 */
-                | (0 << 15);/* Bit 15 */
+    gioREG->POL = (uint32)((uint32)0U << 0U)   /* Bit 0 */
+                | (uint32)((uint32)0U << 1U)   /* Bit 1 */
+                | (uint32)((uint32)0U << 2U)   /* Bit 2 */
+                | (uint32)((uint32)0U << 3U)   /* Bit 3 */
+                | (uint32)((uint32)0U << 4U)   /* Bit 4 */
+                | (uint32)((uint32)0U << 5U)   /* Bit 5 */
+                | (uint32)((uint32)0U << 6U)   /* Bit 6 */
+                | (uint32)((uint32)0U << 7U)   /* Bit 7 */
+                | (uint32)((uint32)0U << 8U)   /* Bit 8  */
+                | (uint32)((uint32)0U << 9U)   /* Bit 9  */
+                | (uint32)((uint32)0U << 10U)  /* Bit 10 */
+                | (uint32)((uint32)0U << 11U)  /* Bit 11 */
+                | (uint32)((uint32)0U << 12U)  /* Bit 12 */
+                | (uint32)((uint32)0U << 13U)  /* Bit 13 */
+                | (uint32)((uint32)0U << 14U)  /* Bit 14 */
+                | (uint32)((uint32)0U << 15U); /* Bit 15 */
 
 
     /** - interrupt level */
-    gioREG->LVLSET =  0        /* Bit 0 */
-                   | (0 << 1)  /* Bit 1 */
-                   | (0 << 2)  /* Bit 2 */
-                   | (0 << 3)  /* Bit 3 */
-                   | (0 << 4)  /* Bit 4 */
-                   | (0 << 5)  /* Bit 5 */
-                   | (0 << 6)  /* Bit 6 */
-                   | (0 << 7)  /* Bit 7 */
+    gioREG->LVLSET = (uint32)((uint32)0U << 0U)   /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)   /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)   /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)   /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)   /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)   /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)   /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U)   /* Bit 7 */
+                   | (uint32)((uint32)0U << 8U)   /* Bit 8  */
+                   | (uint32)((uint32)0U << 9U)   /* Bit 9  */
+                   | (uint32)((uint32)0U << 10U)  /* Bit 10 */
+                   | (uint32)((uint32)0U << 11U)  /* Bit 11 */
+                   | (uint32)((uint32)0U << 12U)  /* Bit 12 */
+                   | (uint32)((uint32)0U << 13U)  /* Bit 13 */
+                   | (uint32)((uint32)0U << 14U)  /* Bit 14 */
+                   | (uint32)((uint32)0U << 15U); /* Bit 15 */
 
-                   | (0 << 8)  /* Bit 8  */
-                   | (0 << 9)  /* Bit 9  */
-                   | (0 << 10) /* Bit 10 */
-                   | (0 << 11) /* Bit 11 */
-                   | (0 << 12) /* Bit 12 */
-                   | (0 << 13) /* Bit 13 */
-                   | (0 << 14) /* Bit 14 */
-                   | (0 << 15);/* Bit 15 */
 
-    
 
 
     /** - clear all pending interrupts */
-    gioREG->FLG = 0xFF;
+    gioREG->FLG = 0xFFU;
 
     /** - enable interrupts */
-    gioREG->INTENASET =  0        /* Bit 0 */
-                      | (0 << 1)  /* Bit 1 */
-                      | (0 << 2)  /* Bit 2 */
-                      | (0 << 3)  /* Bit 3 */
-                      | (0 << 4)  /* Bit 4 */
-                      | (0 << 5)  /* Bit 5 */
-                      | (0 << 6)  /* Bit 6 */
-                      | (0 << 7)  /* Bit 7 */
-
-                      | (0 << 8)  /* Bit 8  */
-                      | (0 << 9)  /* Bit 9  */
-                      | (0 << 10) /* Bit 10 */
-                      | (0 << 11) /* Bit 11 */
-                      | (0 << 12) /* Bit 12 */
-                      | (0 << 13) /* Bit 13 */
-                      | (0 << 14) /* Bit 14 */
-                      | (0 << 15);/* Bit 15 */
+    gioREG->ENASET = (uint32)((uint32)0U << 0U)   /* Bit 0 */
+                   | (uint32)((uint32)0U << 1U)   /* Bit 1 */
+                   | (uint32)((uint32)0U << 2U)   /* Bit 2 */
+                   | (uint32)((uint32)0U << 3U)   /* Bit 3 */
+                   | (uint32)((uint32)0U << 4U)   /* Bit 4 */
+                   | (uint32)((uint32)0U << 5U)   /* Bit 5 */
+                   | (uint32)((uint32)0U << 6U)   /* Bit 6 */
+                   | (uint32)((uint32)0U << 7U)   /* Bit 7 */
+                   | (uint32)((uint32)0U << 8U)   /* Bit 8  */
+                   | (uint32)((uint32)0U << 9U)   /* Bit 9  */
+                   | (uint32)((uint32)0U << 10U)  /* Bit 10 */
+                   | (uint32)((uint32)0U << 11U)  /* Bit 11 */
+                   | (uint32)((uint32)0U << 12U)  /* Bit 12 */
+                   | (uint32)((uint32)0U << 13U)  /* Bit 13 */
+                   | (uint32)((uint32)0U << 14U)  /* Bit 14 */
+                   | (uint32)((uint32)0U << 15U); /* Bit 15 */
 
 /* USER CODE BEGIN (4) */
 /* USER CODE END */
 }
 
 
-/** @fn void gioSetDirection(gioPORT_t *port, uint32_t dir)
+/** @fn void gioSetDirection(gioPORT_t *port, uint32 dir)
 *   @brief Set Port Direction
 *   @param[in] port pointer to GIO port:
 *              - gioPORTA: PortA pointer
@@ -218,13 +219,16 @@ void gioInit(void)
 *
 *   Set the direction of GIO pins at runtime.
 */
-void gioSetDirection(gioPORT_t *port, uint32_t dir)
+/* SourceId : GIO_SourceId_002 */
+/* DesignId : GIO_DesignId_002 */
+/* Requirements : HL_SR27 */
+void gioSetDirection(gioPORT_t *port, uint32 dir)
 {
     port->DIR = dir;
 }
 
 
-/** @fn void gioSetBit(gioPORT_t *port, uint32_t bit, uint32_t value)
+/** @fn void gioSetBit(gioPORT_t *port, uint32 bit, uint32 value)
 *   @brief Write Bit
 *   @param[in] port pointer to GIO port:
 *              - gioPORTA: PortA pointer
@@ -236,23 +240,26 @@ void gioSetDirection(gioPORT_t *port, uint32_t dir)
 *
 *   Writes a value to the specified pin of the given GIO port
 */
-void gioSetBit(gioPORT_t *port, uint32_t bit, uint32_t value)
+/* SourceId : GIO_SourceId_003 */
+/* DesignId : GIO_DesignId_003 */
+/* Requirements : HL_SR28 */
+void gioSetBit(gioPORT_t *port, uint32 bit, uint32 value)
 {
 /* USER CODE BEGIN (5) */
 /* USER CODE END */
 
-    if (value != 0)
+    if (value != 0U)
     {
-        port->DSET = 1 << bit;
+        port->DSET = (uint32)1U << bit;
     }
     else
     {
-        port->DCLR = 1 << bit;
+        port->DCLR = (uint32)1U << bit;
     }
 }
 
 
-/** @fn void gioSetPort(gioPORT_t *port, uint32_t value)
+/** @fn void gioSetPort(gioPORT_t *port, uint32 value)
 *   @brief Write Port Value
 *   @param[in] port pointer to GIO port:
 *              - gioPORTA: PortA pointer
@@ -261,7 +268,10 @@ void gioSetBit(gioPORT_t *port, uint32_t bit, uint32_t value)
 *
 *   Writes a value to all pin of a given GIO port
 */
-void gioSetPort(gioPORT_t *port, uint32_t value)
+/* SourceId : GIO_SourceId_004 */
+/* DesignId : GIO_DesignId_004 */
+/* Requirements : HL_SR29 */
+void gioSetPort(gioPORT_t *port, uint32 value)
 {
 /* USER CODE BEGIN (6) */
 /* USER CODE END */
@@ -274,7 +284,7 @@ void gioSetPort(gioPORT_t *port, uint32_t value)
 }
 
 
-/** @fn uint32_t gioGetBit(gioPORT_t *port, uint32_t bit)
+/** @fn uint32 gioGetBit(gioPORT_t *port, uint32 bit)
 *   @brief Read Bit
 *   @param[in] port pointer to GIO port:
 *              - gioPORTA: PortA pointer
@@ -285,7 +295,10 @@ void gioSetPort(gioPORT_t *port, uint32_t value)
 *
 *   Reads a the current value from the specified pin of the given GIO port
 */
-uint32_t gioGetBit(gioPORT_t *port, uint32_t bit)
+/* SourceId : GIO_SourceId_005 */
+/* DesignId : GIO_DesignId_005 */
+/* Requirements : HL_SR30 */
+uint32 gioGetBit(gioPORT_t *port, uint32 bit)
 {
 /* USER CODE BEGIN (8) */
 /* USER CODE END */
@@ -294,7 +307,7 @@ uint32_t gioGetBit(gioPORT_t *port, uint32_t bit)
 }
 
 
-/** @fn uint32_t gioGetPort(gioPORT_t *port)
+/** @fn uint32 gioGetPort(gioPORT_t *port)
 *   @brief Read Port Value
 *   @param[in] port pointer to GIO port:
 *              - gioPORTA: PortA pointer
@@ -302,7 +315,10 @@ uint32_t gioGetBit(gioPORT_t *port, uint32_t bit)
 *
 *   Reads a the current value of a given GIO port
 */
-uint32_t gioGetPort(gioPORT_t *port)
+/* SourceId : GIO_SourceId_006 */
+/* DesignId : GIO_DesignId_006 */
+/* Requirements : HL_SR31 */
+uint32 gioGetPort(gioPORT_t *port)
 {
 /* USER CODE BEGIN (9) */
 /* USER CODE END */
@@ -310,7 +326,7 @@ uint32_t gioGetPort(gioPORT_t *port)
     return port->DIN;
 }
 
-/** @fn void gioToggleBit(gioPORT_t *port, uint32_t bit)
+/** @fn void gioToggleBit(gioPORT_t *port, uint32 bit)
 *   @brief Write Bit
 *   @param[in] port pointer to GIO port:
 *              - gioPORTA: PortA pointer
@@ -321,52 +337,146 @@ uint32_t gioGetPort(gioPORT_t *port)
 *
 *   Toggle a value to the specified pin of the given GIO port
 */
-void gioToggleBit(gioPORT_t *port, uint32_t bit)
+/* SourceId : GIO_SourceId_007 */
+/* DesignId : GIO_DesignId_007 */
+/* Requirements : HL_SR32 */
+void gioToggleBit(gioPORT_t *port, uint32 bit)
 {
 /* USER CODE BEGIN (10) */
 /* USER CODE END */
 
-    if ((port->DIN & (1 << bit)) != 0)
+    if ((port->DIN & (uint32)((uint32)1U << bit)) != 0U)
     {
-        port->DCLR = 1 << bit;
+        port->DCLR = (uint32)1U << bit;
     }
     else
     {
-        port->DSET = 1 << bit;
+        port->DSET = (uint32)1U << bit;
     }
 }
 
-/** @fn void gioEnableNotification(uint32_t bit)
+/** @fn void gioEnableNotification(uint32 bit)
 *   @brief Enable Interrupt
+*   @param[in] port pointer to GIO port:
+*              - gioPORTA: PortA pointer
+*              - gioPORTB: PortB pointer
 *   @param[in] bit interrupt pin to enable
 *              - 0: LSB
 *              - 7: MSB
 *
-*   Enables an interrupt pin of PortA
+*   Enables an interrupt pin of selected port
 */
-void gioEnableNotification(uint32_t bit)
+/* SourceId : GIO_SourceId_008 */
+/* DesignId : GIO_DesignId_008 */
+/* Requirements : HL_SR33 */
+void gioEnableNotification(gioPORT_t *port, uint32 bit)
 {
 /* USER CODE BEGIN (11) */
 /* USER CODE END */
 
-    gioREG->INTENASET = 1 << bit;
+	if (port == gioPORTA)
+	{
+		gioREG->ENASET = (uint32)1U << bit;
+	}
+	else if (port == gioPORTB)
+	{
+		gioREG->ENASET = (uint32)1U << (bit + 8U);
+	}
+	else
+	{
+		/* Empty */
+	}
 }
 
 
-/** @fn void gioDisableNotification(uint32_t bit)
+/** @fn void gioDisableNotification(uint32 bit)
 *   @brief Disable Interrupt
+*   @param[in] port pointer to GIO port:
+*              - gioPORTA: PortA pointer
+*              - gioPORTB: PortB pointer
 *   @param[in] bit interrupt pin to enable
 *              - 0: LSB
 *              - 7: MSB
 *
-*   Disables an interrupt pin of PortA
+*   Disables an interrupt pin of selected port
 */
-void gioDisableNotification(uint32_t bit)
+/* SourceId : GIO_SourceId_009 */
+/* DesignId : GIO_DesignId_009 */
+/* Requirements : HL_SR34 */
+void gioDisableNotification(gioPORT_t *port, uint32 bit)
 {
 /* USER CODE BEGIN (12) */
 /* USER CODE END */
 
-    gioREG->INTENACLR = 1 << bit;
+	if (port == gioPORTA)
+	{
+		gioREG->ENACLR = (uint32)1U << bit;
+	}
+	else if (port == gioPORTB)
+	{
+		gioREG->ENACLR = (uint32)1U << (bit + 8U);
+	}
+	else
+	{
+		/* Empty */
+	}
+}
+
+/** @fn void gioGetConfigValue(gio_config_reg_t *config_reg, config_value_type_t type)
+*   @brief Get the initial or current values of the configuration registers
+*
+*	@param[in] *config_reg: pointer to the struct to which the initial or current
+*                           value of the configuration registers need to be stored
+*	@param[in] type: 	whether initial or current value of the configuration registers need to be stored
+*						- InitialValue: initial value of the configuration registers will be stored
+*                                       in the struct pointed by config_reg
+*						- CurrentValue: initial value of the configuration registers will be stored
+*                                       in the struct pointed by config_reg
+*
+*   This function will copy the initial or current value (depending on the parameter 'type')
+*   of the configuration registers to the struct pointed by config_reg
+*
+*/
+/* SourceId : GIO_SourceId_010 */
+/* DesignId : GIO_DesignId_010 */
+/* Requirements : HL_SR37 */
+void gioGetConfigValue(gio_config_reg_t *config_reg, config_value_type_t type)
+{
+	if (type == InitialValue)
+	{
+	    config_reg->CONFIG_INTDET    = GIO_INTDET_CONFIGVALUE;
+        config_reg->CONFIG_POL       = GIO_POL_CONFIGVALUE;
+        config_reg->CONFIG_INTENASET = GIO_INTENASET_CONFIGVALUE;
+        config_reg->CONFIG_LVLSET    = GIO_LVLSET_CONFIGVALUE;
+
+	    config_reg->CONFIG_PORTADIR    = GIO_PORTADIR_CONFIGVALUE;
+	    config_reg->CONFIG_PORTAPDR    = GIO_PORTAPDR_CONFIGVALUE;
+	    config_reg->CONFIG_PORTAPSL    = GIO_PORTAPSL_CONFIGVALUE;
+	    config_reg->CONFIG_PORTAPULDIS = GIO_PORTAPULDIS_CONFIGVALUE;
+
+	    config_reg->CONFIG_PORTBDIR    = GIO_PORTBDIR_CONFIGVALUE;
+	    config_reg->CONFIG_PORTBPDR    = GIO_PORTBPDR_CONFIGVALUE;
+	    config_reg->CONFIG_PORTBPSL    = GIO_PORTBPSL_CONFIGVALUE;
+	    config_reg->CONFIG_PORTBPULDIS = GIO_PORTBPULDIS_CONFIGVALUE;
+	}
+	else
+	{
+	/*SAFETYMCUSW 134 S MR:12.2 <APPROVED> "LDRA Tool issue" */
+	    config_reg->CONFIG_INTDET    = gioREG->INTDET;
+        config_reg->CONFIG_POL       = gioREG->POL;
+        config_reg->CONFIG_INTENASET = gioREG->ENASET;
+        config_reg->CONFIG_LVLSET    = gioREG->LVLSET;
+
+	    config_reg->CONFIG_PORTADIR    = gioPORTA->DIR;
+	    config_reg->CONFIG_PORTAPDR    = gioPORTA->PDR;
+	    config_reg->CONFIG_PORTAPSL    = gioPORTA->PULDIS;
+	    config_reg->CONFIG_PORTAPULDIS = gioPORTA->PSL;
+    /*SAFETYMCUSW 134 S MR:12.2 <APPROVED> "LDRA Tool issue" */
+	    config_reg->CONFIG_PORTBDIR    = gioPORTB->DIR;
+	    config_reg->CONFIG_PORTBPDR    = gioPORTB->PDR;
+	    config_reg->CONFIG_PORTBPSL    = gioPORTB->PULDIS;
+	    config_reg->CONFIG_PORTBPULDIS = gioPORTB->PSL;
+	}
 }
 
 

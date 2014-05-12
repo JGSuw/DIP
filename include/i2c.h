@@ -1,19 +1,23 @@
 /** @file I2C.h
 *   @brief I2C Driver Definition File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __I2C_H__
 #define __I2C_H__
 
+#include "reg_i2c.h"
 
-#include "sys_common.h"
-#include "gio.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
+/* USER CODE BEGIN (0) */
+/* USER CODE END */
 
 /** @enum i2cMode
 *   @brief Alias names for i2c modes
@@ -22,18 +26,18 @@
 
 enum i2cMode
 {
-    I2C_FD_FORMAT   = 0x0008,  /* Free Data Format    */
-    I2C_START_BYTE  = 0x0010,
-    I2C_RESET_OUT   = 0x0020,  I2C_RESET_IN   = 0x0000,
-    I2C_DLOOPBACK   = 0x0040,    
-    I2C_REPEATMODE  = 0x0080,  /* In Master Mode only */ 
-    I2C_10BIT_AMODE = 0x0100,  I2C_7BIT_AMODE = 0x0000,
-    I2C_TRANSMITTER = 0x0200,  I2C_RECEIVER   = 0x0000,        
-    I2C_MASTER      = 0x0400,  I2C_SLAVE      = 0x0000,     
-    I2C_STOP_COND   = 0x0800,  /* In Master Mode only */
-    I2C_START_COND  = 0x2000,  /* In Master Mode only */    
-    I2C_FREE_RUN    = 0x4000,
-    I2C_NACK_MODE   = 0x8000
+    I2C_FD_FORMAT   = 0x0008U,  /* Free Data Format    */
+    I2C_START_BYTE  = 0x0010U,
+    I2C_RESET_OUT   = 0x0020U,  I2C_RESET_IN   = 0x0000U,
+    I2C_DLOOPBACK   = 0x0040U,    
+    I2C_REPEATMODE  = 0x0080U,  /* In Master Mode only */ 
+    I2C_10BIT_AMODE = 0x0100U,  I2C_7BIT_AMODE = 0x0000U,
+    I2C_TRANSMITTER = 0x0200U,  I2C_RECEIVER   = 0x0000U,        
+    I2C_MASTER      = 0x0400U,  I2C_SLAVE      = 0x0000U,     
+    I2C_STOP_COND   = 0x0800U,  /* In Master Mode only */
+    I2C_START_COND  = 0x2000U,  /* In Master Mode only */    
+    I2C_FREE_RUN    = 0x4000U,
+    I2C_NACK_MODE   = 0x8000U
 };
 
 
@@ -44,13 +48,13 @@ enum i2cMode
 
 enum i2cBitCount
 {
-    I2C_2_BIT   = 0x2, 
-    I2C_3_BIT   = 0x3, 
-    I2C_4_BIT   = 0x4, 
-    I2C_5_BIT   = 0x5, 
-    I2C_6_BIT   = 0x6, 
-    I2C_7_BIT   = 0x7,     
-    I2C_8_BIT   = 0x0  
+    I2C_2_BIT   = 0x2U, 
+    I2C_3_BIT   = 0x3U, 
+    I2C_4_BIT   = 0x4U, 
+    I2C_5_BIT   = 0x5U, 
+    I2C_6_BIT   = 0x6U, 
+    I2C_7_BIT   = 0x7U,     
+    I2C_8_BIT   = 0x0U  
 };
 
 
@@ -62,13 +66,13 @@ enum i2cBitCount
 */
 enum i2cIntFlags
 {
-    I2C_AL_INT     = 0x0001,  /* arbitration lost      */
-    I2C_NACK_INT   = 0x0002,  /* no acknowledgment    */
-    I2C_ARDY_INT   = 0x0004,  /* access ready          */
-    I2C_RX_INT     = 0x0008,  /* receive data ready    */
-    I2C_TX_INT     = 0x0010,  /* transmit data ready   */
-    I2C_SCD_INT    = 0x0020,  /* stop condition detect */
-    I2C_AAS_INT    = 0x0040   /* address as slave      */
+    I2C_AL_INT     = 0x0001U,  /* arbitration lost      */
+    I2C_NACK_INT   = 0x0002U,  /* no acknowledgment    */
+    I2C_ARDY_INT   = 0x0004U,  /* access ready          */
+    I2C_RX_INT     = 0x0008U,  /* receive data ready    */
+    I2C_TX_INT     = 0x0010U,  /* transmit data ready   */
+    I2C_SCD_INT    = 0x0020U,  /* stop condition detect */
+    I2C_AAS_INT    = 0x0040U   /* address as slave      */
 };
 
 
@@ -78,19 +82,19 @@ enum i2cIntFlags
 */
 enum i2cStatFlags
 {
-    I2C_AL         = 0x0001,  /* arbitration lost          */
-    I2C_NACK       = 0x0002,  /* no acknowledgement        */
-    I2C_ARDY       = 0x0004,  /* access ready              */
-    I2C_RX         = 0x0008,  /* receive data ready        */
-    I2C_TX         = 0x0010,  /* transmit data ready       */
-    I2C_SCD        = 0x0020,  /* stop condition detect     */
-    I2C_AD0        = 0x0100,  /* address Zero Status       */
-    I2C_AAS        = 0x0200,  /* address as slave          */
-    I2C_XSMT       = 0x0400,  /* Transmit shift empty not  */	
-    I2C_RXFULL     = 0x0800,  /* receive full              */
-    I2C_BUSBUSY    = 0x1000,  /* bus busy                  */
-    I2C_NACKSNT    = 0x2000,  /* No Ack Sent               */
-    I2C_SDIR       = 0x4000   /* Slave Direction           */	
+    I2C_AL         = 0x0001U,  /* arbitration lost          */
+    I2C_NACK       = 0x0002U,  /* no acknowledgement        */
+    I2C_ARDY       = 0x0004U,  /* access ready              */
+    I2C_RX         = 0x0008U,  /* receive data ready        */
+    I2C_TX         = 0x0010U,  /* transmit data ready       */
+    I2C_SCD        = 0x0020U,  /* stop condition detect     */
+    I2C_AD0        = 0x0100U,  /* address Zero Status       */
+    I2C_AAS        = 0x0200U,  /* address as slave          */
+    I2C_XSMT       = 0x0400U,  /* Transmit shift empty not  */	
+    I2C_RXFULL     = 0x0800U,  /* receive full              */
+    I2C_BUSBUSY    = 0x1000U,  /* bus busy                  */
+    I2C_NACKSNT    = 0x2000U,  /* No Ack Sent               */
+    I2C_SDIR       = 0x4000U   /* Slave Direction           */	
 };
 
 
@@ -101,94 +105,72 @@ enum i2cStatFlags
 */
 enum i2cDMA
 {
-    I2C_TXDMA   = 0x20, 
-    I2C_RXDMA   = 0x10 
+    I2C_TXDMA   = 0x20U, 
+    I2C_RXDMA   = 0x10U 
 };
 
-/** @struct i2cBase
-*   @brief I2C Base Register Definition
-*
-*   This structure is used to access the I2C module registers.
-*/
-/** @typedef i2cBASE_t
-*   @brief I2C Register Frame Type Definition
-*
-*   This type is used to access the I2C Registers.
-*/
-typedef volatile struct i2cBase
+/* Configuration registers */
+typedef struct i2c_config_reg
 {
-
-    uint32_t OAR;           /**<  0x0000 I2C Own Address register               */
-    uint32_t IMR;           /**<  0x0004 I2C Interrupt Mask/Status register     */
-    uint32_t STR;           /**<  0x0008 I2C Interrupt Status register          */
-    uint32_t CLKL;          /**<  0x000C I2C Clock Divider Low register         */
-    uint32_t CLKH;          /**<  0x0010 I2C Clock Divider High register        */
-    uint32_t CNT;           /**<  0x0014 I2C Data Count register                */
-    uint32_t DRR;           /**<  0x0018 I2C Data Receive register              */
-    uint32_t SAR;           /**<  0x001C I2C Slave Address register             */
-    uint32_t DXR;           /**<  0x0020 I2C Data Transmit register             */
-    uint32_t MDR;           /**<  0x0024 I2C Mode register                      */
-    uint32_t IVR;           /**<  0x0028 I2C Interrupt Vector register          */
-    uint32_t EMDR;          /**<  0x002C I2C Extended Mode register             */
-    uint32_t PSC;           /**<  0x0030 I2C Prescaler register                 */
-    uint32_t PID11;         /**<  0x0034 I2C Peripheral ID register 1           */
-    uint32_t PID12;         /**<  0x0038 I2C Peripheral ID register 2           */
-    uint32_t DMAC;          /**<  0x003C I2C DMA Control Register               */
-    uint32_t : 32U;         /**<  0x0040 Reserved                               */
-    uint32_t : 32U;         /**<  0x0044 Reserved                               */
-    uint32_t FUN;           /**<  0x0048 Pin Function Register                  */
-    uint32_t DIR;           /**<  0x004C Pin Direction Register                 */
-    uint32_t DIN;           /**<  0x0050 Pin Data In Register                   */
-    uint32_t DOUT;          /**<  0x0054 Pin Data Out Register                  */
-    uint32_t SET;           /**<  0x0058 Pin Data Set Register                  */
-    uint32_t CLR;           /**<  0x005C Pin Data Clr Register                  */
-    uint32_t ODR;           /**<  0x0060 Pin Open Drain Output Enable Register  */
-    uint32_t PD;            /**<  0x0064 Pin Pullup/Pulldown Disable Register   */
-    uint32_t PSL;           /**<  0x0068 Pin Pullup/Pulldown Selection Register */
-} i2cBASE_t;
+    uint32 CONFIG_OAR;
+    uint32 CONFIG_IMR;
+    uint32 CONFIG_CLKL;
+    uint32 CONFIG_CLKH;
+    uint32 CONFIG_CNT;
+    uint32 CONFIG_SAR;
+    uint32 CONFIG_MDR;
+    uint32 CONFIG_EMDR;
+    uint32 CONFIG_PSC;   
+    uint32 CONFIG_DMAC;
+    uint32 CONFIG_FUN;
+    uint32 CONFIG_DIR;
+    uint32 CONFIG_ODR;
+    uint32 CONFIG_PD;	
+	uint32 CONFIG_PSL;	
+} i2c_config_reg_t;
 
 
-/** @def i2cREG1
-*   @brief I2C Register Frame Pointer
-*
-*   This pointer is used by the I2C driver to access the I2C module registers.
-*/
-#define i2cREG1 ((i2cBASE_t *)0xFFF7D400U)
-
-/* USER CODE BEGIN (0) */
-/* USER CODE END */
-
-
-/** @def i2cPORT1
-*   @brief I2C GIO Port Register Pointer
-*
-*   Pointer used by the GIO driver to access I/O PORT of I2C
-*   (use the GIO drivers to access the port pins).
-*/
-#define i2cPORT1 ((gioPORT_t *)0xFFF7D44CU)
-
+/** 
+ *  @defgroup I2C I2C
+ *  @brief Inter-Integrated Circuit Module.
+ *  
+ *  The I2C is a multi-master communication module providing an interface between the Texas Instruments (TI) microcontroller
+ *  and devices compliant with Philips Semiconductor I2C-bus specification version 2.1 and connected by an I2Cbus.
+ *  This module will support any slave or master I2C compatible device.
+ *
+ *	Related Files
+ *   - reg_i2c.h
+ *   - i2c.h
+ *   - i2c.c
+ *  @addtogroup I2C
+ *  @{
+ */
+ 
 /* I2C Interface Functions */
-void i2cInit(void);
-void i2cSetOwnAdd(i2cBASE_t *i2c, uint32_t oadd);
-void i2cSetSlaveAdd(i2cBASE_t *i2c, uint32_t sadd);
-void i2cSetBaudrate(i2cBASE_t *i2c, uint32_t baud);
-uint32_t  i2cIsTxReady(i2cBASE_t *i2c);
-void i2cSendByte(i2cBASE_t *i2c, uint8_t byte);
-void i2cSend(i2cBASE_t *i2c, uint32_t length, uint8_t *data);
-uint32_t  i2cIsRxReady(i2cBASE_t *i2c);
-void i2cClearSCD(i2cBASE_t *i2c);
-uint32_t  i2cRxError(i2cBASE_t *i2c);
-uint32_t  i2cReceiveByte(i2cBASE_t *i2c);
-void i2cReceive(i2cBASE_t *i2c, uint32_t length, uint8_t *data);
-void i2cEnableNotification(i2cBASE_t *i2c, uint32_t flags);
-void i2cDisableNotification(i2cBASE_t *i2c, uint32_t flags);
-void i2cSetStart(i2cBASE_t *i2c);
-void i2cSetStop(i2cBASE_t *i2c);
-void i2cSetCount(i2cBASE_t *i2c ,uint32_t cnt);
-void i2cEnableLoopback(i2cBASE_t *i2c);
-void i2cDisableLoopback(i2cBASE_t *i2c);
+void    i2cInit(void);
+void    i2cSetOwnAdd(i2cBASE_t *i2c, uint32 oadd);
+void    i2cSetSlaveAdd(i2cBASE_t *i2c, uint32 sadd);
+void    i2cSetBaudrate(i2cBASE_t *i2c, uint32 baud);
+uint32  i2cIsTxReady(i2cBASE_t *i2c);
+void    i2cSendByte(i2cBASE_t *i2c, uint8 byte);
+void    i2cSend(i2cBASE_t *i2c, uint32 length, uint8 * data);
+uint32  i2cIsRxReady(i2cBASE_t *i2c);
+uint32  i2cIsStopDetected(i2cBASE_t *i2c);
+void    i2cClearSCD(i2cBASE_t *i2c);
+uint32  i2cRxError(i2cBASE_t *i2c);
+uint8   i2cReceiveByte(i2cBASE_t *i2c);
+void    i2cReceive(i2cBASE_t *i2c, uint32 length, uint8 * data);
+void    i2cEnableNotification(i2cBASE_t *i2c, uint32 flags);
+void    i2cDisableNotification(i2cBASE_t *i2c, uint32 flags);
+void    i2cSetStart(i2cBASE_t *i2c);
+void    i2cSetStop(i2cBASE_t *i2c);
+void    i2cSetCount(i2cBASE_t *i2c ,uint32 cnt);
+void    i2cEnableLoopback(i2cBASE_t *i2c);
+void    i2cDisableLoopback(i2cBASE_t *i2c);
+void    i2cSetMode(i2cBASE_t *i2c, uint32 mode);
+void    i2cGetConfigValue(i2c_config_reg_t *config_reg, config_value_type_t type);
 
-/** @fn void i2cNotification(i2cBASE_t *i2c, uint32_t flags)
+/** @fn void i2cNotification(i2cBASE_t *i2c, uint32 flags)
 *   @brief Interrupt callback
 *   @param[in] i2c   - I2C module base address
 *   @param[in] flags - copy of error interrupt flags
@@ -197,6 +179,14 @@ void i2cDisableLoopback(i2cBASE_t *i2c);
 * an interrupt.  The parameter passed to the callback is a copy of the 
 * interrupt flag register.
 */
-void i2cNotification(i2cBASE_t *i2c, uint32_t flags);
+void i2cNotification(i2cBASE_t *i2c, uint32 flags);
+
+/* USER CODE BEGIN (1) */
+/* USER CODE END */
+
+/**@}*/
+#ifdef __cplusplus
+}
+#endif /*extern "C" */
 
 #endif

@@ -1,7 +1,7 @@
 /** @file sys_core.h
 *   @brief System Core Header File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 *   This file contains:
 *   - Core Interface Functions
@@ -9,12 +9,16 @@
 *   which are relevant for the System driver.
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __SYS_CORE_H__
 #define __SYS_CORE_H__
 
 #include "sys_common.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
@@ -35,7 +39,7 @@ void _coreInitStackPointer_(void);
 /** @fn void _getCPSRValue_(void)
 *   @brief Get CPSR Value
 */
-uint32_t _getCPSRValue_(void);
+uint32 _getCPSRValue_(void);
 
 /** @fn void _gotoCPUIdle_(void)
 *   @brief Take CPU to Idle state
@@ -91,7 +95,7 @@ void _coreEnableFlashEcc_(void);
 */
 void _coreDisableFlashEcc_(void);
 
-/** @fn uint32_t _coreGetDataFault_(void)
+/** @fn uint32 _coreGetDataFault_(void)
 *   @brief Get core data fault status register
 *   @return The function will return the data fault status register value:
 *           - bit [10,3..0]: 
@@ -110,14 +114,14 @@ void _coreDisableFlashEcc_(void);
 *                            - 0: AXI Decode Error (DECERR)
 *                            - 1: AXI Slave Error (SLVERR)
 */
-uint32_t _coreGetDataFault_(void);
+uint32 _coreGetDataFault_(void);
 
 /** @fn void _coreClearDataFault_(void)
 *   @brief Clear core data fault status register
 */
 void _coreClearDataFault_(void);
 
-/** @fn uint32_t _coreGetInstructionFault_(void)
+/** @fn uint32 _coreGetInstructionFault_(void)
 *   @brief Get core instruction fault status register
 *   @return The function will return the instruction fault status register value:
 *           - bit [10,3..0]: 
@@ -133,36 +137,36 @@ void _coreClearDataFault_(void);
 *                            - 0: AXI Decode Error (DECERR)
 *                            - 1: AXI Slave Error (SLVERR)
 */
-uint32_t _coreGetInstructionFault_(void);
+uint32 _coreGetInstructionFault_(void);
 
 /** @fn void _coreClearInstructionFault_(void)
 *   @brief Clear core instruction fault status register
 */
 void _coreClearInstructionFault_(void);
 
-/** @fn uint32_t _coreGetDataFaultAddress_(void)
+/** @fn uint32 _coreGetDataFaultAddress_(void)
 *   @brief Get core data fault address register
 *   @return The function will return the data fault address:
 */
-uint32_t _coreGetDataFaultAddress_(void);
+uint32 _coreGetDataFaultAddress_(void);
 
 /** @fn void _coreClearDataFaultAddress_(void)
 *   @brief Clear core data fault address register
 */
 void _coreClearDataFaultAddress_(void);
 
-/** @fn uint32_t _coreGetInstructionFaultAddress_(void)
+/** @fn uint32 _coreGetInstructionFaultAddress_(void)
 *   @brief Get core instruction fault address register
 *   @return The function will return the instruction fault address:
 */
-uint32_t _coreGetInstructionFaultAddress_(void);
+uint32 _coreGetInstructionFaultAddress_(void);
 
 /** @fn void _coreClearInstructionFaultAddress_(void)
 *   @brief Clear core instruction fault address register
 */
 void _coreClearInstructionFaultAddress_(void);
 
-/** @fn uint32_t _coreGetAuxiliaryDataFault_(void)
+/** @fn uint32 _coreGetAuxiliaryDataFault_(void)
 *   @brief Get core auxiliary data fault status register
 *   @return The function will return the auxiliary data fault status register value:
 *           - bit [13..5]:
@@ -178,14 +182,14 @@ void _coreClearInstructionFaultAddress_(void);
 *           - bit [27..24]: 
 *                            - Cache way or way in which error occurred
 */
-uint32_t _coreGetAuxiliaryDataFault_(void);
+uint32 _coreGetAuxiliaryDataFault_(void);
 
 /** @fn void _coreClearAuxiliaryDataFault_(void)
 *   @brief Clear core auxiliary data fault status register
 */
 void _coreClearAuxiliaryDataFault_(void);
 
-/** @fn uint32_t _coreGetAuxiliaryInstructionFault_(void)
+/** @fn uint32 _coreGetAuxiliaryInstructionFault_(void)
 *   @brief Get core auxiliary instruction fault status register
 *   @return The function will return the auxiliary instruction fault status register value:
 *           - bit [13..5]:
@@ -201,7 +205,7 @@ void _coreClearAuxiliaryDataFault_(void);
 *           - bit [27..24]: 
 *                            - Cache way or way in which error occurred
 */
-uint32_t _coreGetAuxiliaryInstructionFault_(void);
+uint32 _coreGetAuxiliaryInstructionFault_(void);
 
 /** @fn void _coreClearAuxiliaryInstructionFault_(void)
 *   @brief Clear core auxiliary instruction fault status register
@@ -245,9 +249,24 @@ void _enable_interrupt_(void);
 */
 void _esmCcmErrorsClear_(void);
 
+/** @fn void _errata_CORTEXR4_66_(void)
+*   @brief Work Around for Errata CORTEX-R4#66
+*
+*   This function Disable out-of-order completion for divide 
+*   instructions in Auxiliary Control register.
+*/
+void _errata_CORTEXR4_66_(void);
 
-/* USER CODE BEGIN (1) */
-/* USER CODE END */
+/** @fn void _errata_CORTEXR4_57_(void)
+*   @brief Work Around for Errata CORTEX-R4#57
+*
+*   Disable out-of-order single-precision floating point  
+*   multiply-accumulate instruction completion.
+*/
+void _errata_CORTEXR4_57_(void);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif

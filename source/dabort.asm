@@ -1,7 +1,7 @@
 ;-------------------------------------------------------------------------------
 ; dabort.asm
 ;
-; (c) Texas Instruments 2009-2010, All rights reserved.
+; (c) Texas Instruments 2009-2013, All rights reserved.
 ;
 
     .text
@@ -23,7 +23,7 @@ _dabort
         tst		r0,  #0x8			; check if bit 3 is set, this indicates uncorrectable ECC error on B0TCM
         bne		ramErrorFound
         tst		r0, #0x20			; check if bit 5 is set, this indicates uncorrectable ECC error on B1TCM
-        bne		ramErrorFound
+        bne		ramErrorFound2
 
 noRAMerror
 		tst		r0, #0x80			; check if bit 7 is set, this indicates uncorrectable ECC error on ATCM
@@ -44,11 +44,9 @@ ramErrorFound
 		beq		ramErrorReal
 		mov		r2, #0x20
 		str		r2, [r1, #0x10]		; clear RAM error status register
-		ldr		r1, ram2ctrl
-		str		r2, [r1, #0x10]		; clear RAM error status register
 
-		mov		r2, #0x28
-		str		r2, [r12]			; clear ESM group3 flags for uncorrectable RAM ECC errors
+		mov		r2, #0x08
+		str		r2, [r12]			; clear ESM group3 channel3 flag for uncorrectable RAM ECC errors
 		mov		r2, #5
 		str		r2, [r12, #0x18]	; The nERROR pin will become inactive once the LTC counter expires
 
@@ -56,6 +54,25 @@ ramErrorFound
 		subs	pc, lr, #4			; branch to instruction after the one that caused the abort
 									; this is the case because the data abort was caused intentionally
 									; and we do not want to cause the same data abort again.
+
+ramErrorFound2
+		ldr		r1, ram2ctrl		; RAM control register for B1TCM TCRAMW
+		ldr		r2, [r1]
+		tst		r2, #0x100			; check if bit 8 is set in RAMCTRL, this indicates ECC memory write is enabled
+		beq		ramErrorReal
+		mov		r2, #0x20
+		str		r2, [r1, #0x10]		; clear RAM error status register
+
+		mov		r2, #0x20
+		str		r2, [r12]			; clear ESM group3 flags channel5 flag for uncorrectable RAM ECC errors
+		mov		r2, #5
+		str		r2, [r12, #0x18]	; The nERROR pin will become inactive once the LTC counter expires
+
+		ldmfd	r13!, {r0 - r12, lr}
+		subs	pc, lr, #4			; branch to instruction after the one that caused the abort
+									; this is the case because the data abort was caused intentionally
+									; and we do not want to cause the same data abort again.
+
 
 ramErrorReal
 		b		ramErrorReal		; branch here forever as continuing operation is not recommended

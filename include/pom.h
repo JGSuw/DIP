@@ -1,20 +1,23 @@
 /** @file pom.h
 *   @brief POM Driver Definition File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
-
-#include "sys_common.h"
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __POM_H__
 #define __POM_H__
 
+#include "reg_pom.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
-
 
 /** @enum pom_region_size
 *   @brief Alias names for pom region size
@@ -22,20 +25,20 @@
 */
 enum pom_region_size
 {
-        SIZE_32BYTES    = 0,
-        SIZE_64BYTES    = 1,
-        SIZE_128BYTES   = 2,
-        SIZE_256BYTES   = 3,
-        SIZE_512BYTES   = 4,
-        SIZE_1KB        = 5,
-        SIZE_2KB        = 6,
-        SIZE_4KB        = 7,
-        SIZE_8KB        = 8,
-        SIZE_16KB       = 9,
-        SIZE_32KB       = 10,
-        SIZE_64KB       = 11,
-        SIZE_128KB      = 12,
-        SIZE_256KB      = 13
+        SIZE_32BYTES    = 0U,
+        SIZE_64BYTES    = 1U,
+        SIZE_128BYTES   = 2U,
+        SIZE_256BYTES   = 3U,
+        SIZE_512BYTES   = 4U,
+        SIZE_1KB        = 5U,
+        SIZE_2KB        = 6U,
+        SIZE_4KB        = 7U,
+        SIZE_8KB        = 8U,
+        SIZE_16KB       = 9U,
+        SIZE_32KB       = 10U,
+        SIZE_64KB       = 11U,
+        SIZE_128KB      = 12U,
+        SIZE_256KB      = 13U
 };
 
 /** @def INTERNAL_RAM 
@@ -51,92 +54,156 @@ enum pom_region_size
 /** @def ASYNC_MEMORY 
 *   @brief Alias name for Async RAM
 */   
-#define ASYNC_MEMORY   0x60000000
+#define ASYNC_MEMORY   0x60000000U
 
 
-typedef uint32_t REGION;
+typedef uint32 REGION_t;
 
 /** @struct REGION_CONFIG_ST
 *   @brief POM region configuration
 */
 typedef struct
 {       
-        uint32_t Prog_Reg_Sta_Addr;
-        uint32_t Ovly_Reg_Sta_Addr;
-        uint32_t Reg_Size;
-}REGION_CONFIG_ST;
+        uint32 Prog_Reg_Sta_Addr;
+        uint32 Ovly_Reg_Sta_Addr;
+        uint32 Reg_Size;
+}REGION_CONFIG_t;
 
-/** @struct POMBase
-*   @brief POM Register Frame Definition
-*
-*   This structure is used to access the POM module registers(POM Register Map).
-*/
-typedef struct
-{
-  uint32_t POMGLBCTRL_UL;   /* 0x00      */
-  uint32_t POMREV_UL;       /* 0x04      */
-  uint32_t POMCLKCTRL_UL;   /* 0x08      */
-  uint32_t POMFLG_UL;       /* 0x0C      */
-  struct
-  {
-    uint32_t Reserved_Reg_B32: 32;
-  }RESERVED_REG[124];
-  struct                    /* 0x200 ...    */
-  {
-    uint32_t POMPROGSTART_UL; 
-    uint32_t POMOVLSTART_UL; 
-    uint32_t POMREGSIZE_UL; 
-    uint32_t : 32; 
-  }POMRGNCONF_ST[32];
-}pomBASE_t;
-
-
-/** @struct POM_CORESIGHT_ST
-*   @brief POM_CORESIGHT_ST Register Definition
-*
-*   This structure is used to access the POM module registers(POM CoreSight Registers ).
-*/
-typedef struct
-{
-    uint32_t POMITCTRL_UL;                  /* 0xF00            */
-    struct                                  /* 0xF04 to 0xF9C   */                     
-    {
-        uint32_t Reserved_Reg_UL;
-    }Reserved1_ST[39];
-    uint32_t POMCLAIMSET_UL;                /* 0xFA0      */
-    uint32_t POMCLAIMCLR_UL;                /* 0xFA4      */
-    uint32_t : 32;                          /* 0xFA8      */
-    uint32_t : 32;                          /* 0xFAC      */
-    uint32_t POMLOCKACCESS_UL;              /* 0xFB0      */
-    uint32_t POMLOCKSTATUS_UL;              /* 0xFB4      */
-    uint32_t POMAUTHSTATUS_UL;              /* 0xFB8      */
-    uint32_t : 32;                          /* 0xFBC      */
-    uint32_t : 32;                          /* 0xFC0      */
-    uint32_t : 32;                          /* 0xFC4      */
-    uint32_t POMDEVID_UL;                   /* 0xFC8      */
-    uint32_t POMDEVTYPE_UL;                 /* 0xFCC      */
-    uint32_t POMPERIPHERALID4_UL;           /* 0xFD0      */
-    uint32_t POMPERIPHERALID5_UL;           /* 0xFD4      */
-    uint32_t POMPERIPHERALID6_UL;           /* 0xFD8      */
-    uint32_t POMPERIPHERALID7_UL;           /* 0xFDC      */
-    uint32_t POMPERIPHERALID0_UL;           /* 0xFE0      */
-    uint32_t POMPERIPHERALID1_UL;           /* 0xFE4      */
-    uint32_t POMPERIPHERALID2_UL;           /* 0xFE8      */
-    uint32_t POMPERIPHERALID3_UL;           /* 0xFEC      */            
-    uint32_t POMCOMPONENTID0_UL;            /* 0xFF0      */
-    uint32_t POMCOMPONENTID1_UL;            /* 0xFF4      */
-    uint32_t POMCOMPONENTID2_UL;            /* 0xFF8      */
-    uint32_t POMCOMPONENTID3_UL;            /* 0xFFC      */
-}POM_CORESIGHT_ST;
-
-
-#define pomREG ((pomBASE_t *)0xFFA04000U)
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
 
-/* POM Interface Functions */
-void POM_Init(void);
-void POM_Disable(void);
-void POM_Reset(void);
 
+/* Configuration registers */
+typedef struct pom_config_reg
+{
+    uint32 CONFIG_POMGLBCTRL;
+    uint32 CONFIG_POMPROGSTART0;
+    uint32 CONFIG_POMOVLSTART0;
+    uint32 CONFIG_POMREGSIZE0;        
+    uint32 CONFIG_POMPROGSTART1; 
+    uint32 CONFIG_POMOVLSTART1; 
+    uint32 CONFIG_POMREGSIZE1;
+    uint32 CONFIG_POMPROGSTART2; 
+    uint32 CONFIG_POMOVLSTART2; 
+    uint32 CONFIG_POMREGSIZE2;
+    uint32 CONFIG_POMPROGSTART3; 
+    uint32 CONFIG_POMOVLSTART3; 
+    uint32 CONFIG_POMREGSIZE3;    
+    uint32 CONFIG_POMPROGSTART4; 
+    uint32 CONFIG_POMOVLSTART4; 
+    uint32 CONFIG_POMREGSIZE4;    
+    uint32 CONFIG_POMPROGSTART5; 
+    uint32 CONFIG_POMOVLSTART5; 
+    uint32 CONFIG_POMREGSIZE5;    
+    uint32 CONFIG_POMPROGSTART6; 
+    uint32 CONFIG_POMOVLSTART6; 
+    uint32 CONFIG_POMREGSIZE6;
+    uint32 CONFIG_POMPROGSTART7; 
+    uint32 CONFIG_POMOVLSTART7; 
+    uint32 CONFIG_POMREGSIZE7;
+    uint32 CONFIG_POMPROGSTART8; 
+    uint32 CONFIG_POMOVLSTART8; 
+    uint32 CONFIG_POMREGSIZE8;    
+    uint32 CONFIG_POMPROGSTART9; 
+    uint32 CONFIG_POMOVLSTART9; 
+    uint32 CONFIG_POMREGSIZE9;    
+    uint32 CONFIG_POMPROGSTART10;
+    uint32 CONFIG_POMOVLSTART10;
+    uint32 CONFIG_POMREGSIZE10;
+    uint32 CONFIG_POMPROGSTART11; 
+    uint32 CONFIG_POMOVLSTART11; 
+    uint32 CONFIG_POMREGSIZE11;
+    uint32 CONFIG_POMPROGSTART12; 
+    uint32 CONFIG_POMOVLSTART12; 
+    uint32 CONFIG_POMREGSIZE12;
+    uint32 CONFIG_POMPROGSTART13; 
+    uint32 CONFIG_POMOVLSTART13; 
+    uint32 CONFIG_POMREGSIZE13;    
+    uint32 CONFIG_POMPROGSTART14; 
+    uint32 CONFIG_POMOVLSTART14; 
+    uint32 CONFIG_POMREGSIZE14;    
+    uint32 CONFIG_POMPROGSTART15; 
+    uint32 CONFIG_POMOVLSTART15; 
+    uint32 CONFIG_POMREGSIZE15;    
+    uint32 CONFIG_POMPROGSTART16; 
+    uint32 CONFIG_POMOVLSTART16; 
+    uint32 CONFIG_POMREGSIZE16;
+    uint32 CONFIG_POMPROGSTART17; 
+    uint32 CONFIG_POMOVLSTART17; 
+    uint32 CONFIG_POMREGSIZE17;
+    uint32 CONFIG_POMPROGSTART18; 
+    uint32 CONFIG_POMOVLSTART18; 
+    uint32 CONFIG_POMREGSIZE18;    
+    uint32 CONFIG_POMPROGSTART19; 
+    uint32 CONFIG_POMOVLSTART19; 
+    uint32 CONFIG_POMREGSIZE19;    
+    uint32 CONFIG_POMPROGSTART20;
+    uint32 CONFIG_POMOVLSTART20;
+    uint32 CONFIG_POMREGSIZE20;
+    uint32 CONFIG_POMPROGSTART21; 
+    uint32 CONFIG_POMOVLSTART21; 
+    uint32 CONFIG_POMREGSIZE21;
+    uint32 CONFIG_POMPROGSTART22; 
+    uint32 CONFIG_POMOVLSTART22; 
+    uint32 CONFIG_POMREGSIZE22;
+    uint32 CONFIG_POMPROGSTART23; 
+    uint32 CONFIG_POMOVLSTART23; 
+    uint32 CONFIG_POMREGSIZE23;    
+    uint32 CONFIG_POMPROGSTART24; 
+    uint32 CONFIG_POMOVLSTART24; 
+    uint32 CONFIG_POMREGSIZE24;    
+    uint32 CONFIG_POMPROGSTART25; 
+    uint32 CONFIG_POMOVLSTART25; 
+    uint32 CONFIG_POMREGSIZE25;    
+    uint32 CONFIG_POMPROGSTART26; 
+    uint32 CONFIG_POMOVLSTART26; 
+    uint32 CONFIG_POMREGSIZE26;
+    uint32 CONFIG_POMPROGSTART27; 
+    uint32 CONFIG_POMOVLSTART27; 
+    uint32 CONFIG_POMREGSIZE27;
+    uint32 CONFIG_POMPROGSTART28; 
+    uint32 CONFIG_POMOVLSTART28; 
+    uint32 CONFIG_POMREGSIZE28;    
+    uint32 CONFIG_POMPROGSTART29; 
+    uint32 CONFIG_POMOVLSTART29; 
+    uint32 CONFIG_POMREGSIZE29;    
+    uint32 CONFIG_POMPROGSTART30;
+    uint32 CONFIG_POMOVLSTART30;
+    uint32 CONFIG_POMREGSIZE30;
+    uint32 CONFIG_POMPROGSTART31;
+    uint32 CONFIG_POMOVLSTART31;
+    uint32 CONFIG_POMREGSIZE31;    
+} pom_config_reg_t;
+
+
+/** 
+ *  @defgroup POM POM
+ *  @brief Parameter Overlay Module.
+ *  
+ *  The POM provides a mechanism to redirect accesses to non-volatile memory into a volatile memory
+ *  internal or external to the device. The data requested by the CPU will be fetched from the overlay memory
+ *  instead of the main non-volatile memory.
+ *
+ *    Related Files
+ *   - reg_pom.h
+ *   - pom.h
+ *   - pom.c
+ *  @addtogroup POM
+ *  @{
+ */
+ 
+/* POM Interface Functions */
+void POM_Region_Config(REGION_CONFIG_t *Reg_Config_Ptr,REGION_t Region_Num);
+void POM_Reset(void);
+void POM_Init(void);
+void POM_Enable(void);
+void pomGetConfigValue(pom_config_reg_t *config_reg, config_value_type_t type);
+
+/* USER CODE BEGIN (2) */
+/* USER CODE END */
+
+/**@}*/
+#ifdef __cplusplus
+}
+#endif /*extern "C" */
 #endif /* __POM_H_*/

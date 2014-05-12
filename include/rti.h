@@ -1,7 +1,7 @@
 /** @file rti.h
 *   @brief RTI Driver Header File
-*   @date 15.Aug.2012
-*   @version 03.02.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 *   This file contains:
 *   - Definitions
@@ -11,17 +11,20 @@
 *   which are relevant for the RTI driver.
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 
 #ifndef __RTI_H__
 #define __RTI_H__
 
-#include "sys_common.h"
+#include "reg_rti.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
-
 
 /* RTI General Definitions */
 
@@ -145,46 +148,46 @@
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
 
-/** @enum dwdViolation
+/** @enum dwdViolationTag
 *   @brief DWD Violations
 */
 typedef enum dwdViolationTag
 {
-	NoTime_Violation = 0,
-	Time_Window_Violation = 1,
-	EndTime_Window_Violation = 2,
-	StartTime_Window_Violation = 3,
-	Key_Seq_Violation = 4
-}dwdViolation;
+	NoTime_Violation = 0U,
+	Time_Window_Violation = 1U,
+	EndTime_Window_Violation = 2U,
+	StartTime_Window_Violation = 3U,
+	Key_Seq_Violation = 4U
+}dwdViolation_t;
 
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
 
-/** @enum dwdResetStatus
+/** @enum dwdResetStatusTag
 *   @brief DWD Reset status
 */
 typedef enum dwdResetStatusTag
 {
-	No_Reset_Generated = 0,
-	Reset_Generated    = 1
-}dwdResetStatus;
+	No_Reset_Generated = 0U,
+	Reset_Generated    = 1U
+}dwdResetStatus_t;
 
 /* USER CODE BEGIN (3) */
 /* USER CODE END */
 
-/** @enum dwwdReaction
+/** @enum dwwdReactionTag
 *   @brief DWWD Reaction on vioaltion
 */
 typedef enum dwwdReactionTag
 {
 	Generate_Reset = 0x00000005U,
 	Generate_NMI   = 0x0000000AU
-}dwwdReaction;
+}dwwdReaction_t;
 
 /* USER CODE BEGIN (4) */
 /* USER CODE END */
 
-/** @enum dwwdWindowSize
+/** @enum dwwdWindowSizeTag
 *   @brief DWWD Window size
 */
 typedef enum dwwdWindowSizeTag
@@ -195,105 +198,76 @@ typedef enum dwwdWindowSizeTag
 	Size_12_5_Percent  = 0x00005000U,
 	Size_6_25_Percent  = 0x00050000U,
 	Size_3_125_Percent = 0x00500000U
-}dwwdWindowSize;
+}dwwdWindowSize_t;
 
 /* USER CODE BEGIN (5) */
 /* USER CODE END */
 
-/** @struct rtiBase
-*   @brief RTI Register Frame Definition
-*
-*   This type is used to access the RTI Registers.
-*/
-/** @typedef rtiBASE_t
-*   @brief RTI Register Frame Type Definition
-*
-*   This type is used to access the RTI Registers.
-*/
-typedef volatile struct rtiBase
+/* Configuration registers */
+typedef struct rti_config_reg
 {
-    uint32_t GCTRL;          /**< 0x0000: Global Control Register   */
-    uint32_t TBCTRL;         /**< 0x0004: Timebase Control Register */
-    uint32_t CAPCTRL;        /**< 0x0008: Capture Control Register  */
-    uint32_t COMPCTRL;       /**< 0x000C: Compare Control Register  */
-    struct
-    {
-        uint32_t FRCx;       /**< 0x0010,0x0030: Free Running Counter x Register         */
-        uint32_t UCx;        /**< 0x0014,0x0034: Up Counter x Register                   */
-        uint32_t CPUCx;      /**< 0x0018,0x0038: Compare Up Counter x Register           */
-        uint32_t : 32;       /**< 0x001C,0x003C: Reserved                                */
-        uint32_t CAFRCx;     /**< 0x0020,0x0040: Capture Free Running Counter x Register */
-        uint32_t CAUCx;      /**< 0x0024,0x0044: Capture Up Counter x Register           */
-        uint32_t : 32;       /**< 0x0028,0x0048: Reserved                                */
-        uint32_t : 32;       /**< 0x002C,0x004C: Reserved                                */
-    } CNT[2U];               /**< Counter x selection:
-                                    - 0: Counter 0
-                                    - 1: Counter 1                                       */
-    struct
-    {
-        uint32_t COMPx;      /**< 0x0050,0x0058,0x0060,0x0068: Compare x Register        */
-        uint32_t UDCPx;      /**< 0x0054,0x005C,0x0064,0x006C: Update Compare x Register */
-    } CMP[4U];               /**< Compare x selection:
-                                    - 0: Compare 0 
-                                    - 1: Compare 1
-                                    - 2: Compare 2
-                                    - 3: Compare 3                                       */
-    uint32_t TBLCOMP;        /**< 0x0070: External Clock Timebase Low Compare Register   */
-    uint32_t TBHCOMP;        /**< 0x0074: External Clock Timebase High Compare Register  */
-    uint32_t : 32;           /**< 0x0078: Reserved                                       */
-    uint32_t : 32;           /**< 0x007C: Reserved                                       */
-    uint32_t SETINT;         /**< 0x0080: Set/Status Interrupt Register                  */
-    uint32_t CLEARINT;       /**< 0x0084: Clear/Status Interrupt Register                */
-    uint32_t INTFLAG;        /**< 0x0088: Interrupt Flag Register                        */
-    uint32_t : 32;           /**< 0x008C: Reserved                                       */
-    uint32_t DWDCTRL;        /**< 0x0090: Digital Watchdog Control Register   */
-    uint32_t DWDPRLD;        /**< 0x0094: Digital Watchdog Preload Register */
-    uint32_t WDSTATUS;       /**< 0x0098: Watchdog Status Register  */
-    uint32_t WDKEY;          /**< 0x009C: Watchdog Key Register  */
-    uint32_t DWDCNTR;        /**< 0x00A0: Digital Watchdog Down Counter   */
-    uint32_t WWDRXNCTRL;     /**< 0x00A4: Digital Windowed Watchdog Reaction Control */
-    uint32_t WWDSIZECTRL;    /**< 0x00A8: Digital Windowed Watchdog Window Size Control  */
-    uint32_t INTCLRENABLE;   /**< 0x00AC: RTI Compare Interrupt Clear Enable Register  */
-    uint32_t COMP0CLR;       /**< 0x00B0: RTI Compare 0 Clear Register   */
-    uint32_t COMP1CLR;       /**< 0x00B4: RTI Compare 1 Clear Register */
-    uint32_t COMP2CLR;       /**< 0x00B8: RTI Compare 2 Clear Register  */
-    uint32_t COMP3CLR;       /**< 0x00BC: RTI Compare 3 Clear Register  */
-} rtiBASE_t;
-
-/** @def rtiREG1
-*   @brief RTI1 Register Frame Pointer
-*
-*   This pointer is used by the RTI driver to access the RTI1 registers.
-*/
-#define rtiREG1 ((rtiBASE_t *)0xFFFFFC00)
-
-/* USER CODE BEGIN (6) */
-/* USER CODE END */
+    uint32 CONFIG_GCTRL;
+    uint32 CONFIG_TBCTRL;
+    uint32 CONFIG_CAPCTRL;
+    uint32 CONFIG_COMPCTRL;
+    uint32 CONFIG_UDCP0;
+    uint32 CONFIG_UDCP1;
+    uint32 CONFIG_UDCP2;
+    uint32 CONFIG_UDCP3;
+} rti_config_reg_t;
 
 
+/* Configuration registers initial value */
+#define RTI_GCTRL_CONFIGVALUE	 ((uint32)((uint32)0x5U << 16U) | 0x00000000U)
+#define RTI_TBCTRL_CONFIGVALUE   0x00000000U
+#define RTI_CAPCTRL_CONFIGVALUE  (0U | 0U)
+#define RTI_COMPCTRL_CONFIGVALUE (0x00001000U | 0x00000100U | 0x00000000U | 0x00000000U)
+#define RTI_UDCP0_CONFIGVALUE    10000U
+#define RTI_UDCP1_CONFIGVALUE    50000U
+#define RTI_UDCP2_CONFIGVALUE    80000U
+#define RTI_UDCP3_CONFIGVALUE    100000U
+
+
+/** 
+ *  @defgroup RTI RTI
+ *  @brief Real Time Interrupt Module.
+ *  
+ *  The real-time interrupt (RTI) module provides timer functionality for operating systems and for
+ *  benchmarking code. The RTI module can incorporate several counters that define the timebases needed
+ *  for scheduling in the operating system.
+ *
+ *	Related Files
+ *   - reg_rti.h
+ *   - rti.h
+ *   - rti.c
+ *  @addtogroup RTI
+ *  @{
+ */
+ 
 /* RTI Interface Functions */
 
 void rtiInit(void);
-void rtiStartCounter(uint32_t counter);
-void rtiStopCounter(uint32_t counter);
-uint32_t rtiResetCounter(uint32_t counter);
-void rtiSetPeriod(uint32_t compare, uint32_t period);
-uint32_t rtiGetPeriod(uint32_t compare);
-uint32_t rtiGetCurrentTick(uint32_t compare);
-void rtiEnableNotification(uint32_t notification);
-void rtiDisableNotification(uint32_t notification);
-void dwdInit(uint16_t dwdPreload);
-void dwwdInit(dwwdReaction Reaction, uint16_t dwdPreload, dwwdWindowSize Window_Size);
-uint32_t dwwdGetCurrentDownCounter();
-void dwdCounterEnable();
-void dwdCounterDisable();
-void dwdSetPreload(uint16_t dwdPreload);
-boolean_t IsdwdKeySequenceCorrect();
-dwdResetStatus dwdGetStatus();
-dwdViolation dwdGetViolationStatus();
-void dwdClearFlag();
-
-/** @fn void rtiNotification(uint32_t notification)
+void rtiStartCounter(uint32 counter);
+void rtiStopCounter(uint32 counter);
+uint32 rtiResetCounter(uint32 counter);
+void rtiSetPeriod(uint32 compare, uint32 period);
+uint32 rtiGetPeriod(uint32 compare);
+uint32 rtiGetCurrentTick(uint32 compare);
+void rtiEnableNotification(uint32 notification);
+void rtiDisableNotification(uint32 notification);
+void dwdInit(uint16 dwdPreload);
+void dwwdInit(dwwdReaction_t Reaction, uint16 dwdPreload, dwwdWindowSize_t Window_Size);
+uint32 dwwdGetCurrentDownCounter(void);
+void dwdCounterEnable(void);
+void dwdSetPreload(uint16 dwdPreload);
+void dwdReset(void);
+void dwdGenerateSysReset(void);
+boolean IsdwdKeySequenceCorrect(void);
+dwdResetStatus_t dwdGetStatus(void);
+dwdViolation_t dwdGetViolationStatus(void);
+void dwdClearFlag(void);
+void rtiGetConfigValue(rti_config_reg_t *config_reg, config_value_type_t type);
+/** @fn void rtiNotification(uint32 notification)
 *   @brief Notification of RTI module
 *   @param[in] notification Select notification of RTI module:
 *              - rtiNOTIFICATION_COMPARE0: RTI compare 0 notification
@@ -306,10 +280,14 @@ void dwdClearFlag();
 *
 *   @note This function has to be provide by the user.
 */
-void rtiNotification(uint32_t notification);
+void rtiNotification(uint32 notification);
 
-/* USER CODE BEGIN (7) */
+/* USER CODE BEGIN (6) */
 /* USER CODE END */
 
+/**@}*/
+#ifdef __cplusplus
+}
+#endif /*extern "C" */
 
 #endif

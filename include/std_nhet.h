@@ -1,13 +1,15 @@
 /** @file std_nhet.h
-*   @brief - NHET Instruction Definition File
-*   @date 04.March.2010
-*   @version 1.00.000
+*   @brief NHET Instruction Definition File
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
-*   (c) Texas Instruments 2009, All rights reserved.
+*   (c) Texas Instruments 2009-2014, All rights reserved.
 */
 
 #ifndef __STD_NHET_H__
 #define __STD_NHET_H__
+
+#include "sys_common.h"
 
 #if defined(_TMS470_BIG) || defined(__big_endian__)
 
@@ -16,15 +18,15 @@
 #endif
 
 #ifndef HETBYTE
-#   define HETBYTE unsigned char
+#   define HETBYTE uint8
 #endif
 
 typedef struct memory_format
 {
-  unsigned int program_word  ;
-  unsigned int control_word  ;
-  unsigned int data_word     ;
-  unsigned int reserved_word ;
+  uint32 program_word  ;
+  uint32 control_word  ;
+  uint32 data_word     ;
+  uint32 reserved_word ;
 } HET_MEMORY  ;
  
 
@@ -33,31 +35,31 @@ typedef struct memory_format
 /*---------------------------------------------*/
 typedef struct acmp_format
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 9 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32                      : 9 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int coutprv              : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int ext_reg              : 1 ;
-  unsigned int                      : 2 ; 
-  unsigned int pin_action           : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 coutprv              : 1 ;
+  uint32                      : 2 ;
+  uint32 en_pin_action        : 1 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32 ext_reg              : 1 ;
+  uint32                      : 2 ; 
+  uint32 pin_action           : 1 ;
+  uint32                      : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
  
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7  ;
+  uint32 data                 : 25 ;
+  uint32                      : 7  ;
  
 } ACMP_FIELDS;
  
@@ -73,33 +75,33 @@ typedef union
 /*---------------------------------------------*/
 typedef struct ecmp_format   
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;          
-  unsigned int next_program_address : 9 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int hr_lr                : 1 ;
-  unsigned int angle_compare        : 1 ;
-  unsigned int                      : 7 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;          
+  uint32 next_program_address : 9 ;          
+  uint32 op_code              : 4 ;
+  uint32 hr_lr                : 1 ;
+  uint32 angle_compare        : 1 ;
+  uint32                      : 7 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int sub_opcode           : 2 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 3 ;
+  uint32 en_pin_action        : 1 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 sub_opcode           : 2 ;
+  uint32 pin_action           : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
 
 } ECMP_FIELDS;
 
@@ -115,33 +117,33 @@ typedef union
 /*---------------------------------------------*/
 typedef struct scmp_format     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;          
-  unsigned int next_program_address : 9 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 2 ;
-  unsigned int                      : 2 ;
-  unsigned int                      : 5 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;          
+  uint32 next_program_address : 9 ;          
+  uint32 op_code              : 4 ;
+  uint32                      : 2 ;
+  uint32                      : 2 ;
+  uint32                      : 5 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int coutprv              : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int compare_mode         : 2 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int restart_en           : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 coutprv              : 1 ;
+  uint32                      : 2 ;
+  uint32 en_pin_action        : 1 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 compare_mode         : 2 ;
+  uint32 pin_action           : 1 ;
+  uint32                      : 2 ;
+  uint32 restart_en           : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
 
 } SCMP_FIELDS ;
 
@@ -157,36 +159,36 @@ typedef union
 /*---------------------------------------------*/
 typedef struct mcmp_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int hr_lr                : 1 ;
-  unsigned int angle_compare        : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int save_subtract        : 1 ;
-  unsigned int                      : 5 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 hr_lr                : 1 ;
+  uint32 angle_compare        : 1 ;
+  uint32                      : 1 ;
+  uint32 save_subtract        : 1 ;
+  uint32                      : 5 ;
  
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int sub_opcode           : 1 ; 
-  unsigned int order                : 1 ; 
-  unsigned int pin_action           : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 3 ;
+  uint32 en_pin_action        : 1 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 sub_opcode           : 1 ; 
+  uint32 order                : 1 ; 
+  uint32 pin_action           : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } MCMP_FIELDS ; 
 
@@ -202,30 +204,30 @@ typedef union
 /*---------------------------------------------*/
 typedef struct mov64_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;          
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int compare_mode         : 2 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 3 ;
+  uint32 en_pin_action        : 1 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 compare_mode         : 2 ;
+  uint32 pin_action           : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
 
 } MOV64_FIELDS ; 
 
@@ -241,30 +243,30 @@ typedef union
 /*---------------------------------------------*/
 typedef struct dadm64_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int compare_mode         : 2 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 3 ;
+  uint32 en_pin_action        : 1 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 compare_mode         : 2 ;
+  uint32 pin_action           : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } DADM64_FIELDS ; 
 
@@ -280,30 +282,30 @@ typedef union
 /*---------------------------------------------*/
 typedef struct RADM64_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int compare_mode         : 2 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 3 ;
+  uint32 en_pin_action        : 1 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 compare_mode         : 2 ;
+  uint32 pin_action           : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } RADM64_FIELDS ; 
 
@@ -320,27 +322,27 @@ typedef union
 /*---------------------------------------------*/
 typedef struct MOV32_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int z_flag               : 1 ;
-  unsigned int                      : 15 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode           : 1 ;   
-  unsigned int move_type            : 2 ;     
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 3 ;
+  uint32 z_flag               : 1 ;
+  uint32                      : 15 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode           : 1 ;   
+  uint32 move_type            : 2 ;     
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } MOV32_FIELDS ; 
 
@@ -357,25 +359,25 @@ typedef union
 /*---------------------------------------------*/
 typedef struct ADM32_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 19 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode           : 1 ;
-  unsigned int move_type            : 2 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 19 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode           : 1 ;
+  uint32 move_type            : 2 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } ADM32_FIELDS ; 
 
@@ -392,20 +394,20 @@ typedef union
 /*---------------------------------------------*/
 typedef struct ADCNST_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int control              : 1 ;  /* pk */
-  unsigned int                      : 1 ;
-  unsigned int constant             : 25 ;
+  uint32                      : 5 ;
+  uint32 control              : 1 ;  /* pk */
+  uint32                      : 1 ;
+  uint32 constant             : 25 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } ADCNST_FIELDS ;
 
@@ -423,29 +425,29 @@ typedef union
 
 typedef struct ADD_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int control              : 1;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int src_2                : 3 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int reg	                : 2 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 control              : 1;
+  uint32 sub_opcode3          : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 src_2                : 3 ;
+  uint32 shft_mode            : 3 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 reg_ext              : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 rem_dest             : 2 ;
+  uint32 reg	                : 2 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } ADD_FIELDS ;
 
@@ -464,29 +466,29 @@ typedef union
 
 typedef struct ADC_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int control              : 1;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int src_2                : 3 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int reg	                : 2 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 control              : 1;
+  uint32 sub_opcode3          : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 src_2                : 3 ;
+  uint32 shft_mode            : 3 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 reg_ext              : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 rem_dest             : 2 ;
+  uint32 reg	                : 2 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } ADC_FIELDS ;
 
@@ -505,29 +507,29 @@ typedef union
 
 typedef struct SUB_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int control              : 1;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int src_2                : 3 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int reg	                : 2 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 control              : 1;
+  uint32 sub_opcode3          : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 src_2                : 3 ;
+  uint32 shft_mode            : 3 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 reg_ext              : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 rem_dest             : 2 ;
+  uint32 reg	                : 2 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } SUB_FIELDS ;
 
@@ -546,29 +548,29 @@ typedef union
 
 typedef struct SBB_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int control              : 1;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int src_2                : 3 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int reg	                : 2 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 control              : 1;
+  uint32 sub_opcode3          : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 src_2                : 3 ;
+  uint32 shft_mode            : 3 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 reg_ext              : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 rem_dest             : 2 ;
+  uint32 reg	                : 2 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } SBB_FIELDS ;
 
@@ -587,29 +589,29 @@ typedef union
 
 typedef struct AND_format
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int control              : 1;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int src_2                : 3 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int reg	                : 2 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 control              : 1;
+  uint32 sub_opcode3          : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 src_2                : 3 ;
+  uint32 shft_mode            : 3 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 reg_ext              : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 rem_dest             : 2 ;
+  uint32 reg	                : 2 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } AND_FIELDS ;
 
@@ -629,29 +631,29 @@ typedef union
 
 typedef struct OR_format
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int control              : 1;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int src_2                : 3 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int reg	                : 2 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 control              : 1;
+  uint32 sub_opcode3          : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 src_2                : 3 ;
+  uint32 shft_mode            : 3 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 reg_ext              : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 rem_dest             : 2 ;
+  uint32 reg	                : 2 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } OR_FIELDS ;
 
@@ -670,29 +672,29 @@ typedef union
 
 typedef struct XOR_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int remote_address       : 9 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 remote_address       : 9 ;
  
-  unsigned int                      : 5 ;
-  unsigned int control              : 1;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int src_2                : 3 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int reg	                : 2 ;
-  unsigned int                      : 1 ;
+  uint32                      : 5 ;
+  uint32 control              : 1;
+  uint32 sub_opcode3          : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 src_2                : 3 ;
+  uint32 shft_mode            : 3 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 reg_ext              : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 rem_dest             : 2 ;
+  uint32 reg	                : 2 ;
+  uint32                      : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } XOR_FIELDS ;
 
@@ -710,26 +712,26 @@ typedef union
 /*---------------------------------------------*/
 typedef struct CNT_format                     
 {
-  unsigned int                      : 9 ;        
-  unsigned int brk                  : 1 ;          
-  unsigned int next_program_address : 9 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int angle_cnt            : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int                      : 4 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 9 ;        
+  uint32 brk                  : 1 ;          
+  uint32 next_program_address : 9 ;          
+  uint32 op_code              : 4 ;
+  uint32 angle_cnt            : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32                      : 4 ;
+  uint32 interrupt_enable     : 1 ;
  
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int max                  : 25 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 1 ;
+  uint32 max                  : 25 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
 
 } CNT_FIELDS ; 
 
@@ -745,24 +747,24 @@ typedef union
 /*---------------------------------------------*/
 typedef struct apcnt_format
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int edge_select          : 2 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 edge_select          : 2 ;
+  uint32                      : 6 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int count                : 25 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 previous_bit         : 1 ;
+  uint32 count                : 25 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
  
 } APCNT_FIELDS ;
  
@@ -779,25 +781,25 @@ typedef union
 /*---------------------------------------------*/
 typedef struct pcnt_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;          
-  unsigned int next_program_address : 9 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int period_pulse_select  : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;          
+  uint32 next_program_address : 9 ;          
+  uint32 op_code              : 4 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 period_pulse_select  : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int count                : 25 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 previous_bit         : 1 ;
+  uint32 count                : 25 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
 
 } PCNT_FIELDS ;      
 
@@ -813,23 +815,23 @@ typedef union
 /*---------------------------------------------*/
 typedef struct scnt_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 1 ;
-  unsigned int count_mode           : 2 ;
-  unsigned int step_width           : 2 ;
-  unsigned int                      : 4 ;
+  uint32                      : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32                      : 1 ;
+  uint32 count_mode           : 2 ;
+  uint32 step_width           : 2 ;
+  uint32                      : 4 ;
 
-  unsigned int                      : 5 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int gap_start            : 25 ;
+  uint32                      : 5 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 1 ;
+  uint32 gap_start            : 25 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
 
 } SCNT_FIELDS ;      
 
@@ -846,24 +848,24 @@ typedef union
 /*---------------------------------------------*/
 typedef struct acnt_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int edge_select          : 1 ;
-  unsigned int                      : 7 ;
-  unsigned int interrupt_enable     : 1 ; 
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;          
+  uint32 op_code              : 4 ;
+  uint32 edge_select          : 1 ;
+  uint32                      : 7 ;
+  uint32 interrupt_enable     : 1 ; 
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int gap_end              : 25 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 previous_bit         : 1 ;
+  uint32 gap_end              : 25 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
 
 } ACNT_FIELDS ;      
 
@@ -879,32 +881,32 @@ typedef union
 /*---------------------------------------------*/
 typedef struct ecnt_format
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 1 ;
-  unsigned int count_mode           : 2 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32                      : 1 ;
+  uint32 count_mode           : 2 ;
+  uint32                      : 6 ;
  
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int count_cond           : 3 ;
-  unsigned int                      : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 previous_bit         : 1 ;
+  uint32                      : 3 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 count_cond           : 3 ;
+  uint32                      : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
  
 } ECNT_FIELDS ;
  
@@ -921,25 +923,25 @@ typedef union
 /*---------------------------------------------*/
 typedef struct rcnt_format
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 1 ;
-  unsigned int count_mode           : 2 ;
-  unsigned int                      : 5 ;
-  unsigned int count_mode1          : 1 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32                      : 1 ;
+  uint32 count_mode           : 2 ;
+  uint32                      : 5 ;
+  uint32 count_mode1          : 1 ;
  
-  unsigned int                      : 3 ;
-  unsigned int                      : 2 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int divisor              : 25 ;
+  uint32                      : 3 ;
+  uint32                      : 2 ;
+  uint32 control              : 1 ;
+  uint32                      : 1 ;
+  uint32 divisor              : 25 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
  
 } RCNT_FIELDS ;
  
@@ -955,28 +957,28 @@ typedef union
 /*---------------------------------------------*/
 typedef struct djnz_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 1 ;
-  unsigned int sub_opcode           : 2 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;          
+  uint32 op_code              : 4 ;
+  uint32                      : 1 ;
+  uint32 sub_opcode           : 2 ;
+  uint32                      : 6 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 4 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int                      : 10 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 4 ;
+  uint32 cond_addr            : 9 ;
+  uint32                      : 10 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
 
 } DJNZ_FIELDS ;      
 
@@ -992,28 +994,28 @@ typedef union
 /*---------------------------------------------*/
 typedef struct djz_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 1 ;
-  unsigned int sub_opcode           : 2 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;          
+  uint32 op_code              : 4 ;
+  uint32                      : 1 ;
+  uint32 sub_opcode           : 2 ;
+  uint32                      : 6 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 4 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int                      : 10 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 4 ;
+  uint32 cond_addr            : 9 ;
+  uint32                      : 10 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
 
 } DJZ_FIELDS ;      
 
@@ -1028,32 +1030,32 @@ typedef union
 /*---------------------------------------------*/
 typedef struct pwcnt_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int hr_lr                : 1 ;
-  unsigned int count_mode           : 2 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 hr_lr                : 1 ;
+  uint32 count_mode           : 2 ;
+  uint32                      : 6 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 3 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 3 ;
+  uint32 en_pin_action        : 1 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 3 ;
+  uint32 pin_action           : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } PWCNT_FIELDS ;      
 
@@ -1069,31 +1071,31 @@ typedef union
 /*---------------------------------------------*/
 typedef struct wcap_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int hr_lr                : 1 ;
-  unsigned int                      : 8 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 hr_lr                : 1 ;
+  uint32                      : 8 ;
   
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int capture_condition    : 2 ;
-  unsigned int                      : 2 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 previous_bit         : 1 ;
+  uint32                      : 3 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 capture_condition    : 2 ;
+  uint32                      : 2 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
 
 } WCAP_FIELDS ;      
 
@@ -1108,30 +1110,30 @@ typedef union
 /*----------------------------------------------*/
 typedef struct wcape_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 9 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32                      : 9 ;
   
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int capture_condition    : 2 ;
-  unsigned int                      : 2 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 previous_bit         : 1 ;
+  uint32                      : 3 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 capture_condition    : 2 ;
+  uint32                      : 2 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int ts_data              : 25 ;
-  unsigned int ec_data              : 7 ;
+  uint32 ts_data              : 25 ;
+  uint32 ec_data              : 7 ;
 
 } WCAPE_FIELDS ;      
 
@@ -1147,35 +1149,35 @@ typedef union
 /*---------------------------------------------*/
 typedef struct br_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 9 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32                      : 9 ;
 
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 previous_bit         : 1 ;
+  uint32                      : 3 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
 
 #if HET_v2
-  unsigned int branch_condition     : 5 ;
+  uint32 branch_condition     : 5 ;
 #else 
-  unsigned int branch_condition     : 3 ;
-  unsigned int                      : 1 ;
-  unsigned int                      : 1 ;
+  uint32 branch_condition     : 3 ;
+  uint32                      : 1 ;
+  uint32                      : 1 ;
 #endif 
 
-  unsigned int                      : 2 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 2 ;
+  uint32 interrupt_enable     : 1 ;
  
   
-  unsigned int data                 : 25 ;
-  unsigned int hr_data              : 7 ;
+  uint32 data                 : 25 ;
+  uint32 hr_data              : 7 ;
  
 } BR_FIELDS ;      
 
@@ -1191,31 +1193,31 @@ typedef union
 /*---------------------------------------------*/
 typedef struct shft_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int brk                  : 1 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int                      : 5 ;
-  unsigned int shift_mode           : 4 ;
+  uint32                      : 6 ;
+  uint32 reqnum               : 3 ;
+  uint32 brk                  : 1 ;
+  uint32 next_program_address : 9 ;
+  uint32 op_code              : 4 ;
+  uint32                      : 5 ;
+  uint32 shift_mode           : 4 ;
  
-  unsigned int                      : 3 ;
-  unsigned int request              : 2 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int shift_condition      : 2 ;
-  unsigned int                      : 2 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int interrupt_enable     : 1 ;
+  uint32                      : 3 ;
+  uint32 request              : 2 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 previous_bit         : 1 ;
+  uint32                      : 3 ;
+  uint32 cond_addr            : 9 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 shift_condition      : 2 ;
+  uint32                      : 2 ;
+  uint32 t_register_select    : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 interrupt_enable     : 1 ;
 
   
-  unsigned int data                 : 25 ;
-  unsigned int                      : 7 ;
+  uint32 data                 : 25 ;
+  uint32                      : 7 ;
 
 } SHFT_FIELDS ;      
 
@@ -1230,15 +1232,15 @@ typedef union
 #elif defined(_TMS470_LITTLE) || defined(__little_endian__)
 
 #ifndef HETBYTE
-#   define HETBYTE unsigned char
+#   define HETBYTE uint8
 #endif
 
 typedef struct memory_format
 {
-  unsigned int program_word  ;
-  unsigned int control_word  ;
-  unsigned int data_word     ;
-  unsigned int reserved_word ;
+  uint32 program_word  ;
+  uint32 control_word  ;
+  uint32 data_word     ;
+  uint32 reserved_word ;
 } HET_MEMORY  ;
  
 /*---------------------------------------------*/
@@ -1246,30 +1248,30 @@ typedef struct memory_format
 /*---------------------------------------------*/
 typedef struct acmp_format
 {
-  unsigned int                      : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ; 
-  unsigned int en_pin_action        : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int coutprv              : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ; 
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32                      : 1 ;
+  uint32 pin_action           : 1 ;
+  uint32                      : 3 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ; 
+  uint32 en_pin_action        : 1 ;
+  uint32                      : 2 ;
+  uint32 coutprv              : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ; 
 
-  unsigned int                      : 7  ;
-  unsigned int data                 : 25 ;
+  uint32                      : 7  ;
+  uint32 data                 : 25 ;
  
 } ACMP_FIELDS;
  
@@ -1285,32 +1287,32 @@ typedef union
 /*---------------------------------------------*/
 typedef struct ecmp_format   
 {
-  unsigned int                      : 7 ;
-  unsigned int angle_compare        : 1 ;
-  unsigned int hr_lr                : 1 ;         
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ; 
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 7 ;
+  uint32 angle_compare        : 1 ;
+  uint32 hr_lr                : 1 ;         
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ; 
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int sub_opcode           : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int auto_read_clear      : 1 ; 
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 pin_action           : 1 ;
+  uint32 sub_opcode           : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32 en_pin_action        : 1 ;
+  uint32                      : 3 ;
+  uint32 auto_read_clear      : 1 ; 
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;
 
 } ECMP_FIELDS;
 
@@ -1326,32 +1328,32 @@ typedef union
 /*---------------------------------------------*/
 typedef struct scmp_format     
 {
-  unsigned int                      : 5 ;
-  unsigned int                      : 2 ;
-  unsigned int                      : 2 ;         
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ; 
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 5 ;
+  uint32                      : 2 ;
+  uint32                      : 2 ;         
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ; 
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int restart_en           : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int compare_mode         : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int coutprv              : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 restart_en           : 1 ;
+  uint32                      : 2 ;
+  uint32 pin_action           : 1 ;
+  uint32 compare_mode         : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32 en_pin_action        : 1 ;
+  uint32                      : 2 ;
+  uint32 coutprv              : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ;
+  uint32                      : 7 ;
+  uint32 data                 : 25 ;
 
 } SCMP_FIELDS ;
 
@@ -1367,36 +1369,36 @@ typedef union
 /*---------------------------------------------*/
 typedef struct mcmp_format                     
 {
-  unsigned int                      : 5 ;
-  unsigned int save_subtract        : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int angle_compare        : 1 ;
-  unsigned int hr_lr                : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 5 ;
+  uint32 save_subtract        : 1 ;
+  uint32                      : 1 ;
+  uint32 angle_compare        : 1 ;
+  uint32 hr_lr                : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
  
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int order                : 1 ; 
-  unsigned int sub_opcode           : 1 ;  
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 pin_action           : 1 ;
+  uint32 order                : 1 ; 
+  uint32 sub_opcode           : 1 ;  
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32 en_pin_action        : 1 ;
+  uint32                      : 3 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
  
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ; 
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ; 
 
 } MCMP_FIELDS ; 
 
@@ -1411,29 +1413,29 @@ typedef union
 /*---------------------------------------------*/
 typedef struct mov64_format                     
 {
-  unsigned int remote_address       : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;          
-  unsigned int brk                  : 1 ;
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;          
+  uint32 brk                  : 1 ;
+  uint32                      : 9 ;
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int compare_mode         : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ; 
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 pin_action           : 1 ;
+  uint32 compare_mode         : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32 en_pin_action        : 1 ;
+  uint32                      : 3 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ; 
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;
 
 } MOV64_FIELDS ; 
 
@@ -1449,29 +1451,29 @@ typedef union
 /*---------------------------------------------*/
 typedef struct dadm64_format                     
 {
-  unsigned int remote_address       : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int                      : 9 ; 
+  uint32 remote_address       : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32                      : 9 ; 
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int compare_mode         : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ; 
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 pin_action           : 1 ;
+  uint32 compare_mode         : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32 en_pin_action        : 1 ;
+  uint32                      : 3 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ; 
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;
  
 } DADM64_FIELDS ; 
 
@@ -1487,29 +1489,29 @@ typedef union
 /*---------------------------------------------*/
 typedef struct RADM64_format                     
 {
-  unsigned int remote_address       : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int                      : 9 ; 
+  uint32 remote_address       : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32                      : 9 ; 
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int compare_mode         : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ; 
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 pin_action           : 1 ;
+  uint32 compare_mode         : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32 en_pin_action        : 1 ;
+  uint32                      : 3 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ; 
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ; 
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ; 
 
 } RADM64_FIELDS ; 
 
@@ -1526,26 +1528,26 @@ typedef union
 /*---------------------------------------------*/
 typedef struct MOV32_format                     
 {
-  unsigned int remote_address       : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32                      : 9 ;
  
-  unsigned int                      : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int move_type            : 2 ;
-  unsigned int sub_opcode           : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int                      : 15 ;
-  unsigned int z_flag               : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 5 ; 
+  uint32                      : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 move_type            : 2 ;
+  uint32 sub_opcode           : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32                      : 15 ;
+  uint32 z_flag               : 1 ;
+  uint32                      : 3 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 5 ; 
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;
  
 } MOV32_FIELDS ; 
 
@@ -1562,24 +1564,24 @@ typedef union
 /*---------------------------------------------*/
 typedef struct ADM32_format                     
 {
-  unsigned int remote_address       : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int                      : 9 ; 
+  uint32 remote_address       : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32                      : 9 ; 
 
-  unsigned int                      : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int move_type            : 2 ;
-  unsigned int sub_opcode           : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int                      : 19 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 5 ; 
+  uint32                      : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 move_type            : 2 ;
+  uint32 sub_opcode           : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32                      : 19 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 5 ; 
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;
    
 } ADM32_FIELDS ; 
 
@@ -1596,18 +1598,18 @@ typedef union
 /*---------------------------------------------*/
 typedef struct ADCNST_format                     
 {
-  unsigned int remote_address       : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32                      : 9 ;
  
-  unsigned int constant             : 25 ;
-  unsigned int                      : 1 ;
-  unsigned int                      : 5 ; 
+  uint32 constant             : 25 ;
+  uint32                      : 1 ;
+  uint32                      : 5 ; 
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ; 
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ; 
 
 } ADCNST_FIELDS ;
 
@@ -1626,28 +1628,28 @@ typedef union
 typedef struct ADD_format                     
 {
 
-  unsigned int remote_address       : 9 ;	
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;	
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;	
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;	
+  uint32                      : 9 ;
 
-  unsigned int                      : 1 ;  
-  unsigned int reg	                : 2 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int src_2                : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 5 ;
+  uint32                      : 1 ;  
+  uint32 reg	                : 2 ;
+  uint32 rem_dest             : 2 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 reg_ext              : 1 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 shft_mode            : 3 ;
+  uint32 src_2                : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 sub_opcode3          : 3 ;
+  uint32 control              : 1 ;
+  uint32                      : 5 ;
 
-  unsigned int hr_data              : 7 ; 
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ; 
+  uint32 data                 : 25 ;
  
  
 } ADD_FIELDS ;
@@ -1670,28 +1672,28 @@ typedef union
 typedef struct ADC_format                     
 {
 
-  unsigned int remote_address       : 9 ;	
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;	
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;	
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;	
+  uint32                      : 9 ;
 
-  unsigned int                      : 1 ;  
-  unsigned int reg	                : 2 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int src_2                : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 5 ;
+  uint32                      : 1 ;  
+  uint32 reg	                : 2 ;
+  uint32 rem_dest             : 2 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 reg_ext              : 1 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 shft_mode            : 3 ;
+  uint32 src_2                : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 sub_opcode3          : 3 ;
+  uint32 control              : 1 ;
+  uint32                      : 5 ;
 
-  unsigned int hr_data              : 7 ; 
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ; 
+  uint32 data                 : 25 ;
  
  
 } ADC_FIELDS ;
@@ -1713,28 +1715,28 @@ typedef union
 typedef struct SUB_format                     
 {
 
-  unsigned int remote_address       : 9 ;	
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;	
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;	
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;	
+  uint32                      : 9 ;
 
-  unsigned int                      : 1 ;  
-  unsigned int reg	                : 2 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int src_2                : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 5 ;
+  uint32                      : 1 ;  
+  uint32 reg	                : 2 ;
+  uint32 rem_dest             : 2 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 reg_ext              : 1 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 shft_mode            : 3 ;
+  uint32 src_2                : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 sub_opcode3          : 3 ;
+  uint32 control              : 1 ;
+  uint32                      : 5 ;
 
-  unsigned int hr_data              : 7 ; 
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ; 
+  uint32 data                 : 25 ;
  
  
 } SUB_FIELDS ;
@@ -1757,28 +1759,28 @@ typedef union
 typedef struct SBB_format
 {
 
-  unsigned int remote_address       : 9 ;	
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;	
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;	
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;	
+  uint32                      : 9 ;
 
-  unsigned int                      : 1 ;  
-  unsigned int reg	                : 2 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int src_2                : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 5 ;
+  uint32                      : 1 ;  
+  uint32 reg	                : 2 ;
+  uint32 rem_dest             : 2 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 reg_ext              : 1 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 shft_mode            : 3 ;
+  uint32 src_2                : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 sub_opcode3          : 3 ;
+  uint32 control              : 1 ;
+  uint32                      : 5 ;
 
-  unsigned int hr_data              : 7 ; 
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ; 
+  uint32 data                 : 25 ;
  
  
 } SBB_FIELDS ;
@@ -1800,28 +1802,28 @@ typedef union
 typedef struct AND_format
 {
 
-  unsigned int remote_address       : 9 ;	
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;	
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;	
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;	
+  uint32                      : 9 ;
 
-  unsigned int                      : 1 ;  
-  unsigned int reg	                : 2 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int src_2                : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 5 ;
+  uint32                      : 1 ;  
+  uint32 reg	                : 2 ;
+  uint32 rem_dest             : 2 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 reg_ext              : 1 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 shft_mode            : 3 ;
+  uint32 src_2                : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 sub_opcode3          : 3 ;
+  uint32 control              : 1 ;
+  uint32                      : 5 ;
 
-  unsigned int hr_data              : 7 ; 
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ; 
+  uint32 data                 : 25 ;
  
  
 } AND_FIELDS ;
@@ -1842,28 +1844,28 @@ typedef union
 typedef struct OR_format
 {
 
-  unsigned int remote_address       : 9 ;	
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;	
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;	
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;	
+  uint32                      : 9 ;
 
-  unsigned int                      : 1 ;  
-  unsigned int reg	                : 2 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int src_2                : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 5 ;
+  uint32                      : 1 ;  
+  uint32 reg	                : 2 ;
+  uint32 rem_dest             : 2 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 reg_ext              : 1 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 shft_mode            : 3 ;
+  uint32 src_2                : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 sub_opcode3          : 3 ;
+  uint32 control              : 1 ;
+  uint32                      : 5 ;
 
-  unsigned int hr_data              : 7 ; 
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ; 
+  uint32 data                 : 25 ;
  
  
 } OR_FIELDS ;
@@ -1884,28 +1886,28 @@ typedef union
 typedef struct XOR_format
 {
 
-  unsigned int remote_address       : 9 ;	
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;	
-  unsigned int                      : 9 ;
+  uint32 remote_address       : 9 ;	
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;	
+  uint32                      : 9 ;
 
-  unsigned int                      : 1 ;  
-  unsigned int reg	                : 2 ;
-  unsigned int rem_dest             : 2 ;
-  unsigned int sub_opcode1          : 1 ;
-  unsigned int init_flag            : 1 ;
-  unsigned int reg_ext              : 1 ;
-  unsigned int shft_cnt             : 5 ;
-  unsigned int shft_mode            : 3 ;
-  unsigned int src_2                : 3 ;
-  unsigned int src_1                : 4 ;
-  unsigned int sub_opcode3          : 3 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 5 ;
+  uint32                      : 1 ;  
+  uint32 reg	                : 2 ;
+  uint32 rem_dest             : 2 ;
+  uint32 sub_opcode1          : 1 ;
+  uint32 init_flag            : 1 ;
+  uint32 reg_ext              : 1 ;
+  uint32 shft_cnt             : 5 ;
+  uint32 shft_mode            : 3 ;
+  uint32 src_2                : 3 ;
+  uint32 src_1                : 4 ;
+  uint32 sub_opcode3          : 3 ;
+  uint32 control              : 1 ;
+  uint32                      : 5 ;
 
-  unsigned int hr_data              : 7 ; 
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ; 
+  uint32 data                 : 25 ;
  
  
 } XOR_FIELDS ;
@@ -1925,24 +1927,24 @@ typedef union
 /*---------------------------------------------*/
 typedef struct CNT_format                     
 {
-  unsigned int interrupt_enable     : 1 ;         
-  unsigned int                      : 4 ;        
-  unsigned int ab_register_select   : 1 ;          
-  unsigned int t_register_select    : 1 ;
-  unsigned int angle_cnt            : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;  
-  unsigned int                      : 9 ;  
+  uint32 interrupt_enable     : 1 ;         
+  uint32                      : 4 ;        
+  uint32 ab_register_select   : 1 ;          
+  uint32 t_register_select    : 1 ;
+  uint32 angle_cnt            : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;  
+  uint32                      : 9 ;  
 
-  unsigned int max                  : 25 ;
-  unsigned int                      : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 max                  : 25 ;
+  uint32                      : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ;
+  uint32                      : 7 ;
+  uint32 data                 : 25 ;
 
 } CNT_FIELDS ; 
 
@@ -1958,23 +1960,23 @@ typedef union
 /*---------------------------------------------*/
 typedef struct apcnt_format
 {
-  unsigned int                      : 6 ;
-  unsigned int edge_select          : 2 ;
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 edge_select          : 2 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int count                : 25 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ; 
+  uint32 count                : 25 ;
+  uint32 previous_bit         : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ; 
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ; 
+  uint32                      : 7 ;
+  uint32 data                 : 25 ; 
 
 } APCNT_FIELDS ;
  
@@ -1991,24 +1993,24 @@ typedef union
 /*---------------------------------------------*/
 typedef struct pcnt_format                     
 {
-  unsigned int pin_select           : 5 ;
-  unsigned int                      : 1 ;
-  unsigned int period_pulse_select  : 2 ;          
-  unsigned int interrupt_enable     : 1 ;          
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32 pin_select           : 5 ;
+  uint32                      : 1 ;
+  uint32 period_pulse_select  : 2 ;          
+  uint32 interrupt_enable     : 1 ;          
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int count                : 25 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 count                : 25 ;
+  uint32 previous_bit         : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;
 
 } PCNT_FIELDS ;      
 
@@ -2024,22 +2026,22 @@ typedef union
 /*---------------------------------------------*/
 typedef struct scnt_format                     
 {
-  unsigned int                      : 4 ;
-  unsigned int step_width           : 2 ;
-  unsigned int count_mode           : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int                      : 9 ;
+  uint32                      : 4 ;
+  uint32 step_width           : 2 ;
+  uint32 count_mode           : 2 ;
+  uint32                      : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32                      : 9 ;
 
-  unsigned int gap_start            : 25 ;
-  unsigned int                      : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int                      : 5 ;
+  uint32 gap_start            : 25 ;
+  uint32                      : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32                      : 5 ;
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ;
+  uint32                      : 7 ;
+  uint32 data                 : 25 ;
 
 } SCNT_FIELDS ;      
 
@@ -2054,23 +2056,23 @@ typedef union
 /*---------------------------------------------*/
 typedef struct acnt_format                     
 {
-  unsigned int interrupt_enable     : 1 ; 
-  unsigned int                      : 7 ;
-  unsigned int edge_select          : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32 interrupt_enable     : 1 ; 
+  uint32                      : 7 ;
+  uint32 edge_select          : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int gap_end              : 25 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ; 
+  uint32 gap_end              : 25 ;
+  uint32 previous_bit         : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ; 
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ;
+  uint32                      : 7 ;
+  uint32 data                 : 25 ;
 
 } ACNT_FIELDS ;      
 
@@ -2086,31 +2088,31 @@ typedef union
 /*---------------------------------------------*/
 typedef struct ecnt_format
 {
-  unsigned int                      : 6 ;
-  unsigned int count_mode           : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 count_mode           : 2 ;
+  uint32                      : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
  
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int count_cond           : 3 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int                      : 3 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32                      : 1 ;
+  uint32 count_cond           : 3 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32                      : 3 ;
+  uint32 previous_bit         : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ; 
+  uint32                      : 7 ;
+  uint32 data                 : 25 ; 
  
 
 } ECNT_FIELDS ;
@@ -2127,25 +2129,25 @@ typedef union
 typedef struct rcnt_format
 {
 
-  unsigned int count_mode1          : 1 ;
-  unsigned int                      : 5 ;
-  unsigned int count_mode           : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32 count_mode1          : 1 ;
+  uint32                      : 5 ;
+  uint32 count_mode           : 2 ;
+  uint32                      : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
 
-  unsigned int divisor              : 25 ;  
-  unsigned int                      : 1 ;
-  unsigned int control              : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int                      : 3 ;
+  uint32 divisor              : 25 ;  
+  uint32                      : 1 ;
+  uint32 control              : 1 ;
+  uint32                      : 2 ;
+  uint32                      : 3 ;
 
-  unsigned int                      : 7 ;  
-  unsigned int data                 : 25 ;
+  uint32                      : 7 ;  
+  uint32 data                 : 25 ;
 
  
 } RCNT_FIELDS ;
@@ -2162,27 +2164,27 @@ typedef union
 /*---------------------------------------------*/
 typedef struct djnz_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int sub_opcode           : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ; 
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 sub_opcode           : 2 ;
+  uint32                      : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ; 
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int                      : 10 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int                      : 4 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32                      : 10 ;
+  uint32 cond_addr            : 9 ;
+  uint32                      : 4 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ;
+  uint32                      : 7 ;
+  uint32 data                 : 25 ;
 
 } DJNZ_FIELDS ;      
 
@@ -2198,27 +2200,27 @@ typedef union
 /*---------------------------------------------*/
 typedef struct djz_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int sub_opcode           : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ; 
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 sub_opcode           : 2 ;
+  uint32                      : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ; 
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int                      : 10 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int                      : 4 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32                      : 10 ;
+  uint32 cond_addr            : 9 ;
+  uint32                      : 4 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ;
+  uint32                      : 7 ;
+  uint32 data                 : 25 ;
 
 } DJZ_FIELDS ;      
 
@@ -2233,32 +2235,32 @@ typedef union
 /*---------------------------------------------*/
 typedef struct pwcnt_format                     
 {
-  unsigned int                      : 6 ;
-  unsigned int count_mode           : 2 ;
-  unsigned int hr_lr                : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 6 ;
+  uint32 count_mode           : 2 ;
+  uint32 hr_lr                : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int opposite_action      : 1 ;
-  unsigned int pin_action           : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int en_pin_action        : 1 ;
-  unsigned int                      : 3 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32 opposite_action      : 1 ;
+  uint32 pin_action           : 1 ;
+  uint32                      : 3 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32 en_pin_action        : 1 ;
+  uint32                      : 3 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
 
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;  
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;  
  
 } PWCNT_FIELDS ;      
 
@@ -2274,30 +2276,30 @@ typedef union
 /*---------------------------------------------*/
 typedef struct wcap_format                     
 {
-  unsigned int                      : 8 ;
-  unsigned int hr_lr                : 1 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ; 
+  uint32                      : 8 ;
+  uint32 hr_lr                : 1 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ; 
   
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int capture_condition    : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int                      : 3 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32                      : 2 ;
+  uint32 capture_condition    : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32                      : 3 ;
+  uint32 previous_bit         : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;
 
 } WCAP_FIELDS ;      
 
@@ -2312,28 +2314,28 @@ typedef union
 /*----------------------------------------------*/
 typedef struct wcape_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;  
+  uint32                      : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;  
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int capture_condition    : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32                      : 2 ;
+  uint32 capture_condition    : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32 previous_bit         : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int ec_data              : 7 ;
-  unsigned int ts_data              : 25 ;
+  uint32 ec_data              : 7 ;
+  uint32 ts_data              : 25 ;
 
 } WCAPE_FIELDS ;      
 
@@ -2349,28 +2351,28 @@ typedef union
 /*---------------------------------------------*/
 typedef struct br_format                     
 {
-  unsigned int                      : 9 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ;
+  uint32                      : 9 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ;
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int                      : 1 ;
-  unsigned int branch_condition     : 3 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int                      : 3 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ; 
+  uint32 interrupt_enable     : 1 ;
+  uint32                      : 2 ;
+  uint32                      : 1 ;
+  uint32                      : 1 ;
+  uint32 branch_condition     : 3 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32                      : 3 ;
+  uint32 previous_bit         : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ; 
   
-  unsigned int hr_data              : 7 ;
-  unsigned int data                 : 25 ;
+  uint32 hr_data              : 7 ;
+  uint32 data                 : 25 ;
 
 } BR_FIELDS ;      
 
@@ -2386,30 +2388,30 @@ typedef union
 /*---------------------------------------------*/
 typedef struct shft_format                     
 {
-  unsigned int shift_mode           : 4 ;
-  unsigned int                      : 5 ;
-  unsigned int op_code              : 4 ;
-  unsigned int next_program_address : 9 ;
-  unsigned int brk                  : 1 ;
-  unsigned int reqnum               : 3 ;
-  unsigned int                      : 6 ; 
+  uint32 shift_mode           : 4 ;
+  uint32                      : 5 ;
+  uint32 op_code              : 4 ;
+  uint32 next_program_address : 9 ;
+  uint32 brk                  : 1 ;
+  uint32 reqnum               : 3 ;
+  uint32                      : 6 ; 
 
-  unsigned int interrupt_enable     : 1 ;
-  unsigned int ab_register_select   : 1 ;
-  unsigned int t_register_select    : 1 ;
-  unsigned int                      : 2 ;
-  unsigned int shift_condition      : 2 ;
-  unsigned int                      : 1 ;
-  unsigned int pin_select           : 5 ;
-  unsigned int cond_addr            : 9 ;
-  unsigned int                      : 3 ;
-  unsigned int previous_bit         : 1 ;
-  unsigned int auto_read_clear      : 1 ;
-  unsigned int request              : 2 ;
-  unsigned int                      : 3 ;
+  uint32 interrupt_enable     : 1 ;
+  uint32 ab_register_select   : 1 ;
+  uint32 t_register_select    : 1 ;
+  uint32                      : 2 ;
+  uint32 shift_condition      : 2 ;
+  uint32                      : 1 ;
+  uint32 pin_select           : 5 ;
+  uint32 cond_addr            : 9 ;
+  uint32                      : 3 ;
+  uint32 previous_bit         : 1 ;
+  uint32 auto_read_clear      : 1 ;
+  uint32 request              : 2 ;
+  uint32                      : 3 ;
   
-  unsigned int                      : 7 ;
-  unsigned int data                 : 25 ;
+  uint32                      : 7 ;
+  uint32 data                 : 25 ;
 
 } SHFT_FIELDS ;      
 

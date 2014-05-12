@@ -1,7 +1,7 @@
 /** @file can.h
 *   @brief CAN Driver Header File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 *   This file contains:
 *   - Definitions
@@ -11,38 +11,66 @@
 *   which are relevant for the CAN driver.
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
-
-#include "sys_common.h"
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __CAN_H__
 #define __CAN_H__
 
+#include "reg_can.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
-
 
 /* CAN General Definitions */
 
 /** @def canLEVEL_ACTIVE
-*   @brief Alias name for CAN error operation level active (Error counter 0-95)  
+*   @brief Alias name for CAN error operation level active (Error counter 0-31)  
 */
 #define canLEVEL_ACTIVE 0x00U
 
-/** @def canLEVEL_WARNING
-*   @brief Alias name for CAN error operation level warning (Error counter 96-127)  
-*/
-#define canLEVEL_WARNING 0x40U
-
 /** @def canLEVEL_PASSIVE
-*   @brief Alias name for CAN error operation level passive (Error counter 128-255)  
+*   @brief Alias name for CAN error operation level passive (Error counter 32-63)  
 */
 #define canLEVEL_PASSIVE 0x20U
 
+/** @def canLEVEL_WARNING
+*   @brief Alias name for CAN error operation level warning (Error counter 64-127)  
+*/
+#define canLEVEL_WARNING 0x40U
+
 /** @def canLEVEL_BUS_OFF
-*   @brief Alias name for CAN error operation level bus off (Error counter 256)  
+*   @brief Alias name for CAN error operation level bus off (Error counter 128-255)  
 */
 #define canLEVEL_BUS_OFF 0x80U
+
+/** @def canLEVEL_PARITY_ERR
+*   @brief Alias name for CAN Parity error (Error counter 256-511)  
+*/
+#define canLEVEL_PARITY_ERR 0x100U
+
+/** @def canLEVEL_TxOK
+*   @brief Alias name for CAN Sucessful Transmission
+*/
+#define canLEVEL_TxOK 0x08U
+
+/** @def canLEVEL_RxOK
+*   @brief Alias name for CAN Sucessful Reception
+*/
+#define canLEVEL_RxOK 0x10U
+
+/** @def canLEVEL_WakeUpPnd
+*   @brief Alias name for CAN Initiated a WakeUp to system
+*/
+#define canLEVEL_WakeUpPnd 0x200U
+
+/** @def canLEVEL_PDA
+*   @brief Alias name for CAN entered low power mode successfully.
+*/
+#define canLEVEL_PDA 0x400U
 
 /** @def canERROR_NO
 *   @brief Alias name for no CAN error occurred 
@@ -532,248 +560,117 @@
 */
 #define canMESSAGE_BOX64 64U
 
+
+/** @enum canloopBackType
+*   @brief canLoopback type definition
+*/
+/** @typedef canloopBackType_t
+*   @brief canLoopback type Type Definition
+*
+*   This type is used to select the can module Loopback type Digital or Analog loopback.
+*/
+typedef enum canloopBackType 
+{
+    Internal_Lbk = 0x00000010U, 
+    External_Lbk = 0x00000100U,
+	Internal_Silent_Lbk = 0x00000018U
+}canloopBackType_t;
+
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
 
-
-/** @struct CANBase
-*   @brief CAN Register Frame Definition
-*
-*   This type is used to access the CAN Registers.
-*/
-/** @typedef canBASE_t
-*   @brief CAN Register Frame Type Definition
-*
-*   This type is used to access the CAN Registers.
-*/
-typedef volatile struct CANBase
+/* Configuration registers */
+typedef struct can_config_reg
 {
-    uint32_t      CTL;          /**< 0x0000: Control Register                       */
-    uint32_t      ES;           /**< 0x0004: Error and Status Register              */
-    uint32_t      EERC;         /**< 0x0008: Error Counter Register                 */
-    uint32_t      BTR;          /**< 0x000C: Bit Timing Register                    */
-    uint32_t      INT;          /**< 0x0010: Interrupt Register                     */
-    uint32_t      TEST;         /**< 0x0014: Test Register                          */
-    uint32_t      : 32U;        /**< 0x0018: Reserved                               */
-    uint32_t      PERR;         /**< 0x001C: Parity/SECDED Error Code Register      */
-    uint32_t      REL;          /**< 0x0020: Core Release Register                  */
-    uint32_t      ECCDIAG;      /**< 0x0024: ECC Diagnostic Register                */
-    uint32_t      ECCDIADSTAT;  /**< 0x0028: ECC Diagnostic Status Register         */
-    uint32_t      : 32U;        /**< 0x002C: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0030: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0034: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0038: Reserved                               */
-    uint32_t      : 32U;        /**< 0x003C: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0040: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0044: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0048: Reserved                               */
-    uint32_t      : 32U;        /**< 0x004C: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0050: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0054: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0058: Reserved                               */
-    uint32_t      : 32U;        /**< 0x005C: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0060: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0064: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0068: Reserved                               */
-    uint32_t      : 32U;        /**< 0x006C: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0070: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0074: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0078: Reserved                               */
-    uint32_t      : 32U;        /**< 0x007C: Reserved                               */
-    uint32_t      ABOTR;        /**< 0x0080: Auto Bus On Time Register              */
-    uint32_t      TXRQX;        /**< 0x0084: Transmission Request X Register        */
-    uint32_t      TXRQx[4U];    /**< 0x0088-0x0094: Transmission Request Registers  */
-    uint32_t      NWDATX;       /**< 0x0098: New Data X Register                    */
-    uint32_t      NWDATx[4U];   /**< 0x009C-0x00A8: New Data Registers              */
-    uint32_t      INTPNDX;      /**< 0x00AC: Interrupt Pending X Register           */
-    uint32_t      INTPNDx[4U];  /**< 0x00B0-0x00BC: Interrupt Pending Registers     */
-    uint32_t      MSGVALX;      /**< 0x00C0: Message Valid X Register               */
-    uint32_t      MSGVALx[4U];  /**< 0x00C4-0x00D0: Message Valid Registers         */
-    uint32_t      : 32U;        /**< 0x00D4: Reserved                               */
-    uint32_t      INTMUXx[4U];  /**< 0x00D8-0x00E4: Interrupt Multiplexer Registers */
-    uint32_t      : 32U;        /**< 0x00E8: Reserved                               */
-    uint32_t      : 32U;        /**< 0x00EC: Reserved                               */
-    uint32_t      : 32U;        /**< 0x00F0: Reserved                               */
-    uint32_t      : 32U;        /**< 0x00F4: Reserved                               */
-    uint32_t      : 32U;        /**< 0x00F8: Reserved                               */
-    uint32_t      : 32U;        /**< 0x00FC: Reserved                               */
-#if ((__little_endian__ == 1) || (__LITTLE_ENDIAN__ == 1))
-    uint8_t IF1NO;              /**< 0x0100: IF1 Command Register, Msg Number       */
-    uint8_t IF1STAT;            /**< 0x0100: IF1 Command Register, Status           */
-    uint8_t IF1CMD;             /**< 0x0100: IF1 Command Register, Command          */
-    uint32_t      : 8U;         /**< 0x0100: IF1 Command Register, Reserved         */
-#else
-    uint32_t      : 8U;         /**< 0x0100: IF1 Command Register, Reserved         */
-    uint8_t IF1CMD;             /**< 0x0100: IF1 Command Register, Command          */
-    uint8_t IF1STAT;            /**< 0x0100: IF1 Command Register, Status           */
-    uint8_t IF1NO;              /**< 0x0100: IF1 Command Register, Msg Number       */
-#endif
-    uint32_t      IF1MSK;       /**< 0x0104: IF1 Mask Register                      */
-    uint32_t      IF1ARB;       /**< 0x0108: IF1 Arbitration Register               */
-    uint32_t      IF1MCTL;      /**< 0x010C: IF1 Message Control Register           */
-    uint8_t IF1DATx[8U];        /**< 0x0110-0x0114: IF1 Data A and B Registers      */
-    uint32_t      : 32U;        /**< 0x0118: Reserved                               */
-    uint32_t      : 32U;        /**< 0x011C: Reserved                               */
-#if ((__little_endian__ == 1) || (__LITTLE_ENDIAN__ == 1))
-    uint8_t IF2NO;              /**< 0x0120: IF2 Command Register, Msg No           */
-    uint8_t IF2STAT;            /**< 0x0120: IF2 Command Register, Status           */
-    uint8_t IF2CMD;             /**< 0x0120: IF2 Command Register, Command          */
-    uint32_t      : 8U;         /**< 0x0120: IF2 Command Register, Reserved         */
-#else
-    uint32_t      : 8U;         /**< 0x0120: IF2 Command Register, Reserved         */
-    uint8_t IF2CMD;             /**< 0x0120: IF2 Command Register, Command          */
-    uint8_t IF2STAT;            /**< 0x0120: IF2 Command Register, Status           */
-    uint8_t IF2NO;              /**< 0x0120: IF2 Command Register, Msg Number       */
-#endif
-    uint32_t      IF2MSK;       /**< 0x0124: IF2 Mask Register                      */
-    uint32_t      IF2ARB;       /**< 0x0128: IF2 Arbitration Register               */
-    uint32_t      IF2MCTL;      /**< 0x012C: IF2 Message Control Register           */
-    uint8_t IF2DATx[8U];        /**< 0x0130-0x0134: IF2 Data A and B Registers      */
-    uint32_t      : 32U;        /**< 0x0138: Reserved                               */
-    uint32_t      : 32U;        /**< 0x013C: Reserved                               */
-    uint32_t      IF3OBS;       /**< 0x0140: IF3 Observation Register               */
-    uint32_t      IF3MSK;       /**< 0x0144: IF3 Mask Register                      */
-    uint32_t      IF3ARB;       /**< 0x0148: IF3 Arbitration Register               */
-    uint32_t      IF3MCTL;      /**< 0x014C: IF3 Message Control Register           */
-    uint8_t IF3DATx[8U];        /**< 0x0150-0x0154: IF3 Data A and B Registers      */
-    uint32_t      : 32U;        /**< 0x0158: Reserved                               */
-    uint32_t      : 32U;        /**< 0x015C: Reserved                               */
-    uint32_t      IF3UEy[4U];   /**< 0x0160-0x016C: IF3 Update Enable Registers     */
-    uint32_t      : 32U;        /**< 0x0170: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0174: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0178: Reserved                               */
-    uint32_t      : 32U;        /**< 0x017C: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0180: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0184: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0188: Reserved                               */
-    uint32_t      : 32U;        /**< 0x018C: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0190: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0194: Reserved                               */
-    uint32_t      : 32U;        /**< 0x0198: Reserved                               */
-    uint32_t      : 32U;        /**< 0x019C: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01A0: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01A4: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01A8: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01AC: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01B0: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01B4: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01B8: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01BC: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01C0: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01C4: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01C8: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01CC: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01D0: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01D4: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01D8: Reserved                               */
-    uint32_t      : 32U;        /**< 0x01DC: Reserved                               */
-    uint32_t      TIOC;         /**< 0x01E0: TX IO Control Register                 */
-    uint32_t      RIOC;         /**< 0x01E4: RX IO Control Register                 */
-} canBASE_t;
+    uint32 CONFIG_CTL;
+    uint32 CONFIG_ES;
+    uint32 CONFIG_BTR;
+    uint32 CONFIG_TEST;
+    uint32 CONFIG_ABOTR;
+    uint32 CONFIG_INTMUX0;
+    uint32 CONFIG_INTMUX1;
+    uint32 CONFIG_INTMUX2;
+    uint32 CONFIG_INTMUX3;   
+    uint32 CONFIG_TIOC;
+    uint32 CONFIG_RIOC;
+} can_config_reg_t;
 
 
-/** @def canREG1
-*   @brief CAN1 Register Frame Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN1 registers.
-*/
-#define canREG1 ((canBASE_t *)0xFFF7DC00U)
 
-/** @def canREG2
-*   @brief CAN2 Register Frame Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN2 registers.
-*/
-#define canREG2 ((canBASE_t *)0xFFF7DE00U)
-
-/** @def canREG3
-*   @brief CAN3 Register Frame Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN3 registers.
-*/
-#define canREG3 ((canBASE_t *)0xFFF7E000U)
-
-/** @def canRAM1
-*   @brief CAN1 Mailbox RAM Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN1 RAM.
-*/
-#define canRAM1 (*(volatile uint32_t *)0xFF1E0000U)
-
-/** @def canRAM2
-*   @brief CAN2 Mailbox RAM Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN2 RAM.
-*/
-#define canRAM2 (*(volatile uint32_t *)0xFF1C0000U)
-
-/** @def canRAM3
-*   @brief CAN3 Mailbox RAM Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN3 RAM.
-*/
-#define canRAM3 (*(volatile uint32_t *)0xFF1A0000U)
-
-/** @def canPARRAM1
-*   @brief CAN1 Mailbox Parity RAM Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN1 Parity RAM
-*   for testing RAM parity error detect logic.
-*/
-#define canPARRAM1 (*(volatile uint32_t *)(0xFF1E0000U + 0x10))
-
-/** @def canPARRAM2
-*   @brief CAN2 Mailbox Pairyt RAM Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN2 Parity RAM
-*   for testing RAM parity error detect logic.
-*/
-#define canPARRAM2 (*(volatile uint32_t *)(0xFF1C0000U + 0x10))
-
-/** @def canPARRAM3
-*   @brief CAN3 Mailbox Parity RAM Pointer
-*
-*   This pointer is used by the CAN driver to access the CAN3 Parity RAM
-*   for testing RAM parity error detect logic.
-*/
-#define canPARRAM3 (*(volatile uint32_t *)(0xFF1A0000U + 0x10))
-
-/* USER CODE BEGIN (2) */
-/* USER CODE END */
-
-
+/** 
+ *  @defgroup CAN CAN
+ *  @brief Controller Area Network Module.
+ *  
+ *  The Controller Area Network is a high-integrity, serial, multi-master communication protocol for distributed
+ *  real-time applications. This CAN module is implemented according to ISO 11898-1 and is suitable for
+ *  industrial, automotive and general embedded communications
+ *
+ *    Related Files
+ *   - reg_can.h
+ *   - can.h
+ *   - can.c
+ *  @addtogroup CAN
+ *  @{
+ */
+ 
 /* CAN Interface Functions */
 
-void     canInit(void);
-uint32_t canTransmit(canBASE_t *node, uint32_t messageBox, const uint8_t *data);
-uint32_t canGetData(canBASE_t *node, uint32_t messageBox, uint8_t * const data);
-uint32_t canIsTxMessagePending(canBASE_t *node, uint32_t messageBox);
-uint32_t canIsRxMessageArrived(canBASE_t *node, uint32_t messageBox);
-uint32_t canIsMessageBoxValid(canBASE_t *node, uint32_t messageBox);
-uint32_t canGetLastError(canBASE_t *node);
-uint32_t canGetErrorLevel(canBASE_t *node);
-void     canEnableErrorNotification(canBASE_t *node);
-void     canDisableErrorNotification(canBASE_t *node);
-void canIoSetDirection(canBASE_t *node,uint32_t TxDir,uint32_t RxDir);
-void canIoSetPort(canBASE_t *node, uint32_t TxValue, uint32_t RxValue);
-uint32_t canIoTxGetBit(canBASE_t *node);
-uint32_t canIoRxGetBit(canBASE_t *node);
+void   canInit(void);
+uint32 canTransmit(canBASE_t *node, uint32 messageBox, const uint8 * data);
+uint32 canGetData(canBASE_t *node, uint32 messageBox, uint8 * const data);
+uint32 canSendRemoteFrame(canBASE_t *node, uint32 messageBox);
+uint32 canFillMessageObjectData(canBASE_t *node, uint32 messageBox, const uint8 * data);
+uint32 canIsTxMessagePending(canBASE_t *node, uint32 messageBox);
+uint32 canIsRxMessageArrived(canBASE_t *node, uint32 messageBox);
+uint32 canIsMessageBoxValid(canBASE_t *node, uint32 messageBox);
+uint32 canGetLastError(canBASE_t *node);
+uint32 canGetErrorLevel(canBASE_t *node);
+void   canEnableErrorNotification(canBASE_t *node);
+void   canDisableErrorNotification(canBASE_t *node);
+void   canEnableStatusChangeNotification(canBASE_t *node);
+void   canDisableStatusChangeNotification(canBASE_t *node);
+void   canEnableloopback(canBASE_t *node, canloopBackType_t Loopbacktype);
+void   canDisableloopback(canBASE_t *node);
+void   canIoSetDirection(canBASE_t *node,uint32 TxDir,uint32 RxDir);
+void   canIoSetPort(canBASE_t *node, uint32 TxValue, uint32 RxValue);
+uint32 canIoTxGetBit(canBASE_t *node);
+uint32 canIoRxGetBit(canBASE_t *node);
+uint32 canGetID(canBASE_t *node, uint32 messageBox);
+void canUpdateID(canBASE_t *node, uint32 messageBox, uint32 msgBoxArbitVal);
 
-/** @fn void canErrorNotification(canBASE_t *node, uint32_t notification)
+/** @fn void canErrorNotification(canBASE_t *node, uint32 notification)
 *   @brief Error notification
 *   @param[in] node Pointer to CAN node:
 *              - canREG1: CAN1 node pointer
 *              - canREG2: CAN2 node pointer
 *              - canREG3: CAN3 node pointer
 *   @param[in] notification Error notification code:
-*           - canLEVEL_WARNING (0x40): When RX- or TX error counter are between 96 and 127     
-*           - canLEVEL_BUS_OFF (0x80): When RX- or TX error counter are above 255     
-*
+*           - canLEVEL_PASSIVE    (0x20) : When RX- or TX error counter are between 32 and 63     
+*           - canLEVEL_WARNING    (0x40) : When RX- or TX error counter are between 64 and 127     
+*           - canLEVEL_BUS_OFF    (0x80) : When RX- or TX error counter are between 128 and 255  
+*           - canLEVEL_PARITY_ERR (0x100): When RX- or TX error counter are above 256
+*           
 *   @note This function has to be provide by the user.
 */
-void canErrorNotification(canBASE_t *node, uint32_t notification);
+void canErrorNotification(canBASE_t *node, uint32 notification);
 
-/** @fn void canMessageNotification(canBASE_t *node, uint32_t messageBox)
+/** @fn void canStatusChangeNotification(canBASE_t *node, uint32 notification)
+*   @brief Status Change notification
+*   @param[in] node Pointer to CAN node:
+*              - canREG1: CAN1 node pointer
+*              - canREG2: CAN2 node pointer
+*              - canREG3: CAN3 node pointer
+*   @param[in] notification Status change notification code:
+*           - canLEVEL_TxOK      (0x08) : When successful transmission     
+*           - canLEVEL_RxOK      (0x10) : When successful reception     
+*           - canLEVEL_WakeUpPnd (0x200): When successful WakeUp to system initiated
+*           - canLEVEL_PDA       (0x400): When successful low power mode entrance
+*           
+*   @note This function has to be provide by the user.
+*/
+void canStatusChangeNotification(canBASE_t *node, uint32 notification);
+
+/** @fn void canMessageNotification(canBASE_t *node, uint32 messageBox)
 *   @brief Message notification
 *   @param[in] node Pointer to CAN node:
 *              - canREG1: CAN1 node pointer
@@ -786,10 +683,14 @@ void canErrorNotification(canBASE_t *node, uint32_t notification);
 *
 *   @note This function has to be provide by the user.
 */
-void canMessageNotification(canBASE_t *node, uint32_t messageBox);
+void canMessageNotification(canBASE_t *node, uint32 messageBox);
 
-/* USER CODE BEGIN (3) */
+/* USER CODE BEGIN (2) */
 /* USER CODE END */
 
+/**@}*/
+#ifdef __cplusplus
+}
+#endif
 
 #endif

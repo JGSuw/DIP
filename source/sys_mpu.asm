@@ -1,7 +1,7 @@
 ;-------------------------------------------------------------------------------
 ; sys_mpu.asm
 ;
-; (c) Texas Instruments 2012, All rights reserved.
+; (c) Texas Instruments 2009-2013, All rights reserved.
 ;
 
     .text
@@ -10,6 +10,9 @@
 
 ;-------------------------------------------------------------------------------
 ; Initalize Mpu
+; SourceId : MPU_SourceId_001
+; DesignId : MPU_DesignId_001
+; Requirements : HL_SR487
 
     .def     _mpuInit_
     .asmfunc
@@ -179,6 +182,9 @@ r12Base  .word 0x20000000
 
 ;-------------------------------------------------------------------------------
 ; Enable Mpu
+; SourceId : MPU_SourceId_002
+; DesignId : MPU_DesignId_002
+; Requirements : HL_SR488
 
     .def     _mpuEnable_
     .asmfunc
@@ -199,6 +205,9 @@ _mpuEnable_
 
 ;-------------------------------------------------------------------------------
 ; Disable Mpu
+; SourceId : MPU_SourceId_003
+; DesignId : MPU_DesignId_003
+; Requirements : HL_SR488
 
     .def     _mpuDisable_
     .asmfunc
@@ -219,6 +228,9 @@ _mpuDisable_
 
 ;-------------------------------------------------------------------------------
 ; Enable Mpu background region
+; SourceId : MPU_SourceId_004
+; DesignId : MPU_DesignId_004
+; Requirements : HL_SR488
 
     .def     _mpuEnableBackgroundRegion_
     .asmfunc
@@ -237,6 +249,9 @@ _mpuEnableBackgroundRegion_
 
 ;-------------------------------------------------------------------------------
 ; Disable Mpu background region
+; SourceId : MPU_SourceId_005
+; DesignId : MPU_DesignId_005
+; Requirements : HL_SR488
 
     .def     _mpuDisableBackgroundRegion_
     .asmfunc
@@ -255,6 +270,9 @@ _mpuDisableBackgroundRegion_
 
 ;-------------------------------------------------------------------------------
 ; Returns number of implemented Mpu regions
+; SourceId : MPU_SourceId_006
+; DesignId : MPU_DesignId_006
+; Requirements : HL_SR490
 
     .def     _mpuGetNumberOfRegions_
     .asmfunc
@@ -270,6 +288,9 @@ _mpuGetNumberOfRegions_
 
 ;-------------------------------------------------------------------------------
 ; Returns the type of the implemented mpu regions
+; SourceId : MPU_SourceId_007
+; DesignId : MPU_DesignId_007
+; Requirements : HL_SR490
 
     .def     _mpuAreRegionsSeparate_
     .asmfunc
@@ -285,6 +306,9 @@ _mpuAreRegionsSeparate_
 
 ;-------------------------------------------------------------------------------
 ; Set mpu region number
+; SourceId : MPU_SourceId_008
+; DesignId : MPU_DesignId_008
+; Requirements : HL_SR489
 
     .def     _mpuSetRegion_
     .asmfunc
@@ -299,6 +323,9 @@ _mpuSetRegion_
 
 ;-------------------------------------------------------------------------------
 ; Get mpu region number
+; SourceId : MPU_SourceId_009
+; DesignId : MPU_DesignId_009
+; Requirements : HL_SR490
 
     .def     _mpuGetRegion_
     .asmfunc
@@ -313,6 +340,9 @@ _mpuGetRegion_
 
 ;-------------------------------------------------------------------------------
 ; Set base address
+; SourceId : MPU_SourceId_010
+; DesignId : MPU_DesignId_010
+; Requirements : HL_SR489
 
     .def     _mpuSetRegionBaseAddress_
     .asmfunc
@@ -327,6 +357,9 @@ _mpuSetRegionBaseAddress_
 
 ;-------------------------------------------------------------------------------
 ; Get base address
+; SourceId : MPU_SourceId_011
+; DesignId : MPU_DesignId_011
+; Requirements : HL_SR490
 
     .def     _mpuGetRegionBaseAddress_
     .asmfunc
@@ -341,6 +374,9 @@ _mpuGetRegionBaseAddress_
 
 ;-------------------------------------------------------------------------------
 ; Set type and permission
+; SourceId : MPU_SourceId_012
+; DesignId : MPU_DesignId_012
+; Requirements : HL_SR489
 
     .def     _mpuSetRegionTypeAndPermission_
     .asmfunc
@@ -356,6 +392,9 @@ _mpuSetRegionTypeAndPermission_
 
 ;-------------------------------------------------------------------------------
 ; Get type
+; SourceId : MPU_SourceId_013
+; DesignId : MPU_DesignId_013
+; Requirements : HL_SR490
 
     .def     _mpuGetRegionType_
     .asmfunc
@@ -371,6 +410,9 @@ _mpuGetRegionType_
 
 ;-------------------------------------------------------------------------------
 ; Get permission
+; SourceId : MPU_SourceId_014
+; DesignId : MPU_DesignId_014
+; Requirements : HL_SR490
 
     .def     _mpuGetRegionPermission_
     .asmfunc
@@ -386,11 +428,15 @@ _mpuGetRegionPermission_
 
 ;-------------------------------------------------------------------------------
 ; Set region size register value
+; SourceId : MPU_SourceId_015
+; DesignId : MPU_DesignId_015
+; Requirements : HL_SR489
 
     .def     _mpuSetRegionSizeRegister_
     .asmfunc
 
 _mpuSetRegionSizeRegister_
+
 
         mcr   p15, #0, r0, c6, c1, #2
         bx    lr

@@ -1,7 +1,7 @@
 /** @file sys_common.h
 *   @brief Common Header File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 *   This file contains:
 *   - General Definitions
@@ -9,88 +9,63 @@
 *   which are relevant for all drivers.
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
-
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __SYS_COMMON_H__
 #define __SYS_COMMON_H__
 
+#include "hal_stdtypes.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
 
-/* General Definitions */
+/************************************************************/
+/* Type Definitions                                         */
+/************************************************************/
 
-/** @def NULL
-*   @brief NULL definition
-*/
-#ifndef NULL
-    #define NULL ((void *) 0U)
+#ifndef _TBOOLEAN_DECLARED
+typedef boolean tBoolean;
+#define _TBOOLEAN_DECLARED
 #endif
 
-/** @def TRUE
-*   @brief definition for TRUE
-*/
-#ifndef TRUE
-    #define TRUE 1U
-#endif
-
-/** @def FALSE
-*   @brief BOOLEAN definition for FALSE
-*/
-#ifndef FALSE
-    #define FALSE 0U
-#endif
-
-#ifndef _UINT64_T_DECLARED
-typedef unsigned long long uint64_t;
-#define	_UINT64_T_DECLARED
-#endif
-
-#ifndef _UINT32_T_DECLARED
-typedef unsigned int uint32_t;
-#define	_UINT32_T_DECLARED
-#endif
-
-#ifndef _UINT16_T_DECLARED
-typedef unsigned short uint16_t;
-#define	_UINT16_T_DECLARED
-#endif
-
-#ifndef _UINT8_T_DECLARED
-typedef unsigned char uint8_t;
-#define	_UINT8_T_DECLARED
-#endif
-
-#ifndef _BOOLEAN_T_DECLARED
-typedef unsigned char boolean_t;
-typedef unsigned char tBoolean;
-#define	_BOOLEAN_T_DECLARED
-#endif
-
-/** @enum Loopbacktype
+/** @enum loopBackType
 *   @brief Loopback type definition
 */
-/** @typedef Loopbacktype_t
+/** @typedef loopBackType_t
 *   @brief Loopback type Type Definition
 *
 *   This type is used to select the module Loopback type Digital or Analog loopback.
 */
-typedef enum Loopbacktype 
+typedef enum loopBackType 
 {
-    Digital = 0, 
-    Analog = 1
-}Loopbacktype_t;
+    Digital_Lbk = 0U, 
+    Analog_Lbk = 1U
+}loopBackType_t;
 
+/** @enum config_value_type
+*   @brief config type definition
+*/
+/** @typedef config_value_type_t
+*   @brief config type Type Definition
+*
+*   This type is used to specify the Initial and Current value.
+*/
+typedef enum config_value_type
+{
+	InitialValue,
+	CurrentValue
+}config_value_type_t;
 
 /* USER CODE BEGIN (1) */
 /* USER CODE END */
 
-//*****************************************************************************
-//
-// The ASSERT macro, which does the actual assertion checking.  Typically, this
-// will be for procedure arguments.
-//
-//*****************************************************************************
+/********************************************************************************/
+/* The ASSERT macro, which does the actual assertion checking.  Typically, this */
+/* will be for procedure arguments.                                             */
+/********************************************************************************/
 #ifdef DEBUG
 #define ASSERT(expr) {                                      \
                          if(!(expr))                        \
@@ -104,5 +79,12 @@ typedef enum Loopbacktype
 
 /* USER CODE BEGIN (2) */
 /* USER CODE END */
+
+/* USER CODE BEGIN (3) */
+/* USER CODE END */
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif

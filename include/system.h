@@ -1,7 +1,7 @@
 /** @file system.h
 *   @brief System Driver Header File
-*   @date 15.Jul.2012
-*   @version 03.02.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 *   This file contains:
 *   - Definitions
@@ -10,33 +10,24 @@
 *   which are relevant for the System driver.
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __SYS_SYSTEM_H__
 #define __SYS_SYSTEM_H__
 
-#include "sys_common.h"
-#include "gio.h"
+#include "reg_system.h"
+#include "reg_flash.h"
+#include "reg_tcram.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
 
 
 /* System General Definitions */
-
-/** @enum systemInterrupt
-*   @brief Alias names for clock sources
-*
-*   This enumeration is used to provide alias names for the clock sources:
-*     - IRQ
-*     - FIQ
-*/
-enum systemInterrupt
-{
-    SYS_IRQ, /**< Alias for IRQ interrupt */
-    SYS_FIQ  /**< Alias for FIQ interrupt */
-};
 
 /** @enum systemClockSource
 *   @brief Alias names for clock sources
@@ -53,122 +44,143 @@ enum systemInterrupt
 */
 enum systemClockSource
 {
-    SYS_OSC       		= 0,  /**< Alias for oscillator clock Source                */
-    SYS_PLL1      		= 1,  /**< Alias for Pll1 clock Source                      */
-    SYS_EXTERNAL1  		= 3,  /**< Alias for external clock Source                  */
-    SYS_LPO_LOW   		= 4,  /**< Alias for low power oscillator low clock Source  */
-    SYS_LPO_HIGH  		= 5,  /**< Alias for low power oscillator high clock Source */
-    SYS_PLL2    		= 6,  /**< Alias for Pll2 clock Source                      */
-    SYS_EXTERNAL2 		= 7,  /**< Alias for external 2 clock Source                */
-    SYS_VCLK      		= 9   /**< Alias for synchronous VCLK1 clock Source         */
+    SYS_OSC             = 0U,  /**< Alias for oscillator clock Source                */
+    SYS_PLL1            = 1U,  /**< Alias for Pll1 clock Source                      */
+    SYS_EXTERNAL1       = 3U,  /**< Alias for external clock Source                  */
+    SYS_LPO_LOW         = 4U,  /**< Alias for low power oscillator low clock Source  */
+    SYS_LPO_HIGH        = 5U,  /**< Alias for low power oscillator high clock Source */
+    SYS_PLL2            = 6U,  /**< Alias for Pll2 clock Source                      */
+    SYS_EXTERNAL2       = 7U,  /**< Alias for external 2 clock Source                */
+    SYS_VCLK            = 9U   /**< Alias for synchronous VCLK1 clock Source         */
 };
 
-#define SYS_DOZE_MODE   0x000F3F02U
-#define SYS_SNOOZE_MODE 0x000F3F03U
-#define SYS_SLEEP_MODE  0x000FFFFFU
-#define LPO_TRIM_VALUE  (((*(volatile uint32_t   *)0xF00801B4U) & 0xFFFF0000)>>16)
-#define SYS_EXCEPTION   (*(volatile uint32_t   *)0xFFFFFFE4U)
+#define SYS_DOZE_MODE        0x000F3F02U
+#define SYS_SNOOZE_MODE      0x000F3F03U
+#define SYS_SLEEP_MODE       0x000FFFFFU
+#define LPO_TRIM_VALUE       (((*(volatile uint32 *)0xF00801B4U) & 0xFFFF0000U)>>16U)
+#define SYS_EXCEPTION        (*(volatile uint32 *)0xFFFFFFE4U)
 
-#define POWERON_RESET        0x8000
-#define OSC_FAILURE_RESET    0x4000
-#define WATCHDOG_RESET       0x2000
-#define ICEPICK_RESET        0x2000
-#define CPU_RESET            0x0020
-#define SW_RESET             0x0010
+#define POWERON_RESET        0x8000U
+#define OSC_FAILURE_RESET    0x4000U
+#define WATCHDOG_RESET       0x2000U
+#define ICEPICK_RESET        0x2000U
+#define CPU_RESET            0x0020U
+#define SW_RESET             0x0010U
 
-#define WATCHDOG_STATUS (*(volatile uint32_t   *)0xFFFFFC98U)
-#define DEVICE_ID_REV   (*(volatile uint32_t   *)0xFFFFFFF0U)
+#define WATCHDOG_STATUS     (*(volatile uint32 *)0xFFFFFC98U)
+#define DEVICE_ID_REV       (*(volatile uint32 *)0xFFFFFFF0U)
 
 /** @def OSC_FREQ
 *   @brief Oscillator clock source exported from HALCoGen GUI
 *
 *   Oscillator clock source exported from HALCoGen GUI
 */
-#define OSC_FREQ     16.0
+#define OSC_FREQ     16.0F
 
 /** @def PLL1_FREQ
 *   @brief PLL 1 clock source exported from HALCoGen GUI
 *
 *   PLL 1 clock source exported from HALCoGen GUI
 */
-#define PLL1_FREQ    160.00
+#define PLL1_FREQ    160.00F
 
 /** @def LPO_LF_FREQ
 *   @brief LPO Low Freq Oscillator source exported from HALCoGen GUI
 *
 *   LPO Low Freq Oscillator source exported from HALCoGen GUI
 */
-#define LPO_LF_FREQ  0.080
+#define LPO_LF_FREQ  0.080F
 
 /** @def LPO_HF_FREQ
 *   @brief LPO High Freq Oscillator source exported from HALCoGen GUI
 *
 *   LPO High Freq Oscillator source exported from HALCoGen GUI
 */
-#define LPO_HF_FREQ  10.000
+#define LPO_HF_FREQ  10.000F
 
 /** @def PLL1_FREQ
 *   @brief PLL 2 clock source exported from HALCoGen GUI
 *
 *   PLL 2 clock source exported from HALCoGen GUI
 */
-#define PLL2_FREQ    160.00
+#define PLL2_FREQ    160.00F
 
 /** @def GCLK_FREQ
 *   @brief GCLK domain frequency exported from HALCoGen GUI
 *
 *   GCLK domain frequency exported from HALCoGen GUI
 */
-#define GCLK_FREQ    160.000
+#define GCLK_FREQ    160.000F
 
 /** @def HCLK_FREQ
 *   @brief HCLK domain frequency exported from HALCoGen GUI
 *
 *   HCLK domain frequency exported from HALCoGen GUI
 */
-#define HCLK_FREQ    160.000
+#define HCLK_FREQ    160.000F
 
 /** @def RTI_FREQ
 *   @brief RTI Clock frequency exported from HALCoGen GUI
 *
 *   RTI Clock frequency exported from HALCoGen GUI
 */
-#define RTI_FREQ     80.000
+#define RTI_FREQ     80.000F
 
 /** @def AVCLK1_FREQ
 *   @brief AVCLK1 Domain frequency exported from HALCoGen GUI
 *
 *   AVCLK Domain frequency exported from HALCoGen GUI
 */
-#define AVCLK1_FREQ  80.000
+#define AVCLK1_FREQ  80.000F
 
 /** @def AVCLK2_FREQ
 *   @brief AVCLK2 Domain frequency exported from HALCoGen GUI
 *
 *   AVCLK2 Domain frequency exported from HALCoGen GUI
 */
-#define AVCLK2_FREQ  0.000
+#define AVCLK2_FREQ  0.000F
 
 /** @def AVCLK3_FREQ
 *   @brief AVCLK3 Domain frequency exported from HALCoGen GUI
 *
 *   AVCLK3 Domain frequency exported from HALCoGen GUI
 */
-#define AVCLK3_FREQ  80.000
+#define AVCLK3_FREQ  80.000F
+
+/** @def AVCLK4_FREQ
+*   @brief AVCLK4 Domain frequency exported from HALCoGen GUI
+*
+*   AVCLK4 Domain frequency exported from HALCoGen GUI
+*/
+#define AVCLK4_FREQ  80.000F
 
 /** @def VCLK1_FREQ
 *   @brief VCLK1 Domain frequency exported from HALCoGen GUI
 *
 *   VCLK1 Domain frequency exported from HALCoGen GUI
 */
-#define VCLK1_FREQ   80.000
+#define VCLK1_FREQ   80.000F
 
 /** @def VCLK2_FREQ
 *   @brief VCLK2 Domain frequency exported from HALCoGen GUI
 *
 *   VCLK2 Domain frequency exported from HALCoGen GUI
 */
-#define VCLK2_FREQ   80.000
+#define VCLK2_FREQ   80.000F
+
+/** @def VCLK3_FREQ
+*   @brief VCLK3 Domain frequency exported from HALCoGen GUI
+*
+*   VCLK3 Domain frequency exported from HALCoGen GUI
+*/
+#define VCLK3_FREQ   80.000F
+
+/** @def VCLK4_FREQ
+*   @brief VCLK4 Domain frequency exported from HALCoGen GUI
+*
+*   VCLK4 Domain frequency exported from HALCoGen GUI
+*/
+#define VCLK4_FREQ   80.000F
 
 
 /** @def SYS_PRE1
@@ -184,7 +196,8 @@ enum systemClockSource
 *     - Low Power Oscillator High
 *     - Flexray Pll
 */
-#define SYS_PRE1 SYS_PLL1
+/*SAFETYMCUSW 79 S MR:19.4 <APPROVED> " Value comes from GUI drop down option " */
+#define SYS_PRE1 (SYS_PLL1)
 
 /** @def SYS_PRE2
 *   @brief Alias name for RTI2CLK pre clock source
@@ -199,225 +212,158 @@ enum systemClockSource
 *     - Low Power Oscillator High
 *     - Flexray Pll
 */
-#define SYS_PRE2 SYS_PLL1
+/*SAFETYMCUSW 79 S MR:19.4 <APPROVED> " Value comes from GUI drop down option " */
+#define SYS_PRE2 (SYS_PLL1)
+
+/* Configuration registers */
+typedef struct system_config_reg
+{
+    uint32 CONFIG_SYSPC1;
+    uint32 CONFIG_SYSPC2;
+    uint32 CONFIG_SYSPC7;
+    uint32 CONFIG_SYSPC8;
+    uint32 CONFIG_SYSPC9;
+    uint32 CONFIG_CSDIS;
+    uint32 CONFIG_CDDIS;
+    uint32 CONFIG_GHVSRC;
+    uint32 CONFIG_VCLKASRC;
+    uint32 CONFIG_RCLKSRC;
+    uint32 CONFIG_MSTGCR;
+    uint32 CONFIG_MINITGCR;
+    uint32 CONFIG_MSINENA;
+    uint32 CONFIG_PLLCTL1;
+    uint32 CONFIG_PLLCTL2;
+    uint32 CONFIG_UERFLAG;
+    uint32 CONFIG_LPOMONCTL;
+    uint32 CONFIG_CLKTEST;
+    uint32 CONFIG_DFTCTRLREG1;
+    uint32 CONFIG_DFTCTRLREG2;
+    uint32 CONFIG_GPREG1;
+    uint32 CONFIG_RAMGCR;
+    uint32 CONFIG_BMMCR1;
+    uint32 CONFIG_MMUGCR;
+    uint32 CONFIG_CLKCNTL;
+    uint32 CONFIG_ECPCNTL;
+    uint32 CONFIG_DEVCR1;
+    uint32 CONFIG_SYSECR;
+    uint32 CONFIG_PLLCTL3;
+    uint32 CONFIG_STCCLKDIV;
+    uint32 CONFIG_CLK2CNTL;
+    uint32 CONFIG_VCLKACON1;
+    uint32 CONFIG_CLKSLIP;
+    uint32 CONFIG_EFC_CTLEN;
+} system_config_reg_t;
+
+/* Configuration registers initial value */
+#define SYS_SYSPC1_CONFIGVALUE  0U
+
+#define SYS_SYSPC2_CONFIGVALUE  1U
+
+#define SYS_SYSPC7_CONFIGVALUE  0U
+
+#define SYS_SYSPC8_CONFIGVALUE  0U
+
+#define SYS_SYSPC9_CONFIGVALUE  1U
+
+#define SYS_CSDIS_CONFIGVALUE   ( 0x00000000U\
+                                | 0x00000000U \
+                                | 0x00000008U \
+                                | 0x00000080U \
+                                | 0x00000000U \
+                                | 0x00000000U \
+                                | 0x00000000U\
+                                | 0x4U )
+                      
+#define SYS_CDDIS_CONFIGVALUE   ( (uint32)((uint32)0U << 4U )\
+                                | (uint32)((uint32)1U << 5U )\
+                                | (uint32)((uint32)0U << 8U )\
+								| (uint32)((uint32)0U << 9U )\
+                                | (uint32)((uint32)0U << 10U)\
+                                | (uint32)((uint32)0U << 11U) )
+                      
+#define SYS_GHVSRC_CONFIGVALUE  ( (uint32)((uint32)SYS_PLL1 << 24U) \
+                                | (uint32)((uint32)SYS_PLL1 << 16U) \
+                                | (uint32)((uint32)SYS_PLL1 << 0U) )
+                                
+#define SYS_VCLKASRC_CONFIGVALUE    ( (uint32)((uint32)SYS_VCLK << 8U)\
+                                    | (uint32)((uint32)SYS_VCLK << 0U) )
+                                    
+#define SYS_RCLKSRC_CONFIGVALUE     ( (uint32)((uint32)1U << 24U)\
+                                    | (uint32)((uint32)SYS_VCLK << 16U)\
+                                    | (uint32)((uint32)1U << 8U)\
+                                    | (uint32)((uint32)SYS_VCLK << 0U) )
+                                    
+#define SYS_MSTGCR_CONFIGVALUE      0x00000105U
+
+#define SYS_MINITGCR_CONFIGVALUE    0x5U
+
+#define SYS_MSINENA_CONFIGVALUE     0U
+
+#define SYS_PLLCTL1_CONFIGVALUE_1   ( (uint32)0x00000000U \
+                                    | (uint32)0x20000000U \
+                                    | (uint32)((uint32)0x1FU << 24U) \
+                                    | (uint32)0x00000000U \
+                                    | (uint32)((uint32)(6U - 1U)<< 16U)\
+                                    | (uint32)((uint32)(120U - 1U)<< 8U) )
+                                    
+#define SYS_PLLCTL1_CONFIGVALUE_2   (((SYS_PLLCTL1_CONFIGVALUE_1) & 0xE0FFFFFFU) | (uint32)((uint32)(1U - 1U) << 24U))
+                                    
+#define SYS_PLLCTL2_CONFIGVALUE     ( (uint32)0x00000000U\
+                                    | (uint32)((uint32)255U << 22U)\
+                                    | (uint32)((uint32)7U << 12U)\
+                                    | (uint32)((uint32)(2U - 1U)<< 9U)\
+                                    | (uint32)61U)
+                                    
+#define SYS_UERFLAG_CONFIGVALUE     0U
+
+#define SYS_LPOMONCTL_CONFIGVALUE_1 ((uint32)((uint32)1U << 24U) | LPO_TRIM_VALUE)
+#define SYS_LPOMONCTL_CONFIGVALUE_2 ((uint32)((uint32)1U << 24U) | (uint32)((uint32)16U << 8U) | 16U)
+
+#define SYS_CLKTEST_CONFIGVALUE     0x000A0000U
+
+#define SYS_DFTCTRLREG1_CONFIGVALUE 0x00002205U
+
+#define SYS_DFTCTRLREG2_CONFIGVALUE 0x5U
+
+#define SYS_GPREG1_CONFIGVALUE      0x0005FFFFU
+                                    
+#define SYS_RAMGCR_CONFIGVALUE      0x00050000U
+                                    
+#define SYS_BMMCR1_CONFIGVALUE      0xAU
+                                    
+#define SYS_MMUGCR_CONFIGVALUE      0U
+
+#define SYS_CLKCNTL_CONFIGVALUE     ( 0x00000100U \
+                                    | (uint32)((uint32)1U << 16U) \
+                                    | (uint32)((uint32)1U << 24U) ) 
+                                    
+#define SYS_ECPCNTL_CONFIGVALUE     ( (uint32)((uint32)0U << 24U)\
+                                    | (uint32)((uint32)0U << 23U)\
+                                    | (uint32)((uint32)(8U - 1U) & 0xFFFFU) )
+                                    
+#define SYS_DEVCR1_CONFIGVALUE      0xAU
+                                    
+#define SYS_SYSECR_CONFIGVALUE      0x00004000U
+#define SYS2_PLLCTL3_CONFIGVALUE_1  ( (uint32)((uint32)(2U - 1U) << 29U)\
+                                    | (uint32)((uint32)0x1FU << 24U) \
+                                    | (uint32)((uint32)(6U - 1U)<< 16U) \
+                                    | (uint32)((uint32)(120U - 1U) << 8U) )
+                                    
+#define SYS2_PLLCTL3_CONFIGVALUE_2  (((SYS2_PLLCTL3_CONFIGVALUE_1) & 0xE0FFFFFFU) | (uint32)((uint32)(1U - 1U) << 24U))
+#define SYS2_STCCLKDIV_CONFIGVALUE  0U
+#define SYS2_CLK2CNTL_CONFIGVALUE   (1U | 0x00000100U)
+#define SYS2_VCLKACON1_CONFIGVALUE  ( (uint32)((uint32)1U << 24U) \
+                                    | (uint32)((uint32)1U << 20U) \
+                                    | (uint32)((uint32)SYS_VCLK << 16U)\
+                                    | (uint32)((uint32)1U << 8U)\
+                                    | (uint32)((uint32)1U << 4U) \
+                                    | (uint32)((uint32)SYS_VCLK << 0U) )
+#define SYS2_CLKSLIP_CONFIGVALUE    0x5U
+#define SYS2_EFC_CTLEN_CONFIGVALUE  0x5U
+    
+void systemGetConfigValue(system_config_reg_t *config_reg, config_value_type_t type);
 
 /* USER CODE BEGIN (1) */
-/* USER CODE END */
-
-
-/* System Register Frame 1 Definition */
-/** @struct systemBase1
-*   @brief System Register Frame 1 Definition
-*
-*   This type is used to access the System 1 Registers.
-*/
-/** @typedef systemBASE1_t
-*   @brief System Register Frame 1 Type Definition
-*
-*   This type is used to access the System 1 Registers.
-*/
-typedef volatile struct systemBase1
-{
-    uint32_t SYSPC1;                 /* 0x0000 */
-    uint32_t SYSPC2;                 /* 0x0004 */
-    uint32_t SYSPC3;                 /* 0x0008 */
-    uint32_t SYSPC4;                 /* 0x000C */
-    uint32_t SYSPC5;                 /* 0x0010 */
-    uint32_t SYSPC6;                 /* 0x0014 */
-    uint32_t SYSPC7;                 /* 0x0018 */
-    uint32_t SYSPC8;                 /* 0x001C */
-    uint32_t SYSPC9;                 /* 0x0020 */
-    uint32_t SSWPLL1;                /* 0x0024 */
-    uint32_t SSWPLL2;                /* 0x0028 */
-    uint32_t SSWPLL3;                /* 0x002C */
-    uint32_t CSDIS;                  /* 0x0030 */
-    uint32_t CSDISSET;               /* 0x0034 */
-    uint32_t CSDISCLR;               /* 0x0038 */
-    uint32_t CDDIS;                  /* 0x003C */
-    uint32_t CDDISSET;               /* 0x0040 */
-    uint32_t CDDISCLR;               /* 0x0044 */
-    uint32_t GHVSRC;                 /* 0x0048 */
-    uint32_t VCLKASRC;               /* 0x004C */
-    uint32_t RCLKSRC;                /* 0x0050 */
-    uint32_t CSVSTAT;                /* 0x0054 */
-    uint32_t MSTGCR;                 /* 0x0058 */
-    uint32_t MINITGCR;               /* 0x005C */
-    uint32_t MSINENA;                /* 0x0060 */
-    uint32_t MSTFAIL;                /* 0x0064 */
-    uint32_t MSTCGSTAT;              /* 0x0068 */
-    uint32_t MINISTAT;               /* 0x006C */
-    uint32_t PLLCTL1;                /* 0x0070 */
-    uint32_t PLLCTL2;                /* 0x0074 */
-    uint32_t UERFLAG;                /* 0x0078 */
-    uint32_t DIEIDL;                 /* 0x007C */
-    uint32_t DIEIDH;                 /* 0x0080 */
-    uint32_t VRCTL;                  /* 0x0084 */
-    uint32_t LPOMONCTL;              /* 0x0088 */
-    uint32_t CLKTEST;                /* 0x008C */
-    uint32_t DFTCTRLREG1;            /* 0x0090 */
-    uint32_t DFTCTRLREG2;            /* 0x0094 */
-    uint32_t : 32U;                  /* 0x0098 */
-    uint32_t : 32U;                  /* 0x009C */
-    uint32_t GPREG1;                 /* 0x00A0 */
-    uint32_t BTRMSEL;                /* 0x00A4 */
-    uint32_t IMPFASTS;               /* 0x00A8 */
-    uint32_t IMPFTADD;               /* 0x00AC */
-    uint32_t SSISR1;                 /* 0x00B0 */
-    uint32_t SSISR2;                 /* 0x00B4 */
-    uint32_t SSISR3;                 /* 0x00B8 */
-    uint32_t SSISR4;                 /* 0x00BC */
-    uint32_t RAMGCR;                 /* 0x00C0 */
-    uint32_t BMMCR1;                 /* 0x00C4 */
-    uint32_t BMMCR2;                 /* 0x00C8 */
-    uint32_t MMUGCR;                 /* 0x00CC */
-#if ((__little_endian__ == 1) || (__LITTLE_ENDIAN__ == 1))
-    uint32_t        : 8U;            /* 0x00D0 */
-    uint32_t PENA   : 1U;            /* 0x00D0 */
-    uint32_t        : 7U;            /* 0x00D0 */
-    uint32_t VCLKR  : 4U;            /* 0x00D0 */
-    uint32_t        : 4U;            /* 0x00D0 */
-    uint32_t VCLK2R : 4U;            /* 0x00D0 */
-    uint32_t        : 4U;            /* 0x00D0 */
-#else
-    uint32_t        : 4U;            /* 0x00D0 */
-    uint32_t VCLK2R : 4U;            /* 0x00D0 */
-    uint32_t        : 4U;            /* 0x00D0 */
-    uint32_t VCLKR  : 4U;            /* 0x00D0 */
-    uint32_t        : 7U;            /* 0x00D0 */
-    uint32_t PENA   : 1U;            /* 0x00D0 */
-    uint32_t        : 8U;            /* 0x00D0 */
-#endif
-    uint32_t ECPCNTL;                /* 0x00D4 */
-    uint32_t DSPGCR;                 /* 0x00D8 */
-    uint32_t DEVCR1;                 /* 0x00DC */
-    uint32_t SYSECR;                 /* 0x00E0 */
-    uint32_t SYSESR;                 /* 0x00E4 */
-    uint32_t SYSTASR;                /* 0x00E8 */
-    uint32_t GBLSTAT;                /* 0x00EC */
-    uint32_t DEV;                    /* 0x00F0 */
-    uint32_t SSIVEC;                 /* 0x00F4 */
-    uint32_t SSIF;                   /* 0x00F8 */
-    uint32_t SSIR1;                  /* 0x00FC */	
-} systemBASE1_t;
-
-
-/** @def systemREG1
-*   @brief System Register Frame 1 Pointer
-*
-*   This pointer is used by the system driver to access the system frame 1 registers.
-*/
-#define systemREG1 ((systemBASE1_t *)0xFFFFFF00U)
-
-/** @def systemPORT
-*   @brief ECLK GIO Port Register Pointer
-*
-*   Pointer used by the GIO driver to access I/O PORT of System/Eclk
-*   (use the GIO drivers to access the port pins).
-*/
-#define systemPORT ((gioPORT_t *)0xFFFFFF04U)
-
-/* USER CODE BEGIN (2) */
-/* USER CODE END */
-
-
-/* System Register Frame 2 Definition */
-/** @struct systemBase2
-*   @brief System Register Frame 2 Definition
-*
-*   This type is used to access the System 2 Registers.
-*/
-/** @typedef systemBASE2_t
-*   @brief System Register Frame 2 Type Definition
-*
-*   This type is used to access the System 2 Registers.
-*/
-typedef volatile struct systemBase2
-{
-    uint32_t PLLCTL3;        /* 0x0000 */
-    uint32_t : 32U;          /* 0x0004 */
-    uint32_t STCCLKDIV;      /* 0x0008 */
-    uint32_t : 32U;          /* 0x000C */
-    uint32_t : 32U;          /* 0x0010 */
-    uint32_t : 32U;          /* 0x0014 */
-    uint32_t : 32U;          /* 0x0018 */
-    uint32_t : 32U;          /* 0x001C */
-    uint32_t : 32U;          /* 0x0020 */
-    uint32_t ECPCNTRL0;      /* 0x0024 */
-    uint32_t : 32U;          /* 0x0028 */
-    uint32_t : 32U;          /* 0x002C */
-    uint32_t : 32U;          /* 0x0030 */
-    uint32_t : 32U;          /* 0x0034 */
-    uint32_t : 32U;          /* 0x0038 */
-#if ((__little_endian__ == 1) || (__LITTLE_ENDIAN__ == 1))
-    uint32_t VCLK3R : 4U;    /* 0x003C */
-    uint32_t        : 4U;    /* 0x003C */
-    uint32_t VCLK4R : 4U;    /* 0x003C */
-    uint32_t        : 20U;   /* 0x003C */
-#else
-    uint32_t        : 20U;   /* 0x003C */
-    uint32_t VCLK4R : 4U;    /* 0x003C */
-    uint32_t        : 4U;    /* 0x003C */
-    uint32_t VCLK3R : 4U;    /* 0x003C */
-#endif	
-    uint32_t VCLKACON1;      /* 0x0040 */
-    uint32_t : 32U;          /* 0x0044 */
-    uint32_t : 32U;          /* 0x0048*/
-    uint32_t : 32U;          /* 0x004C */
-    uint32_t : 32U;          /* 0x0050 */
-    uint32_t : 32U;          /* 0x0054 */
-    uint32_t : 32U;          /* 0x0058 */
-    uint32_t : 32U;          /* 0x005C */
-    uint32_t : 32U;          /* 0x0060 */
-    uint32_t : 32U;          /* 0x0064 */
-    uint32_t : 32U;       	  /* 0x0068 */
-    uint32_t : 32U;       	  /* 0x006C */
-    uint32_t  CLKSLIP;       /* 0x0070 */
-    uint32_t : 32U;   	      /* 0x0074 */
-    uint32_t : 32U;  		      /* 0x0078*/
-    uint32_t : 32U;      	   /* 0x007C */
-    uint32_t : 32U;          /* 0x0080 */
-    uint32_t : 32U;          /* 0x0084 */
-    uint32_t : 32U;       	  /* 0x0088 */
-    uint32_t : 32U;      	   /* 0x008C */
-    uint32_t : 32U;          /* 0x0090 */
-    uint32_t : 32U;          /* 0x0094 */
-    uint32_t : 32U;       	  /* 0x0098 */
-    uint32_t : 32U;       	  /* 0x009C */
-    uint32_t : 32U;          /* 0x00A0 */
-    uint32_t : 32U;          /* 0x00A4 */
-    uint32_t : 32U;       	  /* 0x00A8 */
-    uint32_t : 32U;       	  /* 0x00AC */
-    uint32_t : 32U;          /* 0x00B0 */
-    uint32_t : 32U;          /* 0x00B4 */
-    uint32_t : 32U;       	  /* 0x00B8 */
-    uint32_t : 32U;       	  /* 0x00BC */
-    uint32_t : 32U;          /* 0x00C0 */
-    uint32_t : 32U;          /* 0x00C4 */
-    uint32_t : 32U;       	  /* 0x00C8 */
-    uint32_t : 32U;       	  /* 0x00CC */
-    uint32_t : 32U;          /* 0x00D0 */
-    uint32_t : 32U;          /* 0x00D4 */
-    uint32_t : 32U;       	  /* 0x00D8 */
-    uint32_t : 32U;       	  /* 0x00DC */
-    uint32_t : 32U;          /* 0x00E0 */
-    uint32_t : 32U;          /* 0x00E4 */
-    uint32_t : 32U;       	  /* 0x00E8 */
-    uint32_t  EFC_CTLEN;     /* 0x00EC */
-    uint32_t  DIEIDL_REG0;   /* 0x00F0 */
-    uint32_t  DIEIDH_REG1;   /* 0x00F4 */
-    uint32_t  DIEIDL_REG2;   /* 0x00F8 */
-    uint32_t  DIEIDH_REG3;   /* 0x00FC */
-} systemBASE2_t;
-
-
-/** @def systemREG2
-*   @brief System Register Frame 2 Pointer
-*
-*   This pointer is used by the system driver to access the system frame 2 registers.
-*/
-#define systemREG2 ((systemBASE2_t *)0xFFFFE100U)
-
-/* USER CODE BEGIN (3) */
 /* USER CODE END */
 
 /* FlashW General Definitions */
@@ -438,153 +384,94 @@ enum flashWPowerModes
     SYS_ACTIVE  = 3U  /**< Alias for flash bank power mode active  */
 };
 
-/* USER CODE BEGIN (4) */
+/* USER CODE BEGIN (2) */
 /* USER CODE END */
 
 
-/** @struct flashWBase
-*   @brief Flash Wrapper Register Frame Definition
-*
-*   This type is used to access the Flash Wrapper Registers.
-*/
-/** @typedef flashWBASE_t
-*   @brief Flash Wrapper Register Frame Type Definition
-*
-*   This type is used to access the Flash Wrapper Registers.
-*/
-typedef volatile struct flashWBase
+#define FSM_WR_ENA_HL       (*(volatile uint32 *)0xFFF87288U)
+#define EEPROM_CONFIG_HL    (*(volatile uint32 *)0xFFF872B8U)
+
+/* Configuration registers */
+typedef struct tcmflash_config_reg
 {
-    uint32_t FRDCNTL;     /* 0x0000 */
-    uint32_t FSPRD;       /* 0x0004 */
-    uint32_t FEDACCTRL1;  /* 0x0008 */
-    uint32_t FEDACCTRL2;  /* 0x000C */
-    uint32_t FCORERRCNT;  /* 0x0010 */
-    uint32_t FCORERRADD;  /* 0x0014 */
-    uint32_t FCORERRPOS;  /* 0x0018 */
-    uint32_t FEDACSTATUS; /* 0x001C */
-    uint32_t FUNCERRADD;  /* 0x0020 */
-    uint32_t FEDACSDIS;   /* 0x0024 */
-    uint32_t FPRIMADDTAG; /* 0x0028 */
-    uint32_t FREDUADDTAG; /* 0x002C */
-    uint32_t FBPROT;      /* 0x0030 */
-    uint32_t FBSE;        /* 0x0034 */
-    uint32_t FBBUSY;      /* 0x0038 */
-    uint32_t FBAC;        /* 0x003C */
-    uint32_t FBFALLBACK;  /* 0x0040 */
-    uint32_t FBPRDY;      /* 0x0044 */
-    uint32_t FPAC1;       /* 0x0048 */
-    uint32_t FPAC2;       /* 0x004C */
-    uint32_t FMAC;        /* 0x0050 */
-    uint32_t FMSTAT;      /* 0x0054 */
-    uint32_t FEMUDMSW;    /* 0x0058 */
-    uint32_t FEMUDLSW;    /* 0x005C */
-    uint32_t FEMUECC;     /* 0x0060 */
-    uint32_t FLOCK;       /* 0x0064 */
-    uint32_t FEMUADDR;    /* 0x0068 */
-    uint32_t FDIAGCTRL;   /* 0x006C */
-    uint32_t FRAWDATAH;   /* 0x0070 */
-    uint32_t FRAWDATAL;   /* 0x0074 */
-    uint32_t FRAWECC;     /* 0x0078 */
-    uint32_t FPAROVR;     /* 0x007C */
-    uint32_t FVREADCT;    /* 0x0080 */
-    uint32_t FVHVCT1;     /* 0x0084 */
-    uint32_t FVHVCT2;     /* 0x0088 */
-    uint32_t FVNVCT;      /* 0x008C */
-    uint32_t FVPPCT;      /* 0x0090 */
-    uint32_t FVWLCT;      /* 0x0094 */
-    uint32_t FEFUSE;      /* 0x0098 */
-    uint32_t : 32U;       /* 0x009C */
-    uint32_t : 32U;       /* 0x00A0 */
-    uint32_t : 32U;       /* 0x00A4 */
-    uint32_t : 32U;       /* 0x00A8 */
-    uint32_t : 32U;       /* 0x00AC */
-    uint32_t : 32U;       /* 0x00B0 */
-    uint32_t : 32U;       /* 0x00B4 */
-    uint32_t : 32U;       /* 0x00B8 */
-    uint32_t : 32U;       /* 0x00BC */
-    uint32_t FEDACSDIS2;  /* 0x00C0 */
-    uint32_t : 32U;       /* 0x00C4 */
-    uint32_t : 32U;       /* 0x00C8 */
-    uint32_t : 32U;       /* 0x00CC */
-    uint32_t : 32U;       /* 0x00D0 */
-    uint32_t : 32U;       /* 0x00D4 */
-    uint32_t : 32U;       /* 0x00D8 */
-    uint32_t : 32U;       /* 0x00DC */
-    uint32_t : 32U;       /* 0x00E0 */
-    uint32_t : 32U;       /* 0x00E4 */
-    uint32_t : 32U;       /* 0x00E8 */
-    uint32_t : 32U;       /* 0x00EC */
-    uint32_t : 32U;       /* 0x00F0 */
-    uint32_t : 32U;       /* 0x00F4 */
-    uint32_t : 32U;       /* 0x00F8 */
-    uint32_t : 32U;       /* 0x00FC */
-    uint32_t FBSTROBES;   /* 0x0100 */
-    uint32_t FPSTROBES;   /* 0x0104 */
-    uint32_t FBMODE;      /* 0x0108 */
-    uint32_t FTCR;        /* 0x010C */
-    uint32_t FADDR;       /* 0x0110 */
-    uint32_t FWRITE;      /* 0x0114 */
-    uint32_t FCBITSEL;    /* 0x0118 */
-    uint32_t FTCTRL;      /* 0x011C */
-    uint32_t FWPWRITE0;   /* 0x0120 */
-    uint32_t FWPWRITE1;   /* 0x0124 */
-    uint32_t FWPWRITE2;   /* 0x0128 */
-    uint32_t FWPWRITE3;   /* 0x012C */
-    uint32_t FWPWRITE4;   /* 0x0130 */
-} flashWBASE_t;
+    uint32 CONFIG_FRDCNTL;
+    uint32 CONFIG_FEDACCTRL1;
+    uint32 CONFIG_FEDACCTRL2;
+    uint32 CONFIG_FEDACSDIS;
+    uint32 CONFIG_FBPROT;
+    uint32 CONFIG_FBSE;
+    uint32 CONFIG_FBAC;
+    uint32 CONFIG_FBFALLBACK;
+    uint32 CONFIG_FPAC1;
+    uint32 CONFIG_FPAC2;
+    uint32 CONFIG_FMAC;
+    uint32 CONFIG_FLOCK;
+    uint32 CONFIG_FDIAGCTRL;
+    uint32 CONFIG_FEDACSDIS2;
+} tcmflash_config_reg_t;
 
-/** @def flashWREG
-*   @brief Flash Wrapper Register Frame Pointer
-*
-*   This pointer is used by the system driver to access the flash wrapper registers.
-*/
-#define flashWREG ((flashWBASE_t *)(0xFFF87000U))
+/* Configuration registers initial value */
+#define TCMFLASH_FRDCNTL_CONFIGVALUE        (0x00000000U | (uint32)((uint32)2U << 8U) | (uint32)((uint32)1U << 4U) |  1U)
+#define TCMFLASH_FEDACCTRL1_CONFIGVALUE     0x000A0005U
+#define TCMFLASH_FEDACCTRL2_CONFIGVALUE     0U
+#define TCMFLASH_FEDACSDIS_CONFIGVALUE      0U
+#define TCMFLASH_FBPROT_CONFIGVALUE         0U
+#define TCMFLASH_FBSE_CONFIGVALUE           0U
+#define TCMFLASH_FBAC_CONFIGVALUE           0xFU
+#define TCMFLASH_FBFALLBACK_CONFIGVALUE     ( (uint32)((uint32)SYS_ACTIVE << 14U) \
+                                            | (uint32)((uint32)3U << 12U) \
+                                            | (uint32)((uint32)3U << 10U) \
+                                            | (uint32)((uint32)3U << 8U) \
+                                            | (uint32)((uint32)3U << 6U) \
+                                            | (uint32)((uint32)3U << 4U) \
+                                            | (uint32)((uint32)SYS_ACTIVE << 2U) \
+                                            | (uint32)((uint32)SYS_ACTIVE << 0U) )
+                          
+#define TCMFLASH_FPAC1_CONFIGVALUE          0x00C80001U
+#define TCMFLASH_FPAC2_CONFIGVALUE          0U
+#define TCMFLASH_FMAC_CONFIGVALUE           0U
+#define TCMFLASH_FLOCK_CONFIGVALUE          0x55AAU
+#define TCMFLASH_FDIAGCTRL_CONFIGVALUE      0x000A0000U
+#define TCMFLASH_FEDACSDIS2_CONFIGVALUE     0U
 
-#define FSM_WR_ENA		(*(volatile uint32_t *)0xFFF87288U)
-#define EEPROM_CONFIG	(*(volatile uint32_t *)0xFFF872B8U)
+void tcmflashGetConfigValue(tcmflash_config_reg_t *config_reg, config_value_type_t type);
 
-/* USER CODE BEGIN (5) */
+/* USER CODE BEGIN (3) */
 /* USER CODE END */
 
 
 /* System Interface Functions */
+void setupPLL(void);
+void trimLPO(void);
+void setupFlash(void);
+void periphInit(void);
+void mapClocks(void);
 void systemInit(void);
-void systemPowerDown(uint32_t mode);
+void systemPowerDown(uint32 mode);
 
 
-/** @struct tcramBase
-*   @brief TCRAM Wrapper Register Frame Definition
-*
-*   This type is used to access the TCRAM Wrapper Registers.
+/*Configuration registers
+* index 0: Even RAM
+* index 1: Odd RAM
 */
-/** @typedef tcramBASE_t
-*   @brief TCRAM Wrapper Register Frame Type Definition
-*
-*   This type is used to access the TCRAM Wrapper Registers.
-*/
-
-typedef volatile struct tcramBase
+typedef struct sram_config_reg
 {
-    uint32_t RAMCTRL;		    /* 0x0000 */
-    uint32_t RAMTHRESHOLD;      /* 0x0004 */
-    uint32_t RAMOCCUR;			/* 0x0008 */
-    uint32_t RAMINTCTRL;		/* 0x000C */
-    uint32_t RAMERRSTATUS;		/* 0x0010 */
-    uint32_t RAMSERRADDR;		/* 0x0014 */
-    uint32_t : 32U;				/* 0x0018 */
-    uint32_t RAMUERRADDR;		/* 0x001C */
-    uint32_t : 32U;				/* 0x0020 */
-    uint32_t : 32U;				/* 0x0024 */
-    uint32_t : 32U;				/* 0x0028 */
-    uint32_t : 32U;				/* 0x002C */
-    uint32_t RAMTEST;			/* 0x0030 */
-    uint32_t : 32U;				/* 0x0034 */
-    uint32_t RAMADDRDECVECT;	/* 0x0038 */
-    uint32_t RAMPERADDR;        /* 0x003C */
-} tcramBASE_t;
+    uint32 CONFIG_RAMCTRL[2U];
+    uint32 CONFIG_RAMTHRESHOLD[2U];
+    uint32 CONFIG_RAMINTCTRL[2U];
+    uint32 CONFIG_RAMTEST[2U];
+    uint32 CONFIG_RAMADDRDECVECT[2U];
+} sram_config_reg_t;
 
-#define tcram1REG ((tcramBASE_t *)(0xFFFFF800))
-#define tcram2REG ((tcramBASE_t *)(0xFFFFF900))
+/* Configuration registers initial value */
+#define SRAM_RAMCTRL_CONFIGVALUE        0x0005000AU
+#define SRAM_RAMTHRESHOLD_CONFIGVALUE   1U
+#define SRAM_RAMINTCTRL_CONFIGVALUE 1U
+#define SRAM_RAMTEST_CONFIGVALUE        0x5U
+#define SRAM_RAMADDRDECVECT_CONFIGVALUE 0U
 
-
+void sramGetConfigValue(sram_config_reg_t *config_reg, config_value_type_t type);
+#ifdef __cplusplus
+}
+#endif /*extern "C" */
 #endif

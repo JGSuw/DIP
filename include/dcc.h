@@ -1,17 +1,21 @@
 /** @file dcc.h
 *   @brief DCC Driver Definition File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *   
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
-
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
 
 #ifndef __DCC_H__
 #define __DCC_H__
 
-#include "sys_common.h"
+#include "reg_dcc.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+/* USER CODE BEGIN (0) */
+/* USER CODE END */
 
 /* DCC General Definitions */
 
@@ -176,18 +180,18 @@
 */
 enum dcc1clocksource
 {
-    DCC1_CNT0_HF_LPO	= 0x5,	/**< Alias for DCC1 CNT 0 CLOCK SOURCE 0*/
-	DCC1_CNT0_TCK		= 0xA,	/**< Alias for DCC1 CNT 0 CLOCK SOURCE 1*/
-	DCC1_CNT0_OSCIN		= 0xF,	/**< Alias for DCC1 CNT 0 CLOCK SOURCE 2*/
+    DCC1_CNT0_HF_LPO    = 0x5U,    /**< Alias for DCC1 CNT 0 CLOCK SOURCE 0*/
+    DCC1_CNT0_TCK       = 0xAU,    /**< Alias for DCC1 CNT 0 CLOCK SOURCE 1*/
+    DCC1_CNT0_OSCIN     = 0xFU,    /**< Alias for DCC1 CNT 0 CLOCK SOURCE 2*/
 
-    DCC1_CNT1_PLL1		= 0x0,	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 0*/
-    DCC1_CNT1_PLL2		= 0x1,	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 1*/
-	DCC1_CNT1_LF_LPO	= 0x2,	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 2*/
-	DCC1_CNT1_HF_LPO	= 0x3,	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 3*/
-	DCC1_CNT1_EXTCLKIN1 = 0x5,	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 4*/
-	DCC1_CNT1_EXTCLKIN2 = 0x6,	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 6*/
-	DCC1_CNT1_VCLK		= 0x8,	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 8*/
-	DCC1_CNT1_N2HET1_31	= 0xA	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 9*/
+    DCC1_CNT1_PLL1      = 0x0U,    /**< Alias for DCC1 CNT 1 CLOCK SOURCE 0*/
+    DCC1_CNT1_PLL2      = 0x1U,    /**< Alias for DCC1 CNT 1 CLOCK SOURCE 1*/
+    DCC1_CNT1_LF_LPO    = 0x2U,    /**< Alias for DCC1 CNT 1 CLOCK SOURCE 2*/
+    DCC1_CNT1_HF_LPO    = 0x3U,    /**< Alias for DCC1 CNT 1 CLOCK SOURCE 3*/
+    DCC1_CNT1_EXTCLKIN1 = 0x5U,    /**< Alias for DCC1 CNT 1 CLOCK SOURCE 4*/
+    DCC1_CNT1_EXTCLKIN2 = 0x6U,    /**< Alias for DCC1 CNT 1 CLOCK SOURCE 6*/
+    DCC1_CNT1_VCLK      = 0x8U,    /**< Alias for DCC1 CNT 1 CLOCK SOURCE 8*/
+    DCC1_CNT1_N2HET1_31 = 0xAU     /**< Alias for DCC1 CNT 1 CLOCK SOURCE 9*/
 };
 
 /** @enum dcc2clocksource
@@ -197,70 +201,59 @@ enum dcc1clocksource
 */
 enum dcc2clocksource
 {
-    DCC2_CNT0_OSCIN		= 0xF,	/**< Alias for DCC1 CNT 0 CLOCK SOURCE 0*/
-    DCC2_CNT0_TCK		= 0xA,	/**< Alias for DCC1 CNT 0 CLOCK SOURCE 2*/
-
-   	DCC2_CNT1_VCLK		= 0x8,	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 8*/
-	DCC2_CNT1_N2HET2_0	= 0xA	/**< Alias for DCC1 CNT 1 CLOCK SOURCE 9*/
+    DCC2_CNT0_OSCIN      = 0xFU,    /**< Alias for DCC1 CNT 0 CLOCK SOURCE 0*/
+    DCC2_CNT0_TCK        = 0xAU,    /**< Alias for DCC1 CNT 0 CLOCK SOURCE 2*/
+    
+    DCC2_CNT1_VCLK       = 0x8U,    /**< Alias for DCC1 CNT 1 CLOCK SOURCE 8*/
+    DCC2_CNT1_N2HET2_0   = 0xAU     /**< Alias for DCC1 CNT 1 CLOCK SOURCE 9*/
 };
 
-/** @struct dccBase
-*   @brief DCC Base Register Definition
-*
-*   This structure is used to access the DCC module registers.
-*/
-/** @typedef dccBASE_t
-*   @brief DCC Register Frame Type Definition
-*
-*   This type is used to access the DCC Registers.
-*/
-typedef volatile struct dccBase
+/* Configuration registers */
+typedef struct dcc_config_reg
 {
-    uint32_t GCTRL;      	/**< 0x0000: DCC Control Register		*/
-    uint32_t REV;      		/**< 0x0004: DCC Revision Id Register 	*/
-    uint32_t CNT0SEED;    	/**< 0x0008: DCC Counter0 Seed Register	*/
-    uint32_t VALID0SEED;    /**< 0x000C: DCC Valid0 Seed Register 	*/
-    uint32_t CNT1SEED;		/**< 0x0010: DCC Counter1 Seed Register 	*/
-    uint32_t STAT; 			/**< 0x0014: DCC Status Register 		*/
-    uint32_t CNT0;    		/**< 0x0018: DCC Counter0 Value Register 	*/
-    uint32_t VALID0;    	/**< 0x001C: DCC Valid0 Value Register 	*/
-    uint32_t CNT1;      	/**< 0x0020: DCC Counter1 Value Register	*/
-    uint32_t CLKSRC1;   	/**< 0x0024: DCC Counter1 Clock Source Selection Register 	*/
-    uint32_t CLKSRC0;   	/**< 0x0028: DCC Counter0 Clock Source Selection Register 	*/
-} dccBASE_t;
+    uint32 CONFIG_GCTRL;
+    uint32 CONFIG_CNT0SEED;
+    uint32 CONFIG_VALID0SEED;
+    uint32 CONFIG_CNT1SEED;
+    uint32 CONFIG_CNT1CLKSRC;
+    uint32 CONFIG_CNT0CLKSRC;
+} dcc_config_reg_t;
 
+/* USER CODE BEGIN (1) */
+/* USER CODE END */
 
-/** @def dccREG1
-*   @brief DCC1 Register Frame Pointer
-*
-*   This pointer is used by the DCC driver to access the dcc2 module registers.
-*/
-#define dccREG1   ((dccBASE_t *)0xFFFFEC00U)
-
-
-/** @def dccREG2
-*   @brief DCC2 Register Frame Pointer
-*
-*   This pointer is used by the DCC driver to access the dcc2 module registers.
-*/
-#define dccREG2   ((dccBASE_t *)0xFFFFF400U)
-
+/**
+ *  @defgroup DCC DCC
+ *  @brief Dual-Clock Comparator Module
+ *
+ *  The primary purpose of a DCC module is to measure the frequency of a clock signal using a second
+ *  known clock signal as a reference. This capability can be used to ensure the correct frequency range for
+ *  several different device clock sources, thereby enhancing the system safety metrics.
+ *
+ *    Related Files
+ *   - reg_dcc.h
+ *   - dcc.h
+ *   - dcc.c
+ *  @addtogroup DCC
+ *  @{
+ */
 
 /* DCC Interface Functions */
 void dccInit(void);
-void dccSetCounter0Seed(dccBASE_t  *dcc, uint32_t cnt0seed);
-void dccSetTolerance(dccBASE_t  *dcc, uint32_t valid0seed);
-void dccSetCounter1Seed(dccBASE_t  *dcc, uint32_t cnt1seed);
-void dccSetSeed(dccBASE_t  *dcc, uint32_t cnt0seed, uint32_t valid0seed, uint32_t cn1seed);
-void dccSelectClockSource(dccBASE_t  *dcc, uint32_t cnt0_Clock_Source, uint32_t cnt1_Clock_Source);
+void dccSetCounter0Seed(dccBASE_t  *dcc, uint32 cnt0seed);
+void dccSetTolerance(dccBASE_t  *dcc, uint32 valid0seed);
+void dccSetCounter1Seed(dccBASE_t  *dcc, uint32 cnt1seed);
+void dccSetSeed(dccBASE_t  *dcc, uint32 cnt0seed, uint32 valid0seed, uint32 cnt1seed);
+void dccSelectClockSource(dccBASE_t  *dcc, uint32 cnt0_Clock_Source, uint32 cnt1_Clock_Source);
 void dccEnable(dccBASE_t  *dcc);
 void dccDisable(dccBASE_t  *dcc);
-uint32_t dccGetErrStatus(dccBASE_t  *dcc);
+uint32 dccGetErrStatus(dccBASE_t  *dcc);
 
-void dccEnableNotification(dccBASE_t  *dcc, uint32_t notification);
-void dccDisableNotification(dccBASE_t  *dcc, uint32_t notification);
-
-/** @fn void dccNotification(dccBASE_t  *dcc,uint32_t flags)
+void dccEnableNotification(dccBASE_t  *dcc, uint32 notification);
+void dccDisableNotification(dccBASE_t  *dcc, uint32 notification);
+void dcc1GetConfigValue(dcc_config_reg_t *config_reg, config_value_type_t type);
+void dcc2GetConfigValue(dcc_config_reg_t *config_reg, config_value_type_t type);
+/** @fn void dccNotification(dccBASE_t  *dcc,uint32 flags)
 *   @brief Interrupt callback
 *   @param[in] dcc   - dcc module base address
 *   @param[in] flags - status flags
@@ -268,6 +261,13 @@ void dccDisableNotification(dccBASE_t  *dcc, uint32_t notification);
 * This is a callback function provided by the application.  It is call when
 * a dcc is complete or detected error.
 */
-void dccNotification(dccBASE_t  *dcc,uint32_t flags);
+void dccNotification(dccBASE_t  *dcc,uint32 flags);
+
+/* USER CODE BEGIN (2) */
+/* USER CODE END */
+/**@}*/
+#ifdef __cplusplus
+}
+#endif
 
 #endif

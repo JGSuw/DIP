@@ -1,17 +1,19 @@
 /** @file sys_phantom.c 
 *   @brief Phantom Interrupt Source File
-*   @date 15.Mar.2012
-*   @version 03.01.00
+*   @date 25.April.2014
+*   @version 03.09.00
 *
 *   This file contains:
 *   - Phantom Interrupt Handler
 */
 
-/* (c) Texas Instruments 2009-2012, All rights reserved. */
+/* (c) Texas Instruments 2009-2014, All rights reserved. */
+
+#include "sys_common.h"
+#include "sys_vim.h"
 
 /* USER CODE BEGIN (0) */
 /* USER CODE END */
-
 
 /* Phantom Interrupt Handler */
 
@@ -20,6 +22,7 @@
 
 #pragma CODE_STATE(phantomInterrupt, 32)
 #pragma INTERRUPT(phantomInterrupt, IRQ)
+#pragma WEAK(phantomInterrupt)
 
 void phantomInterrupt(void)
 {
