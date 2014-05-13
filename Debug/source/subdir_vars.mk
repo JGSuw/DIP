@@ -21,11 +21,14 @@ C_SRCS += \
 ../source/pinmux.c \
 ../source/rti.c \
 ../source/sci.c \
+../source/sys_dma.c \
 ../source/sys_main.c \
 ../source/sys_pcr.c \
 ../source/sys_phantom.c \
+../source/sys_pmm.c \
 ../source/sys_selftest.c \
 ../source/sys_startup.c \
+../source/sys_vim.c \
 ../source/system.c 
 
 OBJS += \
@@ -38,14 +41,17 @@ OBJS += \
 ./source/rti.obj \
 ./source/sci.obj \
 ./source/sys_core.obj \
+./source/sys_dma.obj \
 ./source/sys_intvecs.obj \
 ./source/sys_main.obj \
 ./source/sys_mpu.obj \
 ./source/sys_pcr.obj \
 ./source/sys_phantom.obj \
+./source/sys_pmm.obj \
 ./source/sys_pmu.obj \
 ./source/sys_selftest.obj \
 ./source/sys_startup.obj \
+./source/sys_vim.obj \
 ./source/system.obj 
 
 ASM_DEPS += \
@@ -63,11 +69,14 @@ C_DEPS += \
 ./source/pinmux.pp \
 ./source/rti.pp \
 ./source/sci.pp \
+./source/sys_dma.pp \
 ./source/sys_main.pp \
 ./source/sys_pcr.pp \
 ./source/sys_phantom.pp \
+./source/sys_pmm.pp \
 ./source/sys_selftest.pp \
 ./source/sys_startup.pp \
+./source/sys_vim.pp \
 ./source/system.pp 
 
 C_DEPS__QUOTED += \
@@ -78,11 +87,14 @@ C_DEPS__QUOTED += \
 "source\pinmux.pp" \
 "source\rti.pp" \
 "source\sci.pp" \
+"source\sys_dma.pp" \
 "source\sys_main.pp" \
 "source\sys_pcr.pp" \
 "source\sys_phantom.pp" \
+"source\sys_pmm.pp" \
 "source\sys_selftest.pp" \
 "source\sys_startup.pp" \
+"source\sys_vim.pp" \
 "source\system.pp" 
 
 OBJS__QUOTED += \
@@ -95,14 +107,17 @@ OBJS__QUOTED += \
 "source\rti.obj" \
 "source\sci.obj" \
 "source\sys_core.obj" \
+"source\sys_dma.obj" \
 "source\sys_intvecs.obj" \
 "source\sys_main.obj" \
 "source\sys_mpu.obj" \
 "source\sys_pcr.obj" \
 "source\sys_phantom.obj" \
+"source\sys_pmm.obj" \
 "source\sys_pmu.obj" \
 "source\sys_selftest.obj" \
 "source\sys_startup.obj" \
+"source\sys_vim.obj" \
 "source\system.obj" 
 
 ASM_DEPS__QUOTED += \
@@ -127,11 +142,14 @@ C_SRCS__QUOTED += \
 "../source/pinmux.c" \
 "../source/rti.c" \
 "../source/sci.c" \
+"../source/sys_dma.c" \
 "../source/sys_main.c" \
 "../source/sys_pcr.c" \
 "../source/sys_phantom.c" \
+"../source/sys_pmm.c" \
 "../source/sys_selftest.c" \
 "../source/sys_startup.c" \
+"../source/sys_vim.c" \
 "../source/system.c" 
 
 

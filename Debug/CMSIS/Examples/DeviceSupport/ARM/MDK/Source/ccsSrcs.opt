@@ -1,0 +1,1 @@
+"../CMSIS/Examples/DeviceSupport/ARM/MDK/Source/Retarget.c" "../CMSIS/Examples/DeviceSupport/ARM/MDK/Source/Serial.c" "../CMSIS/Examples/DeviceSupport/ARM/MDK/Source/startup_TMS570LS.s" "../CMSIS/Examples/DeviceSupport/ARM/MDK/Source/sys_pmu.asm" "../CMSIS/Examples/DeviceSupport/ARM/MDK/Source/system.c" 
