@@ -35,7 +35,7 @@ void main(void)
 /* USER CODE BEGIN (3) */
 	/* INITIALIZE EQEP MODULES */
 	QEPInit();
-
+	int maria = 9999;
 /* USER CODE END */
 }
 
