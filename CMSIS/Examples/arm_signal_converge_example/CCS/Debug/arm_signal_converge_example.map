@@ -1,0 +1,317 @@
+******************************************************************************
+                  TI ARM Linker PC v5.0.1                      
+******************************************************************************
+>> Linked Tue Sep 11 15:41:05 2012
+
+OUTPUT FILE NAME:   <arm_signal_converge_example.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 00000efc
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  VECTORS               00000000   00000100  00000100  00000000  R  X  ffffffff
+  FLASH                 00000100   0003ff00  0003ff00  00000000  R  X  ffffffff
+  STACKS                08000000   00001500  00000000  00001500  RW  
+  RAM                   08001500   00018000  00001cb4  0001634c  RW  
+  EMIF_1                60000000   00000100  00000000  00000100  R  X
+  EMIF_2                60000100   00003f00  00000000  00003f00  R  X
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    00040000   00040000    r-x
+  00000000    00000000    00000020   00000020    r-x .intvecs
+  00000020    00000020    000000e0   000000e0    r-- $fill000
+  00000100    00000100    00001b1c   00001b1c    r-x .text
+  00001c1c    00001c1c    000001ec   000001ec    r-- .const
+  00001e08    00001e08    000018c0   000018c0    r-- .cinit
+  000036c8    000036c8    0003c938   0003c938    r-- $fill001
+08001500    08001500    00001cb4   00001890    rw-
+  08001500    08001500    00001890   00001890    rw- .data
+  08002d90    08002d90    00000424   00000000    rw- .bss
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    00000020     
+                  00000000    00000020     sys_intvecs.obj (.intvecs)
+
+$fill000   0    00000020    000000e0     
+                  00000020    000000e0     --HOLE-- [fill = ffffffff]
+
+.text      0    00000100    00001b1c     
+                  00000100    0000042c     ti_math_Cortex_R4_bspf.lib : arm_lms_norm_f32.obj (.text)
+                  0000052c    000002f8     pinmux.obj (.text)
+                  00000824    00000254     sys_core.obj (.text)
+                  00000a78    00000244     ti_math_Cortex_R4_bspf.lib : arm_fir_f32.obj (.text)
+                  00000cbc    00000240     system.obj (.text)
+                  00000efc    00000230     sys_startup.obj (.text:retain)
+                  0000112c    00000220     esm.obj (.text:retain)
+                  0000134c    000001c8     arm_signal_converge_example_f32.obj (.text)
+                  00001514    00000160     ti_math_Cortex_R4_bspf.lib : arm_copy_f32.obj (.text)
+                  00001674    000000cc                                : arm_sub_f32.obj (.text)
+                  00001740    000000b8                                : arm_min_f32.obj (.text)
+                  000017f8    000000a0                                : arm_scale_f32.obj (.text)
+                  00001898    0000009c     rtsv7R4_T_be_v3D16_eabi.lib : memcpy_t2.obj (.text)
+                  00001934    00000098     ti_math_Cortex_R4_bspf.lib : arm_abs_f32.obj (.text)
+                  000019cc    00000078     rtsv7R4_T_be_v3D16_eabi.lib : memset_t2.obj (.text)
+                  00001a44    00000060                                 : copy_decompress_rle.obj (.text)
+                  00001aa4    00000058     ti_math_Cortex_R4_bspf.lib : arm_lms_norm_init_f32.obj (.text)
+                  00001afc    00000048     rtsv7R4_T_be_v3D16_eabi.lib : cpy_tbl.obj (.text)
+                  00001b44    00000040                                 : exit.obj (.text)
+                  00001b84    00000038     ti_math_Cortex_R4_bspf.lib : arm_fir_init_f32.obj (.text)
+                  00001bbc    00000020     sys_startup.obj (.text)
+                  00001bdc    00000014     rtsv7R4_T_be_v3D16_eabi.lib : _lock.obj (.text)
+                  00001bf0    00000012                                 : copy_zero_init.obj (.text:decompress:ZI)
+                  00001c02    0000000e                                 : copy_decompress_none.obj (.text:decompress:none)
+                  00001c10    00000006                                 : copy_decompress_rle.obj (.text:decompress:rle24)
+                  00001c16    00000002     --HOLE-- [fill = ffffffff]
+                  00001c18    00000004     sys_phantom.obj (.text:retain)
+
+.const     0    00001c1c    000001ec     
+                  00001c1c    0000016c     sys_startup.obj (.const:s_vim_init)
+                  00001d88    00000080     arm_signal_converge_data.obj (.const:FIRCoeff_f32)
+
+.cinit     0    00001e08    000018c0     
+                  00001e08    00001897     (.cinit..data.load) [load image, compression = rle]
+                  0000369f    00000001     --HOLE-- [fill = ffffffff]
+                  000036a0    0000000c     (__TI_handler_table)
+                  000036ac    00000004     --HOLE-- [fill = ffffffff]
+                  000036b0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  000036b8    00000010     (__TI_cinit_table)
+
+$fill001   0    000036c8    0003c938     
+                  000036c8    0003c938     --HOLE-- [fill = ffffffff]
+
+.data      0    08001500    00001890     
+                  08001500    00001800     arm_signal_converge_data.obj (.data:testInput_f32)
+                  08002d00    00000080     arm_signal_converge_data.obj (.data:lmsNormCoeff_f32)
+                  08002d80    00000008     rtsv7R4_T_be_v3D16_eabi.lib : _lock.obj (.data)
+                  08002d88    00000008                                 : exit.obj (.data)
+
+.bss       0    08002d90    00000424     UNINITIALIZED
+                  08002d90    00000100     arm_signal_converge_example_f32.obj (.bss:firStateF32)
+                  08002e90    00000100     arm_signal_converge_example_f32.obj (.bss:lmsStateF32)
+                  08002f90    00000080     arm_signal_converge_example_f32.obj (.bss:err_signal)
+                  08003010    00000080     arm_signal_converge_example_f32.obj (.bss:wire1)
+                  08003090    00000080     arm_signal_converge_example_f32.obj (.bss:wire2)
+                  08003110    00000080     arm_signal_converge_example_f32.obj (.bss:wire3)
+                  08003190    00000024     arm_signal_converge_example_f32.obj (.bss)
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 000036b8 records: 2, size/record: 8, table size: 16
+	.data: load addr=00001e08, load size=00001897 bytes, run addr=08001500, run size=00001890 bytes, compression=rle
+	.bss: load addr=000036b0, load size=00000008 bytes, run addr=08002d90, run size=00000424 bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 000036a0 records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_zero_init
+	index: 1, handler: __TI_decompress_rle24
+	index: 2, handler: __TI_decompress_none
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address    name
+--------   ----
+00001b45   C$$EXIT
+00001d88   FIRCoeff_f32
+08003190   LPF_instance
+UNDEFED    SHT$$INIT_ARRAY$$Base
+UNDEFED    SHT$$INIT_ARRAY$$Limit
+000036b8   __TI_CINIT_Base
+000036c8   __TI_CINIT_Limit
+000036a0   __TI_Handler_Table_Base
+000036ac   __TI_Handler_Table_Limit
+00000a70   __TI_PINIT_Base
+00000a74   __TI_PINIT_Limit
+00001c03   __TI_decompress_none
+00001c11   __TI_decompress_rle24
+00000000   __TI_static_base__
+00001bf1   __TI_zero_init
+000019cd   __aeabi_memclr
+000019cd   __aeabi_memclr4
+000019cd   __aeabi_memclr8
+00001899   __aeabi_memcpy
+00001899   __aeabi_memcpy4
+00001899   __aeabi_memcpy8
+000019cf   __aeabi_memset
+000019cf   __aeabi_memset4
+000019cf   __aeabi_memset8
+ffffffff   __binit__
+ffffffff   __c_args__
+00000efc   _c_int00
+08002d88   _cleanup_ptr
+00000a40   _coreClearAuxiliaryDataFault_
+00000a54   _coreClearAuxiliaryInstructionFault_
+00000a18   _coreClearDataFaultAddress_
+000009f0   _coreClearDataFault_
+00000a2c   _coreClearInstructionFaultAddress_
+00000a04   _coreClearInstructionFault_
+00000988   _coreDisableEventBusExport_
+000009c8   _coreDisableFlashEcc_
+000009a8   _coreDisableRamEcc_
+00000978   _coreEnableEventBusExport_
+000009b8   _coreEnableFlashEcc_
+000009d8   _coreEnableIrqVicOffset_
+00000998   _coreEnableRamEcc_
+00000960   _coreEnableVfp_
+00000a38   _coreGetAuxiliaryDataFault_
+00000a4c   _coreGetAuxiliaryInstructionFault_
+00000a10   _coreGetDataFaultAddress_
+000009e8   _coreGetDataFault_
+00000a24   _coreGetInstructionFaultAddress_
+000009fc   _coreGetInstructionFault_
+00000824   _coreInitRegisters_
+00000914   _coreInitStackPointer_
+00000a60   _disable_interrupts
+08002d8c   _dtors_ptr
+00000a68   _enable_interrupts
+08002d80   _lock
+00001beb   _nop
+00001be3   _register_lock
+00001bdd   _register_unlock
+08002d84   _unlock
+00001b49   abort
+00001934   arm_abs_f32
+00001514   arm_copy_f32
+00000a78   arm_fir_f32
+00001b84   arm_fir_init_f32
+00000100   arm_lms_norm_f32
+00001aa4   arm_lms_norm_init_f32
+00001740   arm_min_f32
+000017f8   arm_scale_f32
+00001674   arm_sub_f32
+ffffffff   binit
+00001afd   copy_in
+08002f90   err_signal
+00001bbc   esmGroup1Notification
+00001bcc   esmGroup2Notification
+0000112c   esmHighInterrupt
+00001270   esmLowInterrupt
+00001b51   exit
+08002d90   firStateF32
+08002d00   lmsNormCoeff_f32
+0800319c   lmsNorm_instance
+08002e90   lmsStateF32
+0000134c   main
+00001899   memcpy
+000019d5   memset
+0000052c   muxInit
+00001c18   phantomInterrupt
+00000cbc   systemInit
+00000e84   systemPowerDown
+08001500   testInput_f32
+08003010   wire1
+08003090   wire2
+08003110   wire3
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address    name
+--------   ----
+00000000   __TI_static_base__
+00000100   arm_lms_norm_f32
+0000052c   muxInit
+00000824   _coreInitRegisters_
+00000914   _coreInitStackPointer_
+00000960   _coreEnableVfp_
+00000978   _coreEnableEventBusExport_
+00000988   _coreDisableEventBusExport_
+00000998   _coreEnableRamEcc_
+000009a8   _coreDisableRamEcc_
+000009b8   _coreEnableFlashEcc_
+000009c8   _coreDisableFlashEcc_
+000009d8   _coreEnableIrqVicOffset_
+000009e8   _coreGetDataFault_
+000009f0   _coreClearDataFault_
+000009fc   _coreGetInstructionFault_
+00000a04   _coreClearInstructionFault_
+00000a10   _coreGetDataFaultAddress_
+00000a18   _coreClearDataFaultAddress_
+00000a24   _coreGetInstructionFaultAddress_
+00000a2c   _coreClearInstructionFaultAddress_
+00000a38   _coreGetAuxiliaryDataFault_
+00000a40   _coreClearAuxiliaryDataFault_
+00000a4c   _coreGetAuxiliaryInstructionFault_
+00000a54   _coreClearAuxiliaryInstructionFault_
+00000a60   _disable_interrupts
+00000a68   _enable_interrupts
+00000a70   __TI_PINIT_Base
+00000a74   __TI_PINIT_Limit
+00000a78   arm_fir_f32
+00000cbc   systemInit
+00000e84   systemPowerDown
+00000efc   _c_int00
+0000112c   esmHighInterrupt
+00001270   esmLowInterrupt
+0000134c   main
+00001514   arm_copy_f32
+00001674   arm_sub_f32
+00001740   arm_min_f32
+000017f8   arm_scale_f32
+00001899   __aeabi_memcpy
+00001899   __aeabi_memcpy4
+00001899   __aeabi_memcpy8
+00001899   memcpy
+00001934   arm_abs_f32
+000019cd   __aeabi_memclr
+000019cd   __aeabi_memclr4
+000019cd   __aeabi_memclr8
+000019cf   __aeabi_memset
+000019cf   __aeabi_memset4
+000019cf   __aeabi_memset8
+000019d5   memset
+00001aa4   arm_lms_norm_init_f32
+00001afd   copy_in
+00001b45   C$$EXIT
+00001b49   abort
+00001b51   exit
+00001b84   arm_fir_init_f32
+00001bbc   esmGroup1Notification
+00001bcc   esmGroup2Notification
+00001bdd   _register_unlock
+00001be3   _register_lock
+00001beb   _nop
+00001bf1   __TI_zero_init
+00001c03   __TI_decompress_none
+00001c11   __TI_decompress_rle24
+00001c18   phantomInterrupt
+00001d88   FIRCoeff_f32
+000036a0   __TI_Handler_Table_Base
+000036ac   __TI_Handler_Table_Limit
+000036b8   __TI_CINIT_Base
+000036c8   __TI_CINIT_Limit
+08001500   testInput_f32
+08002d00   lmsNormCoeff_f32
+08002d80   _lock
+08002d84   _unlock
+08002d88   _cleanup_ptr
+08002d8c   _dtors_ptr
+08002d90   firStateF32
+08002e90   lmsStateF32
+08002f90   err_signal
+08003010   wire1
+08003090   wire2
+08003110   wire3
+08003190   LPF_instance
+0800319c   lmsNorm_instance
+ffffffff   __binit__
+ffffffff   __c_args__
+ffffffff   binit
+UNDEFED    SHT$$INIT_ARRAY$$Base
+UNDEFED    SHT$$INIT_ARRAY$$Limit
+
+[91 symbols]

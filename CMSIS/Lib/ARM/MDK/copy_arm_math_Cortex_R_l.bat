@@ -1,0 +1,1 @@
+copy .\intermediateFiles\arm_math_Cortex_R_l.lib  ..\..\arm_math_Cortex_R_l.lib

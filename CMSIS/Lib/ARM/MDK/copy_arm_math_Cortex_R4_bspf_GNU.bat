@@ -1,0 +1,1 @@
+copy .\intermediateFiles\libarm_math_Cortex_R4_bspf_GNU.a  ..\..\arm_math_Cortex_R4_bspf_GNU.a

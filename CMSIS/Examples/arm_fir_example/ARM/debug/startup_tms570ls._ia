@@ -1,0 +1,1 @@
+--cpu Cortex-R4F --bi -g --apcs=interwork -I d:\Keil\ARM\RV31\Inc -I d:\Keil\ARM\CMSIS\Include -I d:\Keil\ARM\Inc\TI --list ".\debug\startup_TMS570LS.lst" --xref -o ".\debug\startup_TMS570LS.o" --depend ".\debug\startup_TMS570LS.d" "..\..\DeviceSupport\ARM\MDK\Source\startup_TMS570LS.s"

@@ -1,0 +1,399 @@
+******************************************************************************
+                  TI ARM Linker PC v5.0.1                      
+******************************************************************************
+>> Linked Tue Sep 11 15:35:40 2012
+
+OUTPUT FILE NAME:   <arm_convolution_example_f32.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 0000ab48
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  VECTORS               00000000   00000100  00000100  00000000  R  X  ffffffff
+  FLASH                 00000100   0003ff00  0003ff00  00000000  R  X  ffffffff
+  STACKS                08000000   00001500  00000000  00001500  RW  
+  RAM                   08001500   00018000  00000bc4  0001743c  RW  
+  EMIF_1                60000000   00000100  00000000  00000100  R  X
+  EMIF_2                60000100   00003f00  00000000  00003f00  R  X
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    00040000   00040000    r-x
+  00000000    00000000    00000020   00000020    r-x .intvecs
+  00000020    00000020    000000e0   000000e0    r-- $fill000
+  00000100    00000100    00008ba0   00008ba0    r-- .const
+  00008ca0    00008ca0    00002e88   00002e88    r-x .text
+  0000bb28    0000bb28    00000290   00000290    r-- .cinit
+  0000bdb8    0000bdb8    00034248   00034248    r-- $fill001
+08001500    08001500    00000808   00000000    rw-
+  08001500    08001500    00000808   00000000    rw- .bss
+08001d08    08001d08    000003bc   000003bc    rw-
+  08001d08    08001d08    000003bc   000003bc    rw- .data
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    00000020     
+                  00000000    00000020     sys_intvecs.obj (.intvecs)
+
+$fill000   0    00000020    000000e0     
+                  00000020    000000e0     --HOLE-- [fill = ffffffff]
+
+.const     0    00000100    00008ba0     
+                  00000100    00008000     ti_math_Cortex_R4_bspf.lib : arm_cfft_radix4_init_f32.obj (.const:twiddleCoef)
+                  00008100    00000800                                : arm_common_tables.obj (.const:armBitRevTable)
+                  00008900    000001f8     arm_convolution_example_f32.obj (.const:testRefOutput_f32)
+                  00008af8    0000016c     sys_startup.obj (.const:s_vim_init)
+                  00008c64    00000004     --HOLE-- [fill = ffffffff]
+                  00008c68    00000038     rtsv7R4_T_be_v3D16_eabi.lib : xlog.obj (.const:p)
+
+.text      0    00008ca0    00002e88     
+                  00008ca0    00000c14     ti_math_Cortex_R4_bspf.lib : arm_cfft_radix4_f32.obj (.text)
+                  000098b4    00000b08     math_helper.obj (.text)
+                  0000a3bc    000002f8     pinmux.obj (.text)
+                  0000a6b4    00000254     sys_core.obj (.text)
+                  0000a908    00000240     system.obj (.text)
+                  0000ab48    00000230     sys_startup.obj (.text:retain)
+                  0000ad78    00000220     esm.obj (.text:retain)
+                  0000af98    000001e4     rtsv7R4_T_be_v3D16_eabi.lib : xlog.obj (.text)
+                  0000b17c    0000017c     arm_convolution_example_f32.obj (.text)
+                  0000b2f8    00000160     ti_math_Cortex_R4_bspf.lib : arm_copy_f32.obj (.text)
+                  0000b458    00000110                                : arm_cmplx_mult_cmplx_f32.obj (.text)
+                  0000b568    00000100                                : arm_fill_f32.obj (.text)
+                  0000b668    000000dc                                : arm_cfft_radix4_init_f32.obj (.text)
+                  0000b744    000000c4     rtsv7R4_T_be_v3D16_eabi.lib : xdnorm.obj (.text)
+                  0000b808    0000009c                                 : memcpy_t2.obj (.text)
+                  0000b8a4    00000062                                 : xdunscal.obj (.text)
+                  0000b906    00000060                                 : copy_decompress_rle.obj (.text)
+                  0000b966    00000002     --HOLE-- [fill = ffffffff]
+                  0000b968    00000048                                 : cpy_tbl.obj (.text)
+                  0000b9b0    00000040                                 : exit.obj (.text)
+                  0000b9f0    00000040                                 : signal.obj (.text)
+                  0000ba30    00000034                                 : xferaise.obj (.text)
+                  0000ba64    00000030                                 : feraiseexcept.obj (.text)
+                  0000ba94    0000002e                                 : raise.obj (.text)
+                  0000bac2    00000002     --HOLE-- [fill = ffffffff]
+                  0000bac4    00000020     sys_startup.obj (.text)
+                  0000bae4    00000014     rtsv7R4_T_be_v3D16_eabi.lib : _lock.obj (.text)
+                  0000baf8    00000012                                 : copy_zero_init.obj (.text:decompress:ZI)
+                  0000bb0a    0000000e                                 : copy_decompress_none.obj (.text:decompress:none)
+                  0000bb18    00000006                                 : copy_decompress_rle.obj (.text:decompress:rle24)
+                  0000bb1e    00000006                                 : log10.obj (.text)
+                  0000bb24    00000004     sys_phantom.obj (.text:retain)
+
+.cinit     0    0000bb28    00000290     
+                  0000bb28    0000026a     (.cinit..data.load) [load image, compression = rle]
+                  0000bd92    00000002     --HOLE-- [fill = ffffffff]
+                  0000bd94    0000000c     (__TI_handler_table)
+                  0000bda0    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  0000bda8    00000010     (__TI_cinit_table)
+
+$fill001   0    0000bdb8    00034248     
+                  0000bdb8    00034248     --HOLE-- [fill = ffffffff]
+
+.bss       0    08001500    00000808     UNINITIALIZED
+                  08001500    00000400     arm_convolution_example_f32.obj (.bss:AxB)
+                  08001900    00000200     arm_convolution_example_f32.obj (.bss:Ak)
+                  08001b00    00000200     arm_convolution_example_f32.obj (.bss:Bk)
+                  08001d00    00000008     arm_convolution_example_f32.obj (.bss)
+
+.data      0    08001d08    000003bc     
+                  08001d08    00000100     arm_convolution_example_f32.obj (.data:testInputA_f32)
+                  08001e08    00000100     arm_convolution_example_f32.obj (.data:testInputB_f32)
+                  08001f08    000000b0     rtsv7R4_T_be_v3D16_eabi.lib : signal.obj (.data:sigtable)
+                  08001fb8    00000080                                 : xvalues.obj (.data)
+                  08002038    00000068                                 : xfvalues.obj (.data)
+                  080020a0    00000008     arm_convolution_example_f32.obj (.data)
+                  080020a8    00000008     rtsv7R4_T_be_v3D16_eabi.lib : _lock.obj (.data)
+                  080020b0    00000008                                 : exit.obj (.data)
+                  080020b8    00000008                                 : feraiseexcept.obj (.data)
+                  080020c0    00000004                                 : errno.obj (.data)
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 0000bda8 records: 2, size/record: 8, table size: 16
+	.data: load addr=0000bb28, load size=0000026a bytes, run addr=08001d08, run size=000003bc bytes, compression=rle
+	.bss: load addr=0000bda0, load size=00000008 bytes, run addr=08001500, run size=00000808 bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 0000bd94 records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_zero_init
+	index: 1, handler: __TI_decompress_rle24
+	index: 2, handler: __TI_decompress_none
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address    name
+--------   ----
+08001900   Ak
+08001500   AxB
+08001b00   Bk
+0000b9b1   C$$EXIT
+UNDEFED    SHT$$INIT_ARRAY$$Base
+UNDEFED    SHT$$INIT_ARRAY$$Limit
+08001fb8   _Denorm
+0000b745   _Dnorm
+0000b8a5   _Dunscale
+08001fc8   _Eps
+080020c0   _Errno
+08002038   _FDenorm
+08002048   _FEps
+08002058   _FInf
+08002068   _FNan
+08002088   _FRteps
+08002078   _FSnan
+08002098   _FXbig
+0800209c   _FZero
+080020b8   _Fenv
+0000ba31   _Feraise
+08001fd8   _Hugeval
+08001fe8   _Inf
+0000af99   _Log
+08001ff8   _Nan
+08002018   _Rteps
+08002008   _Snan
+080020bc   _Tls_setup__Fenv
+08002028   _Xbig
+08002030   _Zero
+0000bda8   __TI_CINIT_Base
+0000bdb8   __TI_CINIT_Limit
+0000bd94   __TI_Handler_Table_Base
+0000bda0   __TI_Handler_Table_Limit
+0000a900   __TI_PINIT_Base
+0000a904   __TI_PINIT_Limit
+0000bb0b   __TI_decompress_none
+0000bb19   __TI_decompress_rle24
+00000000   __TI_static_base__
+0000baf9   __TI_zero_init
+0000b809   __aeabi_memcpy
+0000b809   __aeabi_memcpy4
+0000b809   __aeabi_memcpy8
+ffffffff   __binit__
+ffffffff   __c_args__
+0000ab48   _c_int00
+080020b0   _cleanup_ptr
+0000a8d0   _coreClearAuxiliaryDataFault_
+0000a8e4   _coreClearAuxiliaryInstructionFault_
+0000a8a8   _coreClearDataFaultAddress_
+0000a880   _coreClearDataFault_
+0000a8bc   _coreClearInstructionFaultAddress_
+0000a894   _coreClearInstructionFault_
+0000a818   _coreDisableEventBusExport_
+0000a858   _coreDisableFlashEcc_
+0000a838   _coreDisableRamEcc_
+0000a808   _coreEnableEventBusExport_
+0000a848   _coreEnableFlashEcc_
+0000a868   _coreEnableIrqVicOffset_
+0000a828   _coreEnableRamEcc_
+0000a7f0   _coreEnableVfp_
+0000a8c8   _coreGetAuxiliaryDataFault_
+0000a8dc   _coreGetAuxiliaryInstructionFault_
+0000a8a0   _coreGetDataFaultAddress_
+0000a878   _coreGetDataFault_
+0000a8b4   _coreGetInstructionFaultAddress_
+0000a88c   _coreGetInstructionFault_
+0000a6b4   _coreInitRegisters_
+0000a7a4   _coreInitStackPointer_
+0000a8f0   _disable_interrupts
+080020b4   _dtors_ptr
+0000a8f8   _enable_interrupts
+080020a8   _lock
+0000baf3   _nop
+0000baeb   _register_lock
+0000bae5   _register_unlock
+080020ac   _unlock
+0000b9b5   abort
+00008100   armBitRevTable
+00009e1c   arm_apply_guard_bits
+00009608   arm_bitreversal_f32
+00009ea0   arm_calc_2pow
+00009da8   arm_calc_guard_bits
+00009730   arm_cfft_radix4_f32
+0000b668   arm_cfft_radix4_init_f32
+0000a2f8   arm_clip_f32
+0000b458   arm_cmplx_mult_cmplx_f32
+00009b50   arm_compare_fixed_q15
+00009c10   arm_compare_fixed_q31
+0000b2f8   arm_copy_f32
+0000b568   arm_fill_f32
+00009a54   arm_float_to_q12_20
+00009efc   arm_float_to_q14
+0000a1f8   arm_float_to_q28
+0000a0fc   arm_float_to_q29
+0000a000   arm_float_to_q30
+000099e0   arm_provide_guard_bits_q15
+00009cd0   arm_provide_guard_bits_q31
+00009d3c   arm_provide_guard_bits_q7
+00009164   arm_radix4_butterfly_f32
+00008ca0   arm_radix4_butterfly_inverse_f32
+000098b4   arm_snr_f32
+ffffffff   binit
+0000b969   copy_in
+0000bac4   esmGroup1Notification
+0000bad4   esmGroup2Notification
+0000ad78   esmHighInterrupt
+0000aebc   esmLowInterrupt
+0000b9bd   exit
+0000ba65   feraiseexcept
+0000bb1f   log10
+0000b17c   main
+0000b809   memcpy
+0000a3bc   muxInit
+08001d00   outLen
+0000bb24   phantomInterrupt
+0000ba95   raise
+0000b9f1   signal
+08001d04   snr
+080020a0   srcALen
+080020a4   srcBLen
+0000a908   systemInit
+0000aad0   systemPowerDown
+08001d08   testInputA_f32
+08001e08   testInputB_f32
+00008900   testRefOutput_f32
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address    name
+--------   ----
+00000000   __TI_static_base__
+00008100   armBitRevTable
+00008900   testRefOutput_f32
+00008ca0   arm_radix4_butterfly_inverse_f32
+00009164   arm_radix4_butterfly_f32
+00009608   arm_bitreversal_f32
+00009730   arm_cfft_radix4_f32
+000098b4   arm_snr_f32
+000099e0   arm_provide_guard_bits_q15
+00009a54   arm_float_to_q12_20
+00009b50   arm_compare_fixed_q15
+00009c10   arm_compare_fixed_q31
+00009cd0   arm_provide_guard_bits_q31
+00009d3c   arm_provide_guard_bits_q7
+00009da8   arm_calc_guard_bits
+00009e1c   arm_apply_guard_bits
+00009ea0   arm_calc_2pow
+00009efc   arm_float_to_q14
+0000a000   arm_float_to_q30
+0000a0fc   arm_float_to_q29
+0000a1f8   arm_float_to_q28
+0000a2f8   arm_clip_f32
+0000a3bc   muxInit
+0000a6b4   _coreInitRegisters_
+0000a7a4   _coreInitStackPointer_
+0000a7f0   _coreEnableVfp_
+0000a808   _coreEnableEventBusExport_
+0000a818   _coreDisableEventBusExport_
+0000a828   _coreEnableRamEcc_
+0000a838   _coreDisableRamEcc_
+0000a848   _coreEnableFlashEcc_
+0000a858   _coreDisableFlashEcc_
+0000a868   _coreEnableIrqVicOffset_
+0000a878   _coreGetDataFault_
+0000a880   _coreClearDataFault_
+0000a88c   _coreGetInstructionFault_
+0000a894   _coreClearInstructionFault_
+0000a8a0   _coreGetDataFaultAddress_
+0000a8a8   _coreClearDataFaultAddress_
+0000a8b4   _coreGetInstructionFaultAddress_
+0000a8bc   _coreClearInstructionFaultAddress_
+0000a8c8   _coreGetAuxiliaryDataFault_
+0000a8d0   _coreClearAuxiliaryDataFault_
+0000a8dc   _coreGetAuxiliaryInstructionFault_
+0000a8e4   _coreClearAuxiliaryInstructionFault_
+0000a8f0   _disable_interrupts
+0000a8f8   _enable_interrupts
+0000a900   __TI_PINIT_Base
+0000a904   __TI_PINIT_Limit
+0000a908   systemInit
+0000aad0   systemPowerDown
+0000ab48   _c_int00
+0000ad78   esmHighInterrupt
+0000aebc   esmLowInterrupt
+0000af99   _Log
+0000b17c   main
+0000b2f8   arm_copy_f32
+0000b458   arm_cmplx_mult_cmplx_f32
+0000b568   arm_fill_f32
+0000b668   arm_cfft_radix4_init_f32
+0000b745   _Dnorm
+0000b809   __aeabi_memcpy
+0000b809   __aeabi_memcpy4
+0000b809   __aeabi_memcpy8
+0000b809   memcpy
+0000b8a5   _Dunscale
+0000b969   copy_in
+0000b9b1   C$$EXIT
+0000b9b5   abort
+0000b9bd   exit
+0000b9f1   signal
+0000ba31   _Feraise
+0000ba65   feraiseexcept
+0000ba95   raise
+0000bac4   esmGroup1Notification
+0000bad4   esmGroup2Notification
+0000bae5   _register_unlock
+0000baeb   _register_lock
+0000baf3   _nop
+0000baf9   __TI_zero_init
+0000bb0b   __TI_decompress_none
+0000bb19   __TI_decompress_rle24
+0000bb1f   log10
+0000bb24   phantomInterrupt
+0000bd94   __TI_Handler_Table_Base
+0000bda0   __TI_Handler_Table_Limit
+0000bda8   __TI_CINIT_Base
+0000bdb8   __TI_CINIT_Limit
+08001500   AxB
+08001900   Ak
+08001b00   Bk
+08001d00   outLen
+08001d04   snr
+08001d08   testInputA_f32
+08001e08   testInputB_f32
+08001fb8   _Denorm
+08001fc8   _Eps
+08001fd8   _Hugeval
+08001fe8   _Inf
+08001ff8   _Nan
+08002008   _Snan
+08002018   _Rteps
+08002028   _Xbig
+08002030   _Zero
+08002038   _FDenorm
+08002048   _FEps
+08002058   _FInf
+08002068   _FNan
+08002078   _FSnan
+08002088   _FRteps
+08002098   _FXbig
+0800209c   _FZero
+080020a0   srcALen
+080020a4   srcBLen
+080020a8   _lock
+080020ac   _unlock
+080020b0   _cleanup_ptr
+080020b4   _dtors_ptr
+080020b8   _Fenv
+080020bc   _Tls_setup__Fenv
+080020c0   _Errno
+ffffffff   __binit__
+ffffffff   __c_args__
+ffffffff   binit
+UNDEFED    SHT$$INIT_ARRAY$$Base
+UNDEFED    SHT$$INIT_ARRAY$$Limit
+
+[126 symbols]

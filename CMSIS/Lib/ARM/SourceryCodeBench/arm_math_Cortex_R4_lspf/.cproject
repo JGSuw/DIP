@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?>
+
+<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1583077941">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1583077941" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+				<externalSettings>
+					<externalSetting>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/arm_math_Cortex_R4_lspf"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/arm_math_Cortex_R4_lspf/Debug"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="../../../../arm_math_Cortex_R4_lspf"/>
+					</externalSetting>
+				</externalSettings>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="a" artifactName="../../../../arm_math_Cortex_R4_lspf" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="cs-rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1583077941" name="Debug" parent="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug">
+					<folderInfo id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1583077941." name="/" resourcePath="">
+						<toolChain id="com.codesourcery.arm_none_eabi.cdt.managedbuild.toolchain.gnu.lib.debug.1823732499" name="Sourcery CodeBench for ARM EABI" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.toolchain.gnu.lib.debug">
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.board.938227715" name="Board" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.board" value="com.codesourcery.arm_none_eabi.lib.debug.general.board.generic-vfp" valueType="tree"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.memory.2037877330" name="Profile" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.memory" value="com.codesourcery.arm_none_eabi.lib.debug.general.memory.sim" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.hosting.1735161482" name="Hosting" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.hosting"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.cpu.1438573360" name="Processor" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.cpu" value="com.codesourcery.arm_none_eabi.lib.debug.general.cpu.cortexr4f" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.endian.483625170" name="Endianness" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.endian" value="com.codesourcery.arm_none_eabi.lib.debug.general.endian.little" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.thumb.2147041905" name="ARM/Thumb Mode" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.thumb" value="com.codesourcery.arm_none_eabi.lib.debug.general.thumb.thumb-on" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.float-abi.518922434" name="Hard/Soft Float" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.float-abi" value="com.codesourcery.arm_none_eabi.lib.debug.general.float-abi.float-abi-hard" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.fpu.320980600" name="FPU" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.fpu" value="com.codesourcery.arm_none_eabi.lib.debug.general.fpu.vfpv3-d16" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.debug.general.multilib.533228483" name="Selected libraries" superClass="com.codesourcery.arm_none_eabi.lib.debug.general.multilib" value="com.codesourcery.arm_none_eabi.lib.debug.general.multilib.multilib-default" valueHandlerExtraArgument="com.codesourcery.arm_none_eabi.lib.debug.general.multilib.multilib-default" valueType="enumerated"/>
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.gnu.platform.lib.debug.1731294843" name="Debug Platform" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.gnu.platform.lib.debug"/>
+							<builder buildPath="${workspace_loc:/arm_math_Cortex_R4_lspf/Debug}" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.gnu.builder.lib.debug.1554762981" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.gnu.builder.lib.debug"/>
+							<tool id="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.c.compiler.lib.debug.100503207" name="Sourcery CodeBench C Compiler" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.c.compiler.lib.debug">
+								<option defaultValue="gnu.c.optimization.level.none" id="gnu.c.compiler.lib.debug.option.optimization.level.972004089" name="Optimization Level" superClass="gnu.c.compiler.lib.debug.option.optimization.level" value="gnu.c.optimization.level.most" valueType="enumerated"/>
+								<option id="gnu.c.compiler.lib.debug.option.debugging.level.259812371" name="Debug Level" superClass="gnu.c.compiler.lib.debug.option.debugging.level" value="gnu.c.debugging.level.max" valueType="enumerated"/>
+								<option id="gnu.c.compiler.option.include.paths.23363135" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../../../Include"/>
+								</option>
+								<option id="gnu.c.compiler.option.preprocessor.def.symbols.983330846" name="Defined symbols (-D)" superClass="gnu.c.compiler.option.preprocessor.def.symbols" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="ARM_MATH_MATRIX_CHECK"/>
+									<listOptionValue builtIn="false" value="ARM_MATH_ROUNDING"/>
+									<listOptionValue builtIn="false" value="FPU_PRESENT"/>
+								</option>
+								<option id="gnu.c.compiler.option.warnings.allwarn.1178248120" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+								<inputType id="com.codesourcery.arm_none_eabi.cdt.debug.core.c.compiler.lib.debug.input.1507849366" superClass="com.codesourcery.arm_none_eabi.cdt.debug.core.c.compiler.lib.debug.input"/>
+							</tool>
+							<tool id="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.cpp.compiler.lib.debug.662325133" name="Sourcery CodeBench C++ Compiler" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.cpp.compiler.lib.debug">
+								<option id="gnu.cpp.compiler.lib.debug.option.optimization.level.564076015" name="Optimization Level" superClass="gnu.cpp.compiler.lib.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.none" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.lib.debug.option.debugging.level.533685774" name="Debug Level" superClass="gnu.cpp.compiler.lib.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
+							</tool>
+							<tool id="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.assembler.lib.debug.1613928151" name="Sourcery CodeBench Assembler" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.assembler.lib.debug">
+								<option id="gnu.both.asm.option.debugging.level.1820750177" name="Debug Level" superClass="gnu.both.asm.option.debugging.level" value="gnu.both.asm.debugging.level.max" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1256775313" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+							<tool id="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.archiver.lib.debug.1860819093" name="Sourcery CodeBench Archiver" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.archiver.lib.debug">
+								<outputType id="cdt.managedbuild.tool.gnu.archiver.output.452402726" outputPrefix="" superClass="cdt.managedbuild.tool.gnu.archiver.output"/>
+							</tool>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+		<cconfiguration id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.release.1928826826">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.release.1928826826" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings>
+					<externalSetting>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/arm_math_Cortex_R4_lspf"/>
+						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/arm_math_Cortex_R4_lspf/Release"/>
+						<entry flags="RESOLVED" kind="libraryFile" name="arm_math_Cortex_R4_lspf"/>
+					</externalSetting>
+				</externalSettings>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GCCErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GASErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.GLDErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="a" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="cs-rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.release.1928826826" name="Release" parent="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.release">
+					<folderInfo id="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.release.1928826826." name="/" resourcePath="">
+						<toolChain id="com.codesourcery.arm_none_eabi.cdt.managedbuild.toolchain.gnu.lib.release.253597686" name="Sourcery CodeBench for ARM EABI" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.toolchain.gnu.lib.release">
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.board.187230009" name="Board" superClass="com.codesourcery.arm_none_eabi.lib.release.general.board" value="com.codesourcery.arm_none_eabi.lib.release.general.board.generic" valueType="tree"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.memory.724125812" name="Profile" superClass="com.codesourcery.arm_none_eabi.lib.release.general.memory" value="com.codesourcery.arm_none_eabi.lib.release.general.memory.sim" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.hosting.1626937665" name="Hosting" superClass="com.codesourcery.arm_none_eabi.lib.release.general.hosting"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.cpu.905706032" name="Processor" superClass="com.codesourcery.arm_none_eabi.lib.release.general.cpu" value="com.codesourcery.arm_none_eabi.lib.release.general.cpu.cortexr4" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.endian.1183312838" name="Endianness" superClass="com.codesourcery.arm_none_eabi.lib.release.general.endian" value="com.codesourcery.arm_none_eabi.lib.release.general.endian.big" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.thumb.533842940" name="ARM/Thumb Mode" superClass="com.codesourcery.arm_none_eabi.lib.release.general.thumb" value="com.codesourcery.arm_none_eabi.lib.release.general.thumb.thumb-on" valueType="enumerated"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.float-abi.436887989" name="Hard/Soft Float" superClass="com.codesourcery.arm_none_eabi.lib.release.general.float-abi"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.fpu.41349371" name="FPU" superClass="com.codesourcery.arm_none_eabi.lib.release.general.fpu"/>
+							<option id="com.codesourcery.arm_none_eabi.lib.release.general.multilib.1722516141" name="Selected libraries" superClass="com.codesourcery.arm_none_eabi.lib.release.general.multilib" value="com.codesourcery.arm_none_eabi.lib.release.general.multilib.addon-thumb2_be" valueType="enumerated"/>
+							<targetPlatform binaryParser="org.eclipse.cdt.core.ELF" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.gnu.platform.lib.release.28351397" name="Release Platform" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.gnu.platform.lib.release"/>
+							<builder buildPath="${workspace_loc:/arm_math_Cortex_R4_lspf/Release}" id="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.gnu.builder.lib.release.593988779" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.gnu.builder.lib.release"/>
+							<tool id="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.c.compiler.lib.release.1927479703" name="Sourcery CodeBench C Compiler" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.c.compiler.lib.release">
+								<option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.lib.release.option.optimization.level.1132440074" name="Optimization Level" superClass="gnu.c.compiler.lib.release.option.optimization.level" valueType="enumerated"/>
+								<option id="gnu.c.compiler.lib.release.option.debugging.level.1520888401" name="Debug Level" superClass="gnu.c.compiler.lib.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+								<inputType id="com.codesourcery.arm_none_eabi.cdt.debug.core.c.compiler.lib.release.input.480788481" superClass="com.codesourcery.arm_none_eabi.cdt.debug.core.c.compiler.lib.release.input"/>
+							</tool>
+							<tool id="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.cpp.compiler.lib.release.852716171" name="Sourcery CodeBench C++ Compiler" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.cpp.compiler.lib.release">
+								<option id="gnu.cpp.compiler.lib.release.option.optimization.level.1667239864" name="Optimization Level" superClass="gnu.cpp.compiler.lib.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
+								<option id="gnu.cpp.compiler.lib.release.option.debugging.level.239052625" name="Debug Level" superClass="gnu.cpp.compiler.lib.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+							</tool>
+							<tool id="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.assembler.lib.release.1281992202" name="Sourcery CodeBench Assembler" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.assembler.lib.release">
+								<option id="gnu.both.asm.option.debugging.level.1155912396" name="Debug Level" superClass="gnu.both.asm.option.debugging.level" value="gnu.both.asm.debugging.level.none" valueType="enumerated"/>
+								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1320870268" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
+							</tool>
+							<tool id="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.archiver.lib.release.1170492071" name="Sourcery CodeBench Archiver" superClass="com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.archiver.lib.release"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="arm_math_Cortex_R4_lspf.com.codesourcery.arm_none_eabi.cdt.managedbuild.target.lib.1915234306" name="Static Library (Sourcery CodeBench for ARM EABI)" projectType="com.codesourcery.arm_none_eabi.cdt.managedbuild.target.lib" usesSysroot="false"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+		<scannerConfigBuildInfo instanceId="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.release.1928826826;com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.release.1928826826.;com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.c.compiler.lib.release.1927479703;com.codesourcery.arm_none_eabi.cdt.debug.core.c.compiler.lib.release.input.480788481">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.codesourcery.arm_none_eabi.cdt.debug.core.SGPPManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+		<scannerConfigBuildInfo instanceId="com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1583077941;com.codesourcery.arm_none_eabi.cdt.managedbuild.config.gnu.lib.debug.1583077941.;com.codesourcery.arm_none_eabi.cdt.managedbuild.tool.gnu.c.compiler.lib.debug.100503207;com.codesourcery.arm_none_eabi.cdt.debug.core.c.compiler.lib.debug.input.1507849366">
+			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.codesourcery.arm_none_eabi.cdt.debug.core.SGPPManagedMakePerProjectProfileC"/>
+		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="refreshScope"/>
+</cproject>

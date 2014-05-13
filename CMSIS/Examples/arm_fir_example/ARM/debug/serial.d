@@ -1,0 +1,13 @@
+.\debug\serial.o: ..\..\DeviceSupport\ARM\MDK\Source\Serial.c
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_device.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_system.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_adc.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_emif.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_gio.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_lin.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_nhet.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_rti.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_spi.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_sci.h
+.\debug\serial.o: d:\Keil\ARM\Inc\TI\TMS570_vim.h

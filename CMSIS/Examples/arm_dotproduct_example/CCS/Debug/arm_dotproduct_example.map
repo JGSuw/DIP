@@ -1,0 +1,270 @@
+******************************************************************************
+                  TI ARM Linker PC v5.0.1                      
+******************************************************************************
+>> Linked Tue Sep 11 15:36:34 2012
+
+OUTPUT FILE NAME:   <arm_dotproduct_example.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 0000088c
+
+
+MEMORY CONFIGURATION
+
+         name            origin    length      used     unused   attr    fill
+----------------------  --------  ---------  --------  --------  ----  --------
+  VECTORS               00000000   00000100  00000100  00000000  R  X  ffffffff
+  FLASH                 00000100   0003ff00  0003ff00  00000000  R  X  ffffffff
+  STACKS                08000000   00001500  00000000  00001500  RW  
+  RAM                   08001500   00018000  00000199  00017e67  RW  
+  EMIF_1                60000000   00000100  00000000  00000100  R  X
+  EMIF_2                60000100   00003f00  00000000  00003f00  R  X
+
+
+SEGMENT ALLOCATION MAP
+
+run origin  load origin   length   init length attrs members
+----------  ----------- ---------- ----------- ----- -------
+00000000    00000000    00040000   00040000    r-x
+  00000000    00000000    00000020   00000020    r-x .intvecs
+  00000020    00000020    000000e0   000000e0    r-- $fill000
+  00000100    00000100    00001030   00001030    r-x .text
+  00001130    00001130    0000016c   0000016c    r-- .const
+  0000129c    0000129c    00000004   00000004    r-- $fill001
+  000012a0    000012a0    00000140   00000140    r-- .cinit
+  000013e0    000013e0    0003ec20   0003ec20    r-- $fill002
+08001500    08001500    00000199   00000114    rw-
+  08001500    08001500    00000114   00000114    rw- .data
+  08001614    08001614    00000085   00000000    rw- .bss
+
+
+SECTION ALLOCATION MAP
+
+ output                                  attributes/
+section   page    origin      length       input sections
+--------  ----  ----------  ----------   ----------------
+.intvecs   0    00000000    00000020     
+                  00000000    00000020     sys_intvecs.obj (.intvecs)
+
+$fill000   0    00000020    000000e0     
+                  00000020    000000e0     --HOLE-- [fill = ffffffff]
+
+.text      0    00000100    00001030     
+                  00000100    000002f8     pinmux.obj (.text)
+                  000003f8    00000254     sys_core.obj (.text)
+                  0000064c    00000240     system.obj (.text)
+                  0000088c    00000230     sys_startup.obj (.text:retain)
+                  00000abc    00000220     esm.obj (.text:retain)
+                  00000cdc    000000d8     arm_dotproduct_example_f32.obj (.text)
+                  00000db4    000000cc     ti_math_Cortex_R4_bspf.lib : arm_add_f32.obj (.text)
+                  00000e80    000000cc                                : arm_mult_f32.obj (.text)
+                  00000f4c    0000009c     rtsv7R4_T_be_v3D16_eabi.lib : memcpy_t2.obj (.text)
+                  00000fe8    00000060                                 : copy_decompress_rle.obj (.text)
+                  00001048    00000048                                 : cpy_tbl.obj (.text)
+                  00001090    00000040                                 : exit.obj (.text)
+                  000010d0    00000020     sys_startup.obj (.text)
+                  000010f0    00000014     rtsv7R4_T_be_v3D16_eabi.lib : _lock.obj (.text)
+                  00001104    00000012                                 : copy_zero_init.obj (.text:decompress:ZI)
+                  00001116    0000000e                                 : copy_decompress_none.obj (.text:decompress:none)
+                  00001124    00000006                                 : copy_decompress_rle.obj (.text:decompress:rle24)
+                  0000112a    00000002     --HOLE-- [fill = ffffffff]
+                  0000112c    00000004     sys_phantom.obj (.text:retain)
+
+.const     0    00001130    0000016c     
+                  00001130    0000016c     sys_startup.obj (.const:s_vim_init)
+
+$fill001   0    0000129c    00000004     
+                  0000129c    00000004     --HOLE-- [fill = ffffffff]
+
+.cinit     0    000012a0    00000140     
+                  000012a0    00000115     (.cinit..data.load) [load image, compression = rle]
+                  000013b5    00000003     --HOLE-- [fill = ffffffff]
+                  000013b8    0000000c     (__TI_handler_table)
+                  000013c4    00000004     --HOLE-- [fill = ffffffff]
+                  000013c8    00000008     (.cinit..bss.load) [load image, compression = zero_init]
+                  000013d0    00000010     (__TI_cinit_table)
+
+$fill002   0    000013e0    0003ec20     
+                  000013e0    0003ec20     --HOLE-- [fill = ffffffff]
+
+.data      0    08001500    00000114     
+                  08001500    00000080     arm_dotproduct_example_f32.obj (.data:srcA_buf_f32)
+                  08001580    00000080     arm_dotproduct_example_f32.obj (.data:srcB_buf_f32)
+                  08001600    00000008     rtsv7R4_T_be_v3D16_eabi.lib : _lock.obj (.data)
+                  08001608    00000008                                 : exit.obj (.data)
+                  08001610    00000004     arm_dotproduct_example_f32.obj (.data)
+
+.bss       0    08001614    00000085     UNINITIALIZED
+                  08001614    00000080     arm_dotproduct_example_f32.obj (.bss:multOutput)
+                  08001694    00000005     arm_dotproduct_example_f32.obj (.bss)
+
+
+LINKER GENERATED COPY TABLES
+
+__TI_cinit_table @ 000013d0 records: 2, size/record: 8, table size: 16
+	.data: load addr=000012a0, load size=00000115 bytes, run addr=08001500, run size=00000114 bytes, compression=rle
+	.bss: load addr=000013c8, load size=00000008 bytes, run addr=08001614, run size=00000085 bytes, compression=zero_init
+
+
+LINKER GENERATED HANDLER TABLE
+
+__TI_handler_table @ 000013b8 records: 3, size/record: 4, table size: 12
+	index: 0, handler: __TI_zero_init
+	index: 1, handler: __TI_decompress_rle24
+	index: 2, handler: __TI_decompress_none
+
+
+GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
+
+address    name
+--------   ----
+00001091   C$$EXIT
+UNDEFED    SHT$$INIT_ARRAY$$Base
+UNDEFED    SHT$$INIT_ARRAY$$Limit
+000013d0   __TI_CINIT_Base
+000013e0   __TI_CINIT_Limit
+000013b8   __TI_Handler_Table_Base
+000013c4   __TI_Handler_Table_Limit
+00000644   __TI_PINIT_Base
+00000648   __TI_PINIT_Limit
+00001117   __TI_decompress_none
+00001125   __TI_decompress_rle24
+00000000   __TI_static_base__
+00001105   __TI_zero_init
+00000f4d   __aeabi_memcpy
+00000f4d   __aeabi_memcpy4
+00000f4d   __aeabi_memcpy8
+ffffffff   __binit__
+ffffffff   __c_args__
+0000088c   _c_int00
+08001608   _cleanup_ptr
+00000614   _coreClearAuxiliaryDataFault_
+00000628   _coreClearAuxiliaryInstructionFault_
+000005ec   _coreClearDataFaultAddress_
+000005c4   _coreClearDataFault_
+00000600   _coreClearInstructionFaultAddress_
+000005d8   _coreClearInstructionFault_
+0000055c   _coreDisableEventBusExport_
+0000059c   _coreDisableFlashEcc_
+0000057c   _coreDisableRamEcc_
+0000054c   _coreEnableEventBusExport_
+0000058c   _coreEnableFlashEcc_
+000005ac   _coreEnableIrqVicOffset_
+0000056c   _coreEnableRamEcc_
+00000534   _coreEnableVfp_
+0000060c   _coreGetAuxiliaryDataFault_
+00000620   _coreGetAuxiliaryInstructionFault_
+000005e4   _coreGetDataFaultAddress_
+000005bc   _coreGetDataFault_
+000005f8   _coreGetInstructionFaultAddress_
+000005d0   _coreGetInstructionFault_
+000003f8   _coreInitRegisters_
+000004e8   _coreInitStackPointer_
+00000634   _disable_interrupts
+0800160c   _dtors_ptr
+0000063c   _enable_interrupts
+08001600   _lock
+000010ff   _nop
+000010f7   _register_lock
+000010f1   _register_unlock
+08001604   _unlock
+00001095   abort
+00000db4   arm_add_f32
+00000e80   arm_mult_f32
+ffffffff   binit
+00001049   copy_in
+000010d0   esmGroup1Notification
+000010e0   esmGroup2Notification
+00000abc   esmHighInterrupt
+00000c00   esmLowInterrupt
+0000109d   exit
+00000cdc   main
+00000f4d   memcpy
+08001614   multOutput
+00000100   muxInit
+0000112c   phantomInterrupt
+08001610   refDotProdOut
+08001500   srcA_buf_f32
+08001580   srcB_buf_f32
+08001698   status
+0000064c   systemInit
+00000814   systemPowerDown
+08001694   testOutput
+
+
+GLOBAL SYMBOLS: SORTED BY Symbol Address 
+
+address    name
+--------   ----
+00000000   __TI_static_base__
+00000100   muxInit
+000003f8   _coreInitRegisters_
+000004e8   _coreInitStackPointer_
+00000534   _coreEnableVfp_
+0000054c   _coreEnableEventBusExport_
+0000055c   _coreDisableEventBusExport_
+0000056c   _coreEnableRamEcc_
+0000057c   _coreDisableRamEcc_
+0000058c   _coreEnableFlashEcc_
+0000059c   _coreDisableFlashEcc_
+000005ac   _coreEnableIrqVicOffset_
+000005bc   _coreGetDataFault_
+000005c4   _coreClearDataFault_
+000005d0   _coreGetInstructionFault_
+000005d8   _coreClearInstructionFault_
+000005e4   _coreGetDataFaultAddress_
+000005ec   _coreClearDataFaultAddress_
+000005f8   _coreGetInstructionFaultAddress_
+00000600   _coreClearInstructionFaultAddress_
+0000060c   _coreGetAuxiliaryDataFault_
+00000614   _coreClearAuxiliaryDataFault_
+00000620   _coreGetAuxiliaryInstructionFault_
+00000628   _coreClearAuxiliaryInstructionFault_
+00000634   _disable_interrupts
+0000063c   _enable_interrupts
+00000644   __TI_PINIT_Base
+00000648   __TI_PINIT_Limit
+0000064c   systemInit
+00000814   systemPowerDown
+0000088c   _c_int00
+00000abc   esmHighInterrupt
+00000c00   esmLowInterrupt
+00000cdc   main
+00000db4   arm_add_f32
+00000e80   arm_mult_f32
+00000f4d   __aeabi_memcpy
+00000f4d   __aeabi_memcpy4
+00000f4d   __aeabi_memcpy8
+00000f4d   memcpy
+00001049   copy_in
+00001091   C$$EXIT
+00001095   abort
+0000109d   exit
+000010d0   esmGroup1Notification
+000010e0   esmGroup2Notification
+000010f1   _register_unlock
+000010f7   _register_lock
+000010ff   _nop
+00001105   __TI_zero_init
+00001117   __TI_decompress_none
+00001125   __TI_decompress_rle24
+0000112c   phantomInterrupt
+000013b8   __TI_Handler_Table_Base
+000013c4   __TI_Handler_Table_Limit
+000013d0   __TI_CINIT_Base
+000013e0   __TI_CINIT_Limit
+08001500   srcA_buf_f32
+08001580   srcB_buf_f32
+08001600   _lock
+08001604   _unlock
+08001608   _cleanup_ptr
+0800160c   _dtors_ptr
+08001610   refDotProdOut
+08001614   multOutput
+08001694   testOutput
+08001698   status
+ffffffff   __binit__
+ffffffff   __c_args__
+ffffffff   binit
+UNDEFED    SHT$$INIT_ARRAY$$Base
+UNDEFED    SHT$$INIT_ARRAY$$Limit
+
+[72 symbols]

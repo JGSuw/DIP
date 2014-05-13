@@ -1,0 +1,5 @@
+--cpu Cortex-R4F --be32 
+".\debug\arm_fir_data.o" ".\debug\arm_fir_example_f32.o" ".\debug\math_helper.o" \\dta0918455d\Disk_D\Data\570_Software\arm_math_Cortex_R4_bspf.lib ".\debug\retarget.o" ".\debug\system.o" ".\debug\startup_tms570ls.o" ".\debug\serial.o" ".\debug\perf_monitor_r4.o" --strict --scatter ".\debug\arm_fir_example.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\debug\arm_fir_example.map" -o ".\debug\arm_fir_example.axf"

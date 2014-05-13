@@ -1,0 +1,1 @@
+-c --cpu Cortex-R4F --bi -g -O2 -Otime --apcs=interwork -I..\..\..\Include -I..\..\HelperFunc\Include -I d:\Keil\ARM\RV31\Inc -I d:\Keil\ARM\CMSIS\Include -I d:\Keil\ARM\Inc\TI -DMDK_TMS_570 -DUART_SUPPORT -o ".\debug\system.o" --omf_browse ".\debug\system.crf" --depend ".\debug\system.d" "..\..\DeviceSupport\ARM\MDK\Source\system.c"

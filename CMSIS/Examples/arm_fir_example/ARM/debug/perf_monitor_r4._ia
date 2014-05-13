@@ -1,0 +1,1 @@
+--cpu Cortex-R4F --bi -g --apcs=interwork -I d:\Keil\ARM\RV31\Inc -I d:\Keil\ARM\CMSIS\Include -I d:\Keil\ARM\Inc\TI --list ".\debug\perf_monitor_r4.lst" --xref -o ".\debug\perf_monitor_r4.o" --depend ".\debug\perf_monitor_r4.d" "..\..\perf_monitor_r4.s"

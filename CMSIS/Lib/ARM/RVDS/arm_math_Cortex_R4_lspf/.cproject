@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?>
+
+<cproject>
+<storageModule moduleId="org.eclipse.cdt.core.settings">
+
+<cconfiguration id="cdt.managedbuild.config.arm41.lib.release.1927811546">
+<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="cdt.managedbuild.config.arm41.lib.release.1927811546" moduleId="org.eclipse.cdt.core.settings" name="Release">
+<externalSettings>
+<externalSetting>
+<entry flags="VALUE_WORKSPACE_PATH" kind="includePath" name="/arm_math_Cortex_R4_lspf"/>
+<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/arm_math_Cortex_R4_lspf/Release"/>
+</externalSetting>
+</externalSettings>
+<extensions>
+<extension id="com.arm.eclipse.cdt.managedbuilder.ARMELF" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="org.eclipse.cdt.core.ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="org.eclipse.cdt.core.GNU_ELF" point="org.eclipse.cdt.core.BinaryParser"/>
+<extension id="com.arm.eclipse.cdt.managedbuilder.RealViewCoreToolsErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+<extension id="org.eclipse.cdt.core.MakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+</extensions>
+</storageModule>
+<storageModule moduleId="org.eclipse.cdt.core.pathentry"/>
+<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+<configuration artifactExtension="a" artifactName="../../../../../Lib/arm_math_Cortex_R4_lspf" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;com.arm.eclipse.cdt.managedbuilder.RealViewCoreToolsErrorParser" id="cdt.managedbuild.config.arm41.lib.release.1927811546" name="Release" parent="cdt.managedbuild.config.arm41.lib.release" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="">
+<folderInfo id="cdt.managedbuild.config.arm41.lib.release.1927811546." name="/" resourcePath="">
+<toolChain id="cdt.managedbuild.toolchain.arm41.lib.release.459932841" name="ARM Compilation Tools 4.1" superClass="cdt.managedbuild.toolchain.arm41.lib.release">
+<targetPlatform id="cdt.managedbuild.target.arm41.lib.1484457291" superClass="cdt.managedbuild.target.arm41.lib"/>
+<builder buildPath="${workspace_loc:/arm_math_Cortex_R4_lspf/Release}" id="cdt.managedbuild.target.arm.builder41.lib.183695603" keepEnvironmentInBuildfile="false" name="CDT Internal Builder" superClass="cdt.managedbuild.target.arm.builder41.lib"/>
+<tool id="cdt.managedbuild.tool.arm.armcc41.lib.1832784726" name="ARM Compiler 4.1" superClass="cdt.managedbuild.tool.arm.armcc41.lib">
+<option id="arm.rvct.armcc41.option.CONFIG_CPU.522289851" name="Architecture or Processor&#10; (--cpu)" superClass="arm.rvct.armcc41.option.CONFIG_CPU" value="arm.rvct.armcc.option.CONFIG_CPU.Cortex-R4F" valueType="enumerated"/>
+<option id="arm.rvct.armcc41.option.override.OPTLEVEL.1851925381" name="Optimization&#10;Level" superClass="arm.rvct.armcc41.option.override.OPTLEVEL" value="arm.rvct.armcc.option.OPTLEVEL.3" valueType="enumerated"/>
+<option id="arm.rvct.armcc41.option.OPTTIME.1986501316" name="Optimize for" superClass="arm.rvct.armcc41.option.OPTTIME" value="arm.rvct.armcc.option.OPTTIME.time" valueType="enumerated"/>
+<option id="arm.rvct.armcc41.option.CONFIG_DEFINE.389796000" name="List of #DEFINEs (-D)" superClass="arm.rvct.armcc41.option.CONFIG_DEFINE" valueType="definedSymbols">
+<listOptionValue builtIn="false" value="ARM_MATH_MATRIX_CHECK"/>
+<listOptionValue builtIn="false" value="FPU_PRESENT"/>
+<listOptionValue builtIn="false" value="ARM_MATH_ROUNDING"/>
+</option>
+<option id="arm.rvct.armcc41.option.INCLUDE_PATH.958433313" name="User Include Paths (-I)" superClass="arm.rvct.armcc41.option.INCLUDE_PATH" valueType="includePath">
+<listOptionValue builtIn="false" value="../../../../../Include"/>
+</option>
+<option id="arm.rvct.armcc41.option.CONFIG_FPU.86856088" name="Floating Point (--fpu)" superClass="arm.rvct.armcc41.option.CONFIG_FPU" value="arm.rvct.armcc.option.CONFIG_FPU.VFPv3_FP16" valueType="enumerated"/>
+<inputType id="cdt.managedbuild.tool.abstract.head.arm.armcc.input.1955572410" superClass="cdt.managedbuild.tool.abstract.head.arm.armcc.input"/>
+</tool>
+<tool id="cdt.managedbuild.tool.arm.armasm41.lib.911449879" name="ARM Assembler 4.1" superClass="cdt.managedbuild.tool.arm.armasm41.lib">
+<option id="arm.rvct.armasm41.option.CONFIG_CPU.1574461378" name="Architecture or Processor&#10; (--cpu)" superClass="arm.rvct.armasm41.option.CONFIG_CPU" value="arm.rvct.armasm.option.CONFIG_CPU.Cortex-R4F" valueType="enumerated"/>
+<option id="arm.rvct.armasm41.option.CONFIG_FPU.464918779" name="Floating Point (--fpu)" superClass="arm.rvct.armasm41.option.CONFIG_FPU" value="arm.rvct.armasm.option.CONFIG_FPU.VFPv3_FP16" valueType="enumerated"/>
+<inputType id="cdt.managedbuild.tool.abstract.head.arm.armasm.input.1526176206" superClass="cdt.managedbuild.tool.abstract.head.arm.armasm.input"/>
+</tool>
+<tool id="cdt.managedbuild.tool.arm.armar41.491810631" name="ARM Librarian 4.1" superClass="cdt.managedbuild.tool.arm.armar41"/>
+</toolChain>
+</folderInfo>
+<sourceEntries>
+<entry excluding="Source/ARM" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+</sourceEntries>
+</configuration>
+</storageModule>
+<storageModule moduleId="scannerConfiguration">
+<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile"/>
+<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
+<buildOutputProvider>
+<openAction enabled="true" filePath=""/>
+<parser enabled="true"/>
+</buildOutputProvider>
+<scannerInfoProvider id="specsFile">
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/${specs_file}" command="gcc" useDefault="true"/>
+<parser enabled="true"/>
+</scannerInfoProvider>
+</profile>
+<profile id="org.eclipse.cdt.make.core.GCCStandardMakePerFileProfile">
+<buildOutputProvider>
+<openAction enabled="true" filePath=""/>
+<parser enabled="true"/>
+</buildOutputProvider>
+<scannerInfoProvider id="makefileGenerator">
+<runAction arguments="-f ${project_name}_scd.mk" command="make" useDefault="true"/>
+<parser enabled="true"/>
+</scannerInfoProvider>
+</profile>
+<profile id="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfile">
+<buildOutputProvider>
+<openAction enabled="true" filePath=""/>
+<parser enabled="true"/>
+</buildOutputProvider>
+<scannerInfoProvider id="specsFile">
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/${specs_file}" command="gcc" useDefault="true"/>
+<parser enabled="true"/>
+</scannerInfoProvider>
+</profile>
+<profile id="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileCPP">
+<buildOutputProvider>
+<openAction enabled="true" filePath=""/>
+<parser enabled="true"/>
+</buildOutputProvider>
+<scannerInfoProvider id="specsFile">
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.cpp" command="g++" useDefault="true"/>
+<parser enabled="true"/>
+</scannerInfoProvider>
+</profile>
+<profile id="org.eclipse.cdt.managedbuilder.core.GCCManagedMakePerProjectProfileC">
+<buildOutputProvider>
+<openAction enabled="true" filePath=""/>
+<parser enabled="true"/>
+</buildOutputProvider>
+<scannerInfoProvider id="specsFile">
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc" useDefault="true"/>
+<parser enabled="true"/>
+</scannerInfoProvider>
+</profile>
+<profile id="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfile">
+<buildOutputProvider>
+<openAction enabled="true" filePath=""/>
+<parser enabled="true"/>
+</buildOutputProvider>
+<scannerInfoProvider id="specsFile">
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/${specs_file}" command="gcc" useDefault="true"/>
+<parser enabled="true"/>
+</scannerInfoProvider>
+</profile>
+<profile id="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileCPP">
+<buildOutputProvider>
+<openAction enabled="true" filePath=""/>
+<parser enabled="true"/>
+</buildOutputProvider>
+<scannerInfoProvider id="specsFile">
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.cpp" command="g++" useDefault="true"/>
+<parser enabled="true"/>
+</scannerInfoProvider>
+</profile>
+<profile id="org.eclipse.cdt.managedbuilder.core.GCCWinManagedMakePerProjectProfileC">
+<buildOutputProvider>
+<openAction enabled="true" filePath=""/>
+<parser enabled="true"/>
+</buildOutputProvider>
+<scannerInfoProvider id="specsFile">
+<runAction arguments="-E -P -v -dD ${plugin_state_location}/specs.c" command="gcc" useDefault="true"/>
+<parser enabled="true"/>
+</scannerInfoProvider>
+</profile>
+</storageModule>
+<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+</cconfiguration>
+</storageModule>
+<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+<project id="arm_math_Cortex_R4_lspf.cdt.managedbuild.target.arm41.lib.2105678626" name="Static Library" projectType="cdt.managedbuild.target.arm41.lib"/>
+</storageModule>
+</cproject>

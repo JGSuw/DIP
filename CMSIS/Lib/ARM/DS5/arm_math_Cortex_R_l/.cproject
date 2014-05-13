@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 4.0.0?>
+
+<cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
+	<storageModule moduleId="org.eclipse.cdt.core.settings">
+		<cconfiguration id="com.arm.eclipse.build.config.baremetal.lib.release.165100093">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.arm.eclipse.build.config.baremetal.lib.release.165100093" moduleId="org.eclipse.cdt.core.settings" name="Release">
+				<externalSettings/>
+				<extensions>
+					<extension id="org.eclipse.cdt.core.GmakeErrorParser" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="org.eclipse.cdt.core.CWDLocator" point="org.eclipse.cdt.core.ErrorParser"/>
+					<extension id="com.arm.eclipse.builder.armcc.error" point="org.eclipse.cdt.core.ErrorParser"/>
+				</extensions>
+			</storageModule>
+			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+				<configuration artifactExtension="a" artifactName="../../../../arm_math_Cortex_R_l" buildArtefactType="com.arm.eclipse.build.artefact.baremetal.lib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release,org.eclipse.cdt.build.core.buildArtefactType=com.arm.eclipse.build.artefact.baremetal.lib" cleanCommand="$(if $(findstring Windows_NT,$(OS)),clean,/bin/rm -f)" description="" id="com.arm.eclipse.build.config.baremetal.lib.release.165100093" name="Release" parent="com.arm.eclipse.build.config.baremetal.lib.release">
+					<folderInfo id="com.arm.eclipse.build.config.baremetal.lib.release.165100093." name="/" resourcePath="">
+						<toolChain id="com.arm.toolchain.baremetal.lib.release.100054870" name="ARM Compiler" superClass="com.arm.toolchain.baremetal.lib.release">
+							<targetPlatform id="com.arm.eclipse.build.config.baremetal.lib.release.165100093..1066737500" name=""/>
+							<builder buildPath="${workspace_loc:/arm_math_Cortex_R_l/Release}" id="com.arm.toolchain.baremetal.builder.268760601" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Gnu Make Builder" superClass="com.arm.toolchain.baremetal.builder"/>
+							<tool id="com.arm.tool.c.compiler.baremetal.lib.release.343047922" name="ARM C Compiler" superClass="com.arm.tool.c.compiler.baremetal.lib.release">
+								<option id="com.arm.tool.c.compiler.option.defmac.535052593" name="Define macro (-D)" superClass="com.arm.tool.c.compiler.option.defmac" valueType="definedSymbols">
+									<listOptionValue builtIn="false" value="ARM_MATH_MATRIX_CHECK"/>
+									<listOptionValue builtIn="false" value="ARM_MATH_ROUNDING"/>
+								</option>
+								<option id="com.arm.tool.c.compiler.option.incpath.482010975" name="Include path (-I)" superClass="com.arm.tool.c.compiler.option.incpath" valueType="includePath">
+									<listOptionValue builtIn="false" value="../../../../../include"/>
+								</option>
+								<option id="com.arm.tool.c.compiler.option.optfor.610405289" name="Optimize for" superClass="com.arm.tool.c.compiler.option.optfor" value="com.arm.tool.c.compiler.option.optfor.time" valueType="enumerated"/>
+								<option id="com.arm.tool.c.compiler.option.targetcpu.2000521208" name="Target CPU (--cpu)" superClass="com.arm.tool.c.compiler.option.targetcpu" value="Cortex-R4" valueType="string"/>
+								<option id="com.arm.tool.c.compiler.option.endian.23828002" name="Byte order" superClass="com.arm.tool.c.compiler.option.endian" value="com.arm.tool.c.compiler.option.endian.little" valueType="enumerated"/>
+								<option id="com.arm.tool.c.compiler.option.inst.846182942" name="Instruction set" superClass="com.arm.tool.c.compiler.option.inst" value="com.arm.tool.c.compiler.option.inst.thumb" valueType="enumerated"/>
+								<inputType id="com.arm.tool.c.compiler.input.301640919" superClass="com.arm.tool.c.compiler.input"/>
+							</tool>
+							<tool id="com.arm.tool.cpp.compiler.baremetal.lib.release.312083100" name="ARM C++ Compiler" superClass="com.arm.tool.cpp.compiler.baremetal.lib.release"/>
+							<tool id="com.arm.tool.assembler.2092765257" name="ARM Assembler" superClass="com.arm.tool.assembler"/>
+							<tool id="com.arm.tool.c.linker.1450398679" name="ARM Linker" superClass="com.arm.tool.c.linker"/>
+							<tool commandLinePattern="${COMMAND} ${FLAGS} ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} --via=&quot;../objs.txt&quot;" id="com.arm.tool.librarian.908009439" name="ARM Librarian" superClass="com.arm.tool.librarian"/>
+						</toolChain>
+					</folderInfo>
+				</configuration>
+			</storageModule>
+			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+		</cconfiguration>
+	</storageModule>
+	<storageModule moduleId="cdtBuildSystem" version="4.0.0">
+		<project id="arm_math_Cortex_R_l.com.arm.eclipse.build.project.baremetal.lib.1155916584" name="Bare-metal Library" projectType="com.arm.eclipse.build.project.baremetal.lib"/>
+	</storageModule>
+	<storageModule moduleId="scannerConfiguration">
+		<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId=""/>
+	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="1">
+		<resource resourceType="PROJECT" workspacePath="/arm_math_Cortex_R_l"/>
+	</storageModule>
+</cproject>
