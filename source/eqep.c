@@ -40,7 +40,7 @@ void QEPInit(void)
   eqepREG1->QPOSCNT  =  0x00000000U;
   
   /** - Initialize Position Counter value register   */ 
-  eqepREG1->QPOSINIT =  0x00000000U;
+  eqepREG1->QPOSINIT =  0x00000708U;
   
   /** - Set Maximum position counter value   */ 
   eqepREG1->QPOSMAX  =  0x00000E10U;
@@ -75,7 +75,7 @@ void QEPInit(void)
   *     - Enable / Disable Negate QEPI input
   *     - Enable / Disable Negate QEPS input  
   */
-  eqepREG1->QDECCTL  = (uint16)((uint16)((uint16)eQEP_DIRECTION_COUNT << 14U)
+  eqepREG1->QDECCTL  = (uint16)((uint16)((uint16)eQEP_QUADRATURE_COUNT << 14U)
                        | (uint16)((uint16)0U << 13U) 
 					   | (uint16)((uint16)eQEP_INDEX_PIN << 12U) 
 					   | (uint16)((uint16)eQEP_RESOLUTION_1x << 11U)

@@ -413,12 +413,12 @@ typedef struct eqep_config_reg
 } eqep_config_reg_t;		
 
 
-#define EQEP1_QPOSINIT_CONFIGVALUE ((uint32)0x00000000U)
+#define EQEP1_QPOSINIT_CONFIGVALUE ((uint32)0x00000708U)
 #define EQEP1_QPOSMAX_CONFIGVALUE ((uint32)0x00000E10U)
 #define EQEP1_QPOSCMP_CONFIGVALUE ((uint32)0x00000000U)
 #define EQEP1_QUPRD_CONFIGVALUE ((uint32)0x00000000U)
 #define EQEP1_QWDPRD_CONFIGVALUE ((uint16) 0x0000U)
-#define EQEP1_QDECCTL_CONFIGVALUE ((uint16)((uint16)((uint16)eQEP_DIRECTION_COUNT << 14U)\
+#define EQEP1_QDECCTL_CONFIGVALUE ((uint16)((uint16)((uint16)eQEP_QUADRATURE_COUNT << 14U)\
 								   | (uint16)((uint16)0U << 13U)\
 								   | (uint16)((uint16)eQEP_INDEX_PIN << 12U)\
 								   | (uint16)((uint16)eQEP_RESOLUTION_1x << 11U)\
