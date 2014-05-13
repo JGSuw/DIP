@@ -435,7 +435,7 @@ typedef struct eqep_config_reg
 								   | (uint16)((uint16)eQEP_DIRECTON_DEPENDENT << 10U)\
 								   | (uint16)((uint16)0U << 9U)\
 								   | (uint16)((uint16)eQEP_RISING_EDGE << 8U)\
-								   | (uint16)((uint16)0U << 7U)\
+								   | (uint16)((uint16)1U << 7U)\
 								   | (uint16)((uint16)eQEP_RISING_EDGE << 6U)\
 								   | (uint16)((uint16)eQEP_LATCH_RISING_EDGE << 4U)\
 								   | (uint16)((uint16)eQEP_ON_POSITION_COUNTER_READ << 2U)\
@@ -469,7 +469,7 @@ typedef struct eqep_config_reg
 #define EQEP2_QPOSCMP_CONFIGVALUE ((uint32)0x00000000U)
 #define EQEP2_QUPRD_CONFIGVALUE ((uint32) 0x00000000U)
 #define EQEP2_QWDPRD_CONFIGVALUE ((uint16) 0x0000U)
-#define EQEP2_QDECCTL_CONFIGVALUE ((uint16)((uint16)((uint16)eQEP_DIRECTION_COUNT << 14U)\
+#define EQEP2_QDECCTL_CONFIGVALUE ((uint16)((uint16)((uint16)eQEP_QUADRATURE_COUNT << 14U)\
 								   | (uint16)((uint16)0U << 13U)\
 								   | (uint16)((uint16)eQEP_INDEX_PIN << 12U)\
 								   | (uint16)((uint16)eQEP_RESOLUTION_1x << 11U)\
@@ -486,7 +486,7 @@ typedef struct eqep_config_reg
 								   | (uint16)((uint16)eQEP_DIRECTON_DEPENDENT << 10U)\
 								   | (uint16)((uint16)0U << 9U)\
 								   | (uint16)((uint16)eQEP_RISING_EDGE << 8U)\
-								   | (uint16)((uint16)0U << 7U)\
+								   | (uint16)((uint16)1U << 7U)\
 								   | (uint16)((uint16)eQEP_RISING_EDGE << 6U)\
 								   | (uint16)((uint16)eQEP_LATCH_RISING_EDGE << 4U)\
 								   | (uint16)((uint16)eQEP_ON_POSITION_COUNTER_READ << 2U)\
